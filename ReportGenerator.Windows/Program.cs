@@ -3,8 +3,6 @@ using System.Windows.Forms;
 
 namespace ReportGenerator.Windows
 {
-    using Palmmedia.ReportGenerator;
-    using Palmmedia.ReportGenerator.Reporting;
 
     static class Program
     {
