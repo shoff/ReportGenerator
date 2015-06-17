@@ -2,17 +2,19 @@
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Palmmedia.ReportGenerator.Parser;
 using Palmmedia.ReportGenerator.Parser.Analysis;
 
 namespace Palmmedia.ReportGeneratorTest.Parser
 {
+    using NUnit.Framework;
+
     /// <summary>
     /// This is a test class for VisualStudioParser and is intended
     /// to contain all VisualStudioParser Unit Tests for Visual Studio 2010
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class VisualStudioParserTest_2010
     {
         private static readonly string FilePath = Path.Combine(FileManager.GetCSharpReportDirectory(), "VisualStudio2010.coveragexml");
@@ -24,7 +26,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser
         // You can use the following additional attributes as you write your tests:
 
         // Use ClassInitialize to run code before running the first test in the class
-        [ClassInitialize]
+        [SetUp]
         public static void MyClassInitialize(TestContext testContext)
         {
             FileManager.CopyTestClasses();
@@ -34,7 +36,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser
         }
 
         // Use ClassCleanup to run code after all tests in a class have run
-        [ClassCleanup]
+        [TearDown]
         public static void MyClassCleanup()
         {
             FileManager.DeleteTestClasses();
@@ -45,7 +47,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser
         /// <summary>
         /// A test for NumberOfLineVisits
         /// </summary>
-        [TestMethod]
+        [Test]
         public void NumberOfLineVisitsTest()
         {
             var fileAnalysis = GetFileAnalysis(assemblies, "Test.TestClass", "C:\\temp\\TestClass.cs");
@@ -79,7 +81,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser
         /// <summary>
         /// A test for NumberOfFiles
         /// </summary>
-        [TestMethod]
+        [Test]
         public void NumberOfFilesTest()
         {
             Assert.AreEqual(7, assemblies.SelectMany(a => a.Classes).SelectMany(a => a.Files).Distinct().Count(), "Wrong number of files");
@@ -88,7 +90,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser
         /// <summary>
         /// A test for FilesOfClass
         /// </summary>
-        [TestMethod]
+        [Test]
         public void FilesOfClassTest()
         {
             Assert.AreEqual(1, assemblies.Single(a => a.Name == "Test.exe").Classes.Single(c => c.Name == "Test.TestClass").Files.Count(), "Wrong number of files");
@@ -98,7 +100,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser
         /// <summary>
         /// A test for ClassesInAssembly
         /// </summary>
-        [TestMethod]
+        [Test]
         public void ClassesInAssemblyTest()
         {
             Assert.AreEqual(7, assemblies.SelectMany(a => a.Classes).Count(), "Wrong number of classes");
@@ -107,7 +109,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser
         /// <summary>
         /// A test for Assemblies
         /// </summary>
-        [TestMethod]
+        [Test]
         public void AssembliesTest()
         {
             Assert.AreEqual(1, assemblies.Count(), "Wrong number of assemblies");
@@ -116,7 +118,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser
         /// <summary>
         /// A test for MethodMetrics
         /// </summary>
-        [TestMethod]
+        [Test]
         public void MethodMetricsTest()
         {
             var metrics = assemblies.Single(a => a.Name == "Test.exe").Classes.Single(c => c.Name == "Test.TestClass").MethodMetrics;

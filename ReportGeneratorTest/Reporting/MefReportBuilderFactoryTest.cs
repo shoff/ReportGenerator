@@ -1,19 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Palmmedia.ReportGenerator.Parser.Analysis;
-using Palmmedia.ReportGenerator.Reporting;
+﻿
 
 namespace Palmmedia.ReportGeneratorTest.Reporting
 {
+    using NUnit.Framework;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Palmmedia.ReportGenerator.Parser.Analysis;
+    using Palmmedia.ReportGenerator.Reporting;
+
     /// <summary>
     /// This is a test class for MefReportBuilderFactory and is intended
     /// to contain all MefReportBuilderFactory Unit Tests
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class MefReportBuilderFactoryTest
     {
-        [TestMethod]
+        [Test]
         public void GetAvailableReportTypes_AllReportTypesReturned()
         {
             var factory = new MefReportBuilderFactory();
@@ -21,7 +23,7 @@ namespace Palmmedia.ReportGeneratorTest.Reporting
             Assert.IsTrue(factory.GetAvailableReportTypes().Count() > 6, "Not all default report builders available.");
         }
 
-        [TestMethod]
+        [Test]
         public void GetReportBuilders_DefaultReportBuilderReturned()
         {
             var factory = new MefReportBuilderFactory();

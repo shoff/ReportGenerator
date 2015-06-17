@@ -1,20 +1,22 @@
 ﻿using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Palmmedia.ReportGenerator.Parser.Analysis;
 
 namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
 {
+    using NUnit.Framework;
+
     /// <summary>
     /// This is a test class for ClassTest and is intended
     /// to contain all ClassTest Unit Tests
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class ClassTest
     {
         /// <summary>
         /// A test for the Constructor
         /// </summary>
-        [TestMethod]
+        [Test]
         public void Constructor()
         {
             Assembly assembly = new Assembly("C:\\test\\TestAssembly.dll");
@@ -29,7 +31,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
         /// <summary>
         /// A test for AddFile
         /// </summary>
-        [TestMethod]
+        [Test]
         public void AddFile_AddSingleFile_FileIsStored()
         {
             var assembly = new Assembly("C:\\test\\TestAssembly.dll");
@@ -44,7 +46,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
         /// <summary>
         /// A test for Merge
         /// </summary>
-        [TestMethod]
+        [Test]
         public void Merge_MergeClassWithOneFileAndOneMethodMetric_FileIsStored()
         {
             var assembly = new Assembly("C:\\test\\TestAssembly.dll");
@@ -65,7 +67,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
         /// <summary>
         /// A test for Merge
         /// </summary>
-        [TestMethod]
+        [Test]
         public void Merge_MergeClassWithCoverageQuota_FileIsStored()
         {
             var assembly = new Assembly("C:\\test\\TestAssembly.dll");
@@ -92,7 +94,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
         /// <summary>
         /// A test for Equals
         /// </summary>
-        [TestMethod]
+        [Test]
         public void Equals()
         {
             Assembly assembly = new Assembly("C:\\test\\TestAssembly.dll");

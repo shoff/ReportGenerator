@@ -1,15 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Palmmedia.ReportGenerator.Parser.Analysis;
 
 namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
 {
+    using NUnit.Framework;
+
     /// <summary>
     /// This is a test class for CodeFile and is intended
     /// to contain all CodeFile Unit Tests
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class CodeFileTest
     {
         #region Additional test attributes
@@ -17,27 +19,27 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
         // You can use the following additional attributes as you write your tests:
 
         // Use ClassInitialize to run code before running the first test in the class
-        [ClassInitialize]
+        [SetUp]
         public static void MyClassInitialize(TestContext testContext)
         {
             FileManager.CopyTestClasses();
         }
 
         // Use ClassCleanup to run code after all tests in a class have run
-        [ClassCleanup]
+        [TearDown]
         public static void MyClassCleanup()
         {
             FileManager.DeleteTestClasses();
         }
 
         // Use TestInitialize to run code before running each test
-        // [TestInitialize]
+        // [SetUp]
         // public void MyTestInitialize()
         // {
         // }
 
         // Use TestCleanup to run code after each test has run
-        // [TestCleanup]
+        // [TearDown]
         // public void MyTestCleanup()
         // {
         // }
@@ -46,7 +48,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
         /// <summary>
         /// A test for the Constructor
         /// </summary>
-        [TestMethod]
+        [Test]
         public void Constructor()
         {
             var sut = new CodeFile("C:\\temp\\Program.cs", new int[] { -1, 0, 2 });
@@ -61,7 +63,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
         /// <summary>
         /// A test for the Constructor
         /// </summary>
-        [TestMethod]
+        [Test]
         public void Constructor_WithBranches()
         {
             var branches = new Dictionary<int, List<Branch>>()
@@ -79,7 +81,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
         /// <summary>
         /// A test for Merge
         /// </summary>
-        [TestMethod]
+        [Test]
         public void Merge_CodeFileToMergeHasNoBranches_BranchCoverageInformationIsUpdated()
         {
             var branches = new Dictionary<int, List<Branch>>()
@@ -100,7 +102,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
         /// <summary>
         /// A test for Merge
         /// </summary>
-        [TestMethod]
+        [Test]
         public void Merge_TargetCodeFileHasNoBranches_BranchCoverageInformationIsUpdated()
         {
             var branches = new Dictionary<int, List<Branch>>()
@@ -121,7 +123,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
         /// <summary>
         /// A test for Merge
         /// </summary>
-        [TestMethod]
+        [Test]
         public void Merge_MergeCodeFileWithEqualLengthCoverageArray_CoverageInformationIsUpdated()
         {
             var sut = new CodeFile("C:\\temp\\Program.cs", new int[] { -1, -1, -1, 0, 0, 0, 1, 1, 1 });
@@ -143,7 +145,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
         /// <summary>
         /// A test for Merge
         /// </summary>
-        [TestMethod]
+        [Test]
         public void Merge_MergeCodeFileWithLongerCoverageArray_CoverageInformationIsUpdated()
         {
             var branches = new Dictionary<int, List<Branch>>()
@@ -172,7 +174,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
         /// <summary>
         /// A test for AnalyzeFile
         /// </summary>
-        [TestMethod]
+        [Test]
         public void AnalyzeFile_ExistingFile_AnalysisIsReturned()
         {
             var sut = new CodeFile("C:\\temp\\Program.cs", new int[] { -2, -1, 0, 1 });
@@ -203,7 +205,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
         /// <summary>
         /// A test for AnalyzeFile
         /// </summary>
-        [TestMethod]
+        [Test]
         public void AnalyzeFile_ExistingFileWithTrackedMethods_AnalysisIsReturned()
         {
             var sut = new CodeFile("C:\\temp\\Program.cs", new int[] { -2, -1, 0, 1 });
@@ -219,7 +221,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
         /// <summary>
         /// A test for AnalyzeFile
         /// </summary>
-        [TestMethod]
+        [Test]
         public void AnalyzeFile_NonExistingFile_AnalysisIsReturned()
         {
             var sut = new CodeFile("C:\\temp\\Other.cs", new int[] { -2, -1, 0, 1 });
@@ -238,7 +240,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
         /// <summary>
         /// A test for Equals
         /// </summary>
-        [TestMethod]
+        [Test]
         public void Equals()
         {
             var target1 = new CodeFile("C:\\temp\\Program.cs", new int[0]);

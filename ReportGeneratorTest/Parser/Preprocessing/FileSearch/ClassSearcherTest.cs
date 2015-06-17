@@ -1,14 +1,16 @@
 ﻿using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch;
 
 namespace Palmmedia.ReportGeneratorTest.Parser.Preprocessing.FileSearch
 {
+    using NUnit.Framework;
+
     /// <summary>
     /// This is a test class for ClassSearcher and is intended
     /// to contain all ClassSearcher Unit Tests
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class ClassSearcherTest
     {
         private static ClassSearcher classSearcher;
@@ -18,7 +20,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Preprocessing.FileSearch
         // You can use the following additional attributes as you write your tests:
 
         // Use ClassInitialize to run code before running the first test in the class
-        [ClassInitialize]
+        [SetUp]
         public static void MyClassInitialize(TestContext testContext)
         {
             FileManager.CopyTestClasses();
@@ -27,20 +29,20 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Preprocessing.FileSearch
         }
 
         // Use ClassCleanup to run code after all tests in a class have run
-        [ClassCleanup]
+        [TearDown]
         public static void MyClassCleanup()
         {
             FileManager.DeleteTestClasses();
         }
 
         // Use TestInitialize to run code before running each test
-        // [TestInitialize]
+        // [SetUp]
         // public void MyTestInitialize()
         // {
         // }
 
         // Use TestCleanup to run code after each test has run
-        // [TestCleanup]
+        // [TearDown]
         // public void MyTestCleanup()
         // {
         // }
@@ -49,7 +51,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Preprocessing.FileSearch
         /// <summary>
         /// A test for GetFilesOfClass
         /// </summary>
-        [TestMethod]
+        [Test]
         public void GetFilesOfClass_PartialClassWith2Files_2FilesFound()
         {
             var files = classSearcher.GetFilesOfClass("Test.PartialClass");
@@ -62,7 +64,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Preprocessing.FileSearch
         /// <summary>
         /// A test for GetFilesOfClass
         /// </summary>
-        [TestMethod]
+        [Test]
         public void GetFilesOfClass_NestedClass_1FileFound()
         {
             var files = classSearcher.GetFilesOfClass("Test.TestClassNestedClass");
@@ -74,7 +76,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Preprocessing.FileSearch
         /// <summary>
         /// A test for GetFilesOfClass
         /// </summary>
-        [TestMethod]
+        [Test]
         public void GetFilesOfClass_NotExistingClass_0FilesFound()
         {
             var files = classSearcher.GetFilesOfClass("Test.Test123");

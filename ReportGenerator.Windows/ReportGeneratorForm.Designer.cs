@@ -44,16 +44,18 @@
             this.TargetDirectoryLabel = new System.Windows.Forms.Label();
             this.ReportTypesListBox = new System.Windows.Forms.ListBox();
             this.CoverageFilesGroupBox = new System.Windows.Forms.GroupBox();
+            this.FilesToAnalyzeLabel = new System.Windows.Forms.Label();
+            this.IgnoredLabel = new System.Windows.Forms.Label();
             this.CoverageDirectoryGroupBox = new System.Windows.Forms.GroupBox();
             this.SourceDirectoriesListBox = new System.Windows.Forms.ListBox();
             this.SourceDirectoryTextBox = new System.Windows.Forms.TextBox();
             this.AddSourceDirectoryButton = new System.Windows.Forms.Button();
             this.BrowseButton = new System.Windows.Forms.Button();
             this.OptionsGroupBox = new System.Windows.Forms.GroupBox();
-            this.IgnoredLabel = new System.Windows.Forms.Label();
-            this.FilesToAnalyzeLabel = new System.Windows.Forms.Label();
             this.NoFilesTextBox = new System.Windows.Forms.TextBox();
             this.TargetDirectoryToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.FileTypeListBox = new System.Windows.Forms.ListBox();
+            this.FileTypesLabel = new System.Windows.Forms.Label();
             this.CoverageFilesGroupBox.SuspendLayout();
             this.CoverageDirectoryGroupBox.SuspendLayout();
             this.OptionsGroupBox.SuspendLayout();
@@ -61,7 +63,7 @@
             // 
             // HistoryDirectoryTextBox
             // 
-            this.HistoryDirectoryTextBox.Location = new System.Drawing.Point(13, 163);
+            this.HistoryDirectoryTextBox.Location = new System.Drawing.Point(11, 123);
             this.HistoryDirectoryTextBox.Name = "HistoryDirectoryTextBox";
             this.HistoryDirectoryTextBox.Size = new System.Drawing.Size(252, 20);
             this.HistoryDirectoryTextBox.TabIndex = 4;
@@ -70,7 +72,7 @@
             // HitoryDirectoryLabel
             // 
             this.HitoryDirectoryLabel.AutoSize = true;
-            this.HitoryDirectoryLabel.Location = new System.Drawing.Point(16, 145);
+            this.HitoryDirectoryLabel.Location = new System.Drawing.Point(6, 107);
             this.HitoryDirectoryLabel.Name = "HitoryDirectoryLabel";
             this.HitoryDirectoryLabel.Size = new System.Drawing.Size(126, 13);
             this.HitoryDirectoryLabel.TabIndex = 5;
@@ -89,7 +91,6 @@
             this.AvailableFilesView.UseCompatibleStateImageBehavior = false;
             this.AvailableFilesView.View = System.Windows.Forms.View.List;
             this.AvailableFilesView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.AvailableFilesViewItemSelectionChanged);
-            this.AvailableFilesView.DragDrop += new System.Windows.Forms.DragEventHandler(this.ListView1DragDrop);
             // 
             // FilterListView
             // 
@@ -120,7 +121,7 @@
             "Verbose",
             "Info",
             "Error"});
-            this.LogLevelComboBox.Location = new System.Drawing.Point(13, 48);
+            this.LogLevelComboBox.Location = new System.Drawing.Point(11, 41);
             this.LogLevelComboBox.Name = "LogLevelComboBox";
             this.LogLevelComboBox.Size = new System.Drawing.Size(252, 21);
             this.LogLevelComboBox.TabIndex = 9;
@@ -130,7 +131,7 @@
             // LogLevelLabel
             // 
             this.LogLevelLabel.AutoSize = true;
-            this.LogLevelLabel.Location = new System.Drawing.Point(16, 31);
+            this.LogLevelLabel.Location = new System.Drawing.Point(6, 25);
             this.LogLevelLabel.Name = "LogLevelLabel";
             this.LogLevelLabel.Size = new System.Drawing.Size(66, 13);
             this.LogLevelLabel.TabIndex = 10;
@@ -140,7 +141,7 @@
             // ReportTypesLabel
             // 
             this.ReportTypesLabel.AutoSize = true;
-            this.ReportTypesLabel.Location = new System.Drawing.Point(10, 256);
+            this.ReportTypesLabel.Location = new System.Drawing.Point(148, 172);
             this.ReportTypesLabel.Name = "ReportTypesLabel";
             this.ReportTypesLabel.Size = new System.Drawing.Size(62, 13);
             this.ReportTypesLabel.TabIndex = 12;
@@ -169,16 +170,16 @@
             // 
             // TargetDirectoryTextBox
             // 
-            this.TargetDirectoryTextBox.Location = new System.Drawing.Point(13, 106);
+            this.TargetDirectoryTextBox.Location = new System.Drawing.Point(11, 84);
             this.TargetDirectoryTextBox.Name = "TargetDirectoryTextBox";
-            this.TargetDirectoryTextBox.Size = new System.Drawing.Size(253, 20);
+            this.TargetDirectoryTextBox.Size = new System.Drawing.Size(252, 20);
             this.TargetDirectoryTextBox.TabIndex = 16;
             this.TargetDirectoryToolTip.SetToolTip(this.TargetDirectoryTextBox, "The location to store the generated report.\r\n");
             // 
             // TargetDirectoryLabel
             // 
             this.TargetDirectoryLabel.AutoSize = true;
-            this.TargetDirectoryLabel.Location = new System.Drawing.Point(16, 88);
+            this.TargetDirectoryLabel.Location = new System.Drawing.Point(6, 66);
             this.TargetDirectoryLabel.Name = "TargetDirectoryLabel";
             this.TargetDirectoryLabel.Size = new System.Drawing.Size(77, 13);
             this.TargetDirectoryLabel.TabIndex = 17;
@@ -196,10 +197,10 @@
             "TextSummary",
             "Xml",
             "XmlSummary"});
-            this.ReportTypesListBox.Location = new System.Drawing.Point(13, 274);
+            this.ReportTypesListBox.Location = new System.Drawing.Point(151, 188);
             this.ReportTypesListBox.Name = "ReportTypesListBox";
             this.ReportTypesListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.ReportTypesListBox.Size = new System.Drawing.Size(252, 95);
+            this.ReportTypesListBox.Size = new System.Drawing.Size(112, 95);
             this.ReportTypesListBox.TabIndex = 18;
             // 
             // CoverageFilesGroupBox
@@ -218,6 +219,24 @@
             this.CoverageFilesGroupBox.Text = "coverage files";
             this.TargetDirectoryToolTip.SetToolTip(this.CoverageFilesGroupBox, "These files will be used in the report \r\ngeneration. Select a file on the left an" +
         "d \r\nclick add to move it to the ignored list.");
+            // 
+            // FilesToAnalyzeLabel
+            // 
+            this.FilesToAnalyzeLabel.AutoSize = true;
+            this.FilesToAnalyzeLabel.Location = new System.Drawing.Point(28, 23);
+            this.FilesToAnalyzeLabel.Name = "FilesToAnalyzeLabel";
+            this.FilesToAnalyzeLabel.Size = new System.Drawing.Size(64, 13);
+            this.FilesToAnalyzeLabel.TabIndex = 16;
+            this.FilesToAnalyzeLabel.Text = "analyze files";
+            // 
+            // IgnoredLabel
+            // 
+            this.IgnoredLabel.AutoSize = true;
+            this.IgnoredLabel.Location = new System.Drawing.Point(304, 23);
+            this.IgnoredLabel.Name = "IgnoredLabel";
+            this.IgnoredLabel.Size = new System.Drawing.Size(69, 13);
+            this.IgnoredLabel.TabIndex = 15;
+            this.IgnoredLabel.Text = "files to ignore";
             // 
             // CoverageDirectoryGroupBox
             // 
@@ -271,6 +290,8 @@
             // 
             // OptionsGroupBox
             // 
+            this.OptionsGroupBox.Controls.Add(this.FileTypesLabel);
+            this.OptionsGroupBox.Controls.Add(this.FileTypeListBox);
             this.OptionsGroupBox.Controls.Add(this.LogLevelLabel);
             this.OptionsGroupBox.Controls.Add(this.HistoryDirectoryTextBox);
             this.OptionsGroupBox.Controls.Add(this.HitoryDirectoryLabel);
@@ -281,28 +302,10 @@
             this.OptionsGroupBox.Controls.Add(this.TargetDirectoryTextBox);
             this.OptionsGroupBox.Location = new System.Drawing.Point(534, 27);
             this.OptionsGroupBox.Name = "OptionsGroupBox";
-            this.OptionsGroupBox.Size = new System.Drawing.Size(279, 389);
+            this.OptionsGroupBox.Size = new System.Drawing.Size(281, 389);
             this.OptionsGroupBox.TabIndex = 22;
             this.OptionsGroupBox.TabStop = false;
             this.OptionsGroupBox.Text = "config options";
-            // 
-            // IgnoredLabel
-            // 
-            this.IgnoredLabel.AutoSize = true;
-            this.IgnoredLabel.Location = new System.Drawing.Point(304, 23);
-            this.IgnoredLabel.Name = "IgnoredLabel";
-            this.IgnoredLabel.Size = new System.Drawing.Size(69, 13);
-            this.IgnoredLabel.TabIndex = 15;
-            this.IgnoredLabel.Text = "files to ignore";
-            // 
-            // FilesToAnalyzeLabel
-            // 
-            this.FilesToAnalyzeLabel.AutoSize = true;
-            this.FilesToAnalyzeLabel.Location = new System.Drawing.Point(28, 23);
-            this.FilesToAnalyzeLabel.Name = "FilesToAnalyzeLabel";
-            this.FilesToAnalyzeLabel.Size = new System.Drawing.Size(64, 13);
-            this.FilesToAnalyzeLabel.TabIndex = 16;
-            this.FilesToAnalyzeLabel.Text = "analyze files";
             // 
             // NoFilesTextBox
             // 
@@ -325,11 +328,31 @@
             this.TargetDirectoryToolTip.InitialDelay = 250;
             this.TargetDirectoryToolTip.ReshowDelay = 100;
             // 
+            // FileTypeListBox
+            // 
+            this.FileTypeListBox.FormattingEnabled = true;
+            this.FileTypeListBox.Items.AddRange(new object[] {
+            ".xml",
+            ".coveragexml"});
+            this.FileTypeListBox.Location = new System.Drawing.Point(11, 188);
+            this.FileTypeListBox.Name = "FileTypeListBox";
+            this.FileTypeListBox.Size = new System.Drawing.Size(112, 95);
+            this.FileTypeListBox.TabIndex = 19;
+            // 
+            // FileTypesLabel
+            // 
+            this.FileTypesLabel.AutoSize = true;
+            this.FileTypesLabel.Location = new System.Drawing.Point(11, 171);
+            this.FileTypesLabel.Name = "FileTypesLabel";
+            this.FileTypesLabel.Size = new System.Drawing.Size(48, 13);
+            this.FileTypesLabel.TabIndex = 20;
+            this.FileTypesLabel.Text = "file types";
+            // 
             // ReportGeneratorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(827, 501);
+            this.ClientSize = new System.Drawing.Size(827, 476);
             this.Controls.Add(this.NoFilesTextBox);
             this.Controls.Add(this.OptionsGroupBox);
             this.Controls.Add(this.CoverageDirectoryGroupBox);
@@ -376,6 +399,8 @@
         private System.Windows.Forms.Label IgnoredLabel;
         private System.Windows.Forms.TextBox NoFilesTextBox;
         private System.Windows.Forms.ToolTip TargetDirectoryToolTip;
+        private System.Windows.Forms.Label FileTypesLabel;
+        private System.Windows.Forms.ListBox FileTypeListBox;
     }
 }
 

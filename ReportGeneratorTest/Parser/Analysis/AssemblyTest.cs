@@ -1,20 +1,22 @@
 ﻿using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Palmmedia.ReportGenerator.Parser.Analysis;
 
 namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
 {
+    using NUnit.Framework;
+
     /// <summary>
     /// This is a test class for Assembly and is intended
     /// to contain all Assembly Unit Tests
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class AssemblyTest
     {
         /// <summary>
         /// A test for the Constructor
         /// </summary>
-        [TestMethod]
+        [Test]
         public void Constructor()
         {
             string assemblyName = "C:\\test\\TestAssembly.dll";
@@ -28,7 +30,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
         /// <summary>
         /// A test for AddClass
         /// </summary>
-        [TestMethod]
+        [Test]
         public void AddClass_AddSingleClass_ClassIsStored()
         {
             var sut = new Assembly("C:\\test\\TestAssembly.dll");
@@ -43,7 +45,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
         /// <summary>
         /// A test for Merge
         /// </summary>
-        [TestMethod]
+        [Test]
         public void Merge_MergeAssemblyWithOneClass_ClassIsStored()
         {
             var sut = new Assembly("C:\\test\\TestAssembly.dll");
@@ -60,7 +62,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
         /// <summary>
         /// A test for Equals
         /// </summary>
-        [TestMethod]
+        [Test]
         public void Equals()
         {
             string assemblyName = "C:\\test\\TestAssembly.dll";

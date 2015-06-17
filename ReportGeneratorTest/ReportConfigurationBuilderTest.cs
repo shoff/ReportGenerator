@@ -1,17 +1,19 @@
-﻿using System.IO;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using Palmmedia.ReportGenerator;
-using Palmmedia.ReportGenerator.Reporting;
-
+﻿
 namespace Palmmedia.ReportGeneratorTest
 {
+    using NUnit.Framework;
+    using System.IO;
+    using System.Linq;
+    using Moq;
+    using Palmmedia.ReportGenerator;
+    using Palmmedia.ReportGenerator.Reporting;
+
+
     /// <summary>
     /// This is a test class for ReportConfigurationBuilder and is intended
     /// to contain all ReportConfigurationBuilder Unit Tests
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class ReportConfigurationBuilderTest
     {
         private static readonly string ReportPath = Path.Combine(FileManager.GetCSharpReportDirectory(), "OpenCover.xml");
@@ -25,26 +27,26 @@ namespace Palmmedia.ReportGeneratorTest
         // You can use the following additional attributes as you write your tests:
 
         // Use ClassInitialize to run code before running the first test in the class
-        // [ClassInitialize]
+        // [SetUp]
         // public static void MyClassInitialize(TestContext testContext)
         // {
         // }
 
         // Use ClassCleanup to run code after all tests in a class have run
-        // [ClassCleanup]
+        // [TearDown]
         // public static void MyClassCleanup()
         // {
         // }
 
         // Use TestInitialize to run code before running each test
-        [TestInitialize]
+        [SetUp]
         public void MyTestInitialize()
         {
             this.reportConfigurationBuilder = new ReportConfigurationBuilder(new Mock<IReportBuilderFactory>().Object);
         }
 
         // Use TestCleanup to run code after each test has run
-        [TestCleanup]
+        [TearDown]
         public void MyTestCleanup()
         {
             Assert.IsNotNull(this.configuration.ReportFiles);
@@ -54,7 +56,7 @@ namespace Palmmedia.ReportGeneratorTest
 
         #endregion
 
-        [TestMethod]
+        [Test]
         public void InitWithLegacyArguments_AllPropertiesApplied()
         {
             string[] legacyArguments = new string[] 
@@ -73,7 +75,7 @@ namespace Palmmedia.ReportGeneratorTest
             Assert.IsFalse(this.configuration.Filters.Any(), "Filters should be empty.");
         }
 
-        [TestMethod]
+        [Test]
         public void InitWithNamedArguments_AllPropertiesApplied()
         {
             string[] namedArguments = new string[]

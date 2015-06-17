@@ -1,8 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 
 namespace Test
 {
-    [TestClass]
+    using NUnit.Framework;
+
+    [TestFixture]
     public class Program
     {
         static void Main(string[] args)
@@ -41,13 +43,13 @@ namespace Test
             }
         }
 
-        [TestMethod]
+        [Test]
         public void CSharp_ExecuteTest1()
         {
             Main(null);
         }
 
-        [TestMethod]
+        [Test]
         public void CSharp_ExecuteTest2()
         {
             Main(null);

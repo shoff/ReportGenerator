@@ -1,20 +1,22 @@
 ﻿using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Palmmedia.ReportGenerator.Parser;
 
 namespace Palmmedia.ReportGeneratorTest.Parser
 {
+    using NUnit.Framework;
+
     /// <summary>
     /// This is a test class for ParserFactory and is intended
     /// to contain all ParserFactory Unit Tests
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class ParserFactoryTest
     {
         /// <summary>
         /// A test for CreateParser
         /// </summary>
-        [TestMethod]
+        [Test]
         public void CreateParser_SingleReportFileWithSingleReport_CorrectParserIsReturned()
         {
             string filePath = Path.Combine(FileManager.GetCSharpReportDirectory(), "Partcover2.3.xml");
@@ -45,7 +47,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser
         /// <summary>
         /// A test for CreateParser
         /// </summary>
-        [TestMethod]
+        [Test]
         public void CreateParser_SingleReportFileWithSeveralReports_CorrectParserIsReturned()
         {
             string filePath = Path.Combine(FileManager.GetCSharpReportDirectory(), "MultiPartcover2.3.xml");
@@ -76,7 +78,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser
         /// <summary>
         /// A test for CreateParser
         /// </summary>
-        [TestMethod]
+        [Test]
         public void CreateParser_SeveralReportFilesWithSingleReport_CorrectParserIsReturned()
         {
             string filePath = Path.Combine(FileManager.GetCSharpReportDirectory(), "Partcover2.2.xml");
@@ -88,7 +90,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser
         /// <summary>
         /// A test for CreateParser
         /// </summary>
-        [TestMethod]
+        [Test]
         public void CreateParser_SeveralReportFilesWithSeveralReports_CorrectParserIsReturned()
         {
             string filePath = Path.Combine(FileManager.GetCSharpReportDirectory(), "Partcover2.2.xml");
@@ -100,7 +102,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser
         /// <summary>
         /// A test for CreateParser
         /// </summary>
-        [TestMethod]
+        [Test]
         public void CreateParser_NoReports_CorrectParserIsReturned()
         {
             string parserName = ParserFactory.CreateParser(new string[] { string.Empty }, new string[] { }).ToString();

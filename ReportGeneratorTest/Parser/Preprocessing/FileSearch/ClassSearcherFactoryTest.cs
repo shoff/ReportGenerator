@@ -1,19 +1,21 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 using Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch;
 
 namespace Palmmedia.ReportGeneratorTest.Parser.Preprocessing.FileSearch
 {
+    using NUnit.Framework;
+
     /// <summary>
     /// This is a test class for ClassSearcherFactory and is intended
     /// to contain all ClassSearcherFactory Unit Tests
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class ClassSearcherFactoryTest
     {
         /// <summary>
         /// A test for CreateClassSearcher
         /// </summary>
-        [TestMethod]
+        [Test]
         public void CreateClassSearcher_PassNull_ClassSearcherWithNullDirectoryIsReturned()
         {
             var sut = new ClassSearcherFactory();
@@ -27,7 +29,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Preprocessing.FileSearch
         /// <summary>
         /// A test for CreateClassSearcher
         /// </summary>
-        [TestMethod]
+        [Test]
         public void CreateClassSearcher_PassSubdirectory_CachedInstanceIsReturned()
         {
             var sut = new ClassSearcherFactory();
@@ -41,7 +43,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Preprocessing.FileSearch
         /// <summary>
         /// A test for CreateClassSearcher
         /// </summary>
-        [TestMethod]
+        [Test]
         public void CreateClassSearcher_PassParentDirectory_NewInstanceIsReturned()
         {
             var sut = new ClassSearcherFactory();

@@ -92,9 +92,7 @@ namespace Palmmedia.ReportGenerator.Reporting
             return result;
         }
 
-        /// <summary>
-        /// Loads the report builders.
-        /// </summary>
+        /// <summary>Loads the report builders.</summary>
         /// <returns>The report builders.</returns>
         private static ICollection<IReportBuilder> LoadReportBuilders()
         {

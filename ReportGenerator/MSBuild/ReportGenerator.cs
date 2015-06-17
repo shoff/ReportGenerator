@@ -1,11 +1,13 @@
-﻿using System.Linq;
-using Microsoft.Build.Framework;
-using Microsoft.Build.Utilities;
-using Palmmedia.ReportGenerator.Reporting;
+﻿
 
 namespace Palmmedia.ReportGenerator.MSBuild
 {
+    using System.Linq;
+    using Microsoft.Build.Framework;
+    using Microsoft.Build.Utilities;
+    using Palmmedia.ReportGenerator.Reporting;
     using System.Collections.Generic;
+    using System.IO;
 
     /// <summary>
     /// MSBuild Task for generating reports.
@@ -22,61 +24,47 @@ namespace Palmmedia.ReportGenerator.MSBuild
     ///   &lt;/Target&gt;<br/>
     /// &lt;/Project&gt;
     /// </example>
-    public class ReportGenerator : Task, ITask
+    public class ReportGenerator : Task
     {
-        /// <summary>
-        /// Gets or sets the report files.
-        /// </summary>
+        /// <summary>Gets or sets the report files.</summary>
         [Required]
         public ITaskItem[] ReportFiles { get; set; }
 
         /// <summary>
-        /// Gets or sets the directory the report will be created in. This must be a directory, not a file. If the directory does not exist, it is created automatically. 
+        /// Gets or sets the directory the report will be created in. This must be a directory, not a file. 
+        /// If the directory does not exist, it is created automatically. 
         /// </summary>
         [Required]
         public string TargetDirectory { get; set; }
 
         /// <summary>
-        /// Gets or sets the directory the historic data will be created in. This must be a directory, not a file. If the directory does not exist, it is created automatically. 
+        /// Gets or sets the directory the historic data will be created in. This must be a directory, not a file.
+        ///  If the directory does not exist, it is created automatically. 
         /// </summary>
         public string HistoryDirectory { get; set; }
 
-        /// <summary>
-        /// Gets or sets the types of the report.
-        /// </summary>
+        /// <summary>Gets or sets the types of the report.</summary>
         /// <value>The types of the report.</value>
         public ITaskItem[] ReportTypes { get; set; }
 
         /// <summary>
-        /// Gets or sets the source directories. Optional directories which contain the corresponding source code. The source files are used if coverage report contains classes without path information.
+        /// Gets or sets the source directories. Optional directories which contain the corresponding source code. 
+        /// The source files are used if coverage report contains classes without path information.
         /// </summary>
-        /// <value>
-        /// The source directories.
-        /// </value>
         public ITaskItem[] SourceDirectories { get; set; }
 
-        /// <summary>
-        /// Gets or sets the assembly filters.
-        /// </summary>
-        /// <value>
-        /// The assembly filters.
-        /// </value>
+        /// <summary>Gets or sets the assembly filters.</summary>
         public ITaskItem[] Filters { get; set; }
 
-        /// <summary>
-        /// Gets or sets the verbosity level.
-        /// </summary>
-        /// <value>
-        /// The verbosity level.
-        /// </value>
+        /// <summary>Gets or sets the verbosity level.</summary>
         public string VerbosityLevel { get; set; }
 
-        /// <summary>
-        /// When overridden in a derived class, executes the task.
-        /// </summary>
-        /// <returns>
-        /// true if the task successfully executed; otherwise, false.
-        /// </returns>
+        /// <summary>When overridden in a derived class, executes the task.</summary>
+        /// <returns>true if the task successfully executed; otherwise, false.</returns>
+        /// <exception cref="IOException"><paramref>
+        ///     <name>path</name>
+        ///   </paramref>
+        ///   is a file name.</exception>
         public override bool Execute()
         {
             string[] reportTypes = new string[] { };
@@ -88,7 +76,7 @@ namespace Palmmedia.ReportGenerator.MSBuild
 
             ReportConfiguration configuration = new ReportConfiguration(
                 new MefReportBuilderFactory(),
-                this.ReportFiles == null ? Enumerable.Empty<string>() : this.ReportFiles.Select(r => r.ItemSpec),
+                (ICollection<string>)(this.ReportFiles == null ? Enumerable.Empty<string>() : this.ReportFiles.Select(r => r.ItemSpec)),
                 this.TargetDirectory,
                 this.HistoryDirectory,
                 reportTypes,

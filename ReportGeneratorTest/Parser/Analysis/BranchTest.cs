@@ -1,20 +1,22 @@
 ﻿using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Palmmedia.ReportGenerator.Parser.Analysis;
 
 namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
 {
+    using NUnit.Framework;
+
     /// <summary>
     /// This is a test class for Branch and is intended
     /// to contain all Branch Unit Tests
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class BranchTest
     {
         /// <summary>
         /// A test for the Constructor
         /// </summary>
-        [TestMethod]
+        [Test]
         public void Constructor()
         {
             var sut = new Branch(10, "Test");
@@ -25,7 +27,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
         /// <summary>
         /// A test for Equals
         /// </summary>
-        [TestMethod]
+        [Test]
         public void Equals()
         {
             var target1 = new Branch(10, "Test");

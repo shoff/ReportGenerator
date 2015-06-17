@@ -1,16 +1,18 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Palmmedia.ReportGenerator.Parser.Preprocessing;
 
 namespace Palmmedia.ReportGeneratorTest.Parser.Preprocessing
 {
+    using NUnit.Framework;
+
     /// <summary>
     /// This is a test class for VisualStudioReportPreprocessor and is intended
     /// to contain all VisualStudioReportPreprocessor Unit Tests
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class VisualStudioReportPreprocessorTest
     {
         private static readonly string FSharpFilePath = Path.Combine(FileManager.GetFSharpReportDirectory(), "VisualStudio2010.coveragexml");
@@ -20,14 +22,14 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Preprocessing
         // You can use the following additional attributes as you write your tests:
 
         // Use ClassInitialize to run code before running the first test in the class
-        [ClassInitialize]
+        [SetUp]
         public static void MyClassInitialize(TestContext testContext)
         {
             FileManager.CopyTestClasses();
         }
 
         // Use ClassCleanup to run code after all tests in a class have run
-        [ClassCleanup]
+        [TearDown]
         public static void MyClassCleanup()
         {
             FileManager.DeleteTestClasses();
@@ -38,7 +40,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Preprocessing
         /// <summary>
         /// A test for Execute
         /// </summary>
-        [TestMethod]
+        [Test]
         public void Execute_ClassNameAddedToStartupCodeElements()
         {
             XDocument report = XDocument.Load(FSharpFilePath);

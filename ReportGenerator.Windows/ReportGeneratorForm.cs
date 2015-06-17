@@ -98,6 +98,9 @@ namespace ReportGenerator.Windows
         private void ReportGeneratorFormLoad(object sender, EventArgs e)
         {
             this.ReportTypesListBox.SelectedItems.Add(this.ReportTypesListBox.Items[0]);
+            this.FileTypeListBox.SelectedItems.Add(this.FileTypeListBox.Items[0]);
+            this.FileTypeListBox.SelectedItems.Add(this.FileTypeListBox.Items[1]);
+
             this.UnIgnoreButton.Enabled = this.FilterListView.Items.Count > 0;
             this.IgnoreButton.Enabled = this.AvailableFilesView.Items.Count > 0 && this.AvailableFilesView.SelectedItems.Count > 0;
             LoadConfigFile();
@@ -105,24 +108,36 @@ namespace ReportGenerator.Windows
 
         private void SetupReportConfigurationBuilder()
         {
-            IReportBuilderFactory reportBuilderFactory = new MefReportBuilderFactory();
-            var reportConfigurationBuilder = new ReportConfigurationBuilder(reportBuilderFactory);
             ReportConfig config = new ReportConfig();
-
             config.Filters = new string[this.FilterListView.Items.Count];
+            
             for (int i = 0; i < this.FilterListView.Items.Count; i++)
             {
-                config.Filters[i] = this.FilterListView.Items[i].ToString();
+                config.Filters.Add(this.FilterListView.Items[i].ToString());
+            }
+
+            foreach (var reportPattern in this.FileTypeListBox.Items)
+            {
+                config.ReportFilePatterns.Add(reportPattern.ToString());
+            }
+
+            foreach (var reportPattern in this.FileTypeListBox.Items)
+            {
+                config.ReportFilePatterns.Add(reportPattern.ToString());
             }
 
             if (!string.IsNullOrWhiteSpace(this.HistoryDirectoryTextBox.Text))
             {
                 config.HistoryDirectory = this.HistoryDirectoryTextBox.Text;
             }
+            
             if (!string.IsNullOrWhiteSpace(this.TargetDirectoryTextBox.Text))
             {
                 config.TargetDirectory = this.TargetDirectoryTextBox.Text;
             }
+
+            config.VerbosityLevel = this.LogLevelComboBox.SelectedItem.ToString();
+
             //ReportConfiguration configuration = reportConfigurationBuilder.Create();
         }
 
@@ -210,11 +225,6 @@ namespace ReportGenerator.Windows
         private void RunReportButtonClick(object sender, EventArgs e)
         {
             SetupReportConfigurationBuilder();
-        }
-
-        private void ListView1DragDrop(object sender, DragEventArgs e)
-        {
-
         }
 
         private void IgnoreButtonClick(object sender, EventArgs e)

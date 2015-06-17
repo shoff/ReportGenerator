@@ -1,15 +1,17 @@
 ﻿using System.IO;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis;
 
 namespace Palmmedia.ReportGeneratorTest.Parser.Preprocessing.CodeAnalysis
 {
+    using NUnit.Framework;
+
     /// <summary>
     /// This is a test class for SourceCodeAnalyzer and is intended
     /// to contain all SourceCodeAnalyzer Unit Tests
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SourceCodeAnalyzerTest
     {
         private static string elementClassFile = Path.Combine(FileManager.GetCSharpCodeDirectory(), "AnalyzerTestClass.cs");
@@ -17,7 +19,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Preprocessing.CodeAnalysis
         /// <summary>
         /// A test for GetClassesInFile
         /// </summary>
-        [TestMethod]
+        [Test]
         public void GetClassesInFile_AllClassesAreReturned()
         {
             var classes = SourceCodeAnalyzer.GetClassesInFile(Path.Combine(FileManager.GetCSharpCodeDirectory(), "TestClass.cs"));
@@ -30,7 +32,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Preprocessing.CodeAnalysis
         /// <summary>
         /// A test for FindMethod
         /// </summary>
-        [TestMethod]
+        [Test]
         public void FindMethod_SearchExistingMethod_PositionMustNotBeNullAndSupplyCorrectLinenumber()
         {
             PartCoverMethodElement partCoverMethodElement = new PartCoverMethodElement(
@@ -49,7 +51,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Preprocessing.CodeAnalysis
         /// <summary>
         /// A test for FindMethod
         /// </summary>
-        [TestMethod]
+        [Test]
         public void FindMethod_SearchExistingConstructor_PositionMustNotBeNullAndSupplyCorrectLinenumber()
         {
             PartCoverMethodElement partCoverMethodElement = new PartCoverMethodElement(
@@ -68,7 +70,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Preprocessing.CodeAnalysis
         /// <summary>
         /// A test for FindMethod
         /// </summary>
-        [TestMethod]
+        [Test]
         public void FindMethod_SearchNonExistingGenericMethod_PositionIsNull()
         {
             PartCoverMethodElement partCoverMethodElement = new PartCoverMethodElement(
@@ -84,7 +86,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Preprocessing.CodeAnalysis
         /// <summary>
         /// A test for FindProperty
         /// </summary>
-        [TestMethod]
+        [Test]
         public void FindProperty_SearchExistingProperty_PositionMustNotBeNullAndSupplyCorrectLinenumber()
         {
             PropertyElement propertyElement = new PropertyElement("Test.AnalyzerTestClass", "get_AutoProperty");
@@ -100,7 +102,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Preprocessing.CodeAnalysis
         /// <summary>
         /// A test for FindProperty
         /// </summary>
-        [TestMethod]
+        [Test]
         public void FindProperty_SearchNonExistingProperty_PositionIsNull()
         {
             PropertyElement propertyElement = new PropertyElement("Test.AnalyzerTestClass", "get_DoesNotExist");

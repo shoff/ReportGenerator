@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Palmmedia.ReportGenerator.Parser;
 using Palmmedia.ReportGenerator.Parser.Analysis;
 using Palmmedia.ReportGenerator.Parser.Preprocessing;
@@ -10,11 +10,13 @@ using Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch;
 
 namespace Palmmedia.ReportGeneratorTest.Parser
 {
+    using NUnit.Framework;
+
     /// <summary>
     /// This is a test class for OpenCoverParser and is intended
     /// to contain all OpenCoverParser Unit Tests
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class OpenCoverParserTest
     {
         private static readonly string FilePath1 = Path.Combine(FileManager.GetCSharpReportDirectory(), "OpenCover.xml");
@@ -32,7 +34,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser
         // You can use the following additional attributes as you write your tests:
 
         // Use ClassInitialize to run code before running the first test in the class
-        [ClassInitialize]
+        [SetUp]
         public static void MyClassInitialize(TestContext testContext)
         {
             FileManager.CopyTestClasses();
@@ -53,7 +55,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser
         }
 
         // Use ClassCleanup to run code after all tests in a class have run
-        [ClassCleanup]
+        [TearDown]
         public static void MyClassCleanup()
         {
             FileManager.DeleteTestClasses();
@@ -64,7 +66,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser
         /// <summary>
         /// A test for NumberOfLineVisits
         /// </summary>
-        [TestMethod]
+        [Test]
         public void NumberOfLineVisitsTest_WithoutPreprocessing()
         {
             var fileAnalysis = GetFileAnalysis(assembliesWithoutPreprocessing, "Test.TestClass", "C:\\temp\\TestClass.cs");
@@ -106,7 +108,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser
         /// <summary>
         /// A test for NumberOfLineVisits
         /// </summary>
-        [TestMethod]
+        [Test]
         public void NumberOfLineVisitsTest_WithPreprocessing()
         {
             var fileAnalysis = GetFileAnalysis(assembliesWithPreprocessing, "Test.TestClass", "C:\\temp\\TestClass.cs");
@@ -148,7 +150,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser
         /// <summary>
         /// A test for NumberOfLineVisits
         /// </summary>
-        [TestMethod]
+        [Test]
         public void NumberOfLineVisitsTest_WithTrackedMethods()
         {
             var fileAnalysis = GetFileAnalysis(assembliesWithTrackedMethods, "Test.PartialClass", "C:\\temp\\PartialClass.cs");
@@ -165,7 +167,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser
         /// <summary>
         /// A test for NumberOfFiles
         /// </summary>
-        [TestMethod]
+        [Test]
         public void NumberOfFilesTest()
         {
             Assert.AreEqual(11, assembliesWithoutPreprocessing.SelectMany(a => a.Classes).SelectMany(a => a.Files).Distinct().Count(), "Wrong number of files");
@@ -174,7 +176,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser
         /// <summary>
         /// A test for FilesOfClass
         /// </summary>
-        [TestMethod]
+        [Test]
         public void FilesOfClassTest()
         {
             Assert.AreEqual(1, assembliesWithoutPreprocessing.Single(a => a.Name == "Test").Classes.Single(c => c.Name == "Test.TestClass").Files.Count(), "Wrong number of files");
@@ -184,7 +186,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser
         /// <summary>
         /// A test for ClassesInAssembly
         /// </summary>
-        [TestMethod]
+        [Test]
         public void ClassesInAssemblyTest()
         {
             Assert.AreEqual(16, assembliesWithoutPreprocessing.SelectMany(a => a.Classes).Count(), "Wrong number of classes");
@@ -193,7 +195,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser
         /// <summary>
         /// A test for Assemblies
         /// </summary>
-        [TestMethod]
+        [Test]
         public void AssembliesTest()
         {
             Assert.AreEqual(1, assembliesWithoutPreprocessing.Count(), "Wrong number of assemblies");
@@ -202,7 +204,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser
         /// <summary>
         /// A test for GetCoverageQuotaOfClass.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void GetCoverableLinesOfClassTest()
         {
             Assert.AreEqual(4, assembliesWithoutPreprocessing.Single(a => a.Name == "Test").Classes.Single(c => c.Name == "Test.AbstractClass").CoverableLines, "Wrong Coverable Lines");
@@ -211,7 +213,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser
         /// <summary>
         /// A test for GetCoverageQuotaOfClass.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void GetCoverageQuotaOfClassTest()
         {
             Assert.AreEqual(50m, assembliesWithoutPreprocessing.Single(a => a.Name == "Test").Classes.Single(c => c.Name == "Test.PartialClassWithAutoProperties").CoverageQuota, "Wrong coverage quota");
@@ -220,7 +222,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser
         /// <summary>
         /// A test for MethodMetrics
         /// </summary>
-        [TestMethod]
+        [Test]
         public void MethodMetricsTest()
         {
             var metrics = assembliesWithoutPreprocessing.Single(a => a.Name == "Test").Classes.Single(c => c.Name == "Test.TestClass").MethodMetrics;

@@ -49,7 +49,7 @@ namespace Palmmedia.ReportGenerator
         /// <param name="verbosityLevel">The verbosity level.</param>
         public ReportConfiguration(
             IReportBuilderFactory reportBuilderFactory,
-            IEnumerable<string> reportFilePatterns,
+            ICollection<string> reportFilePatterns,
             string targetDirectory,
             string historyDirectory,
             ICollection<string> reportTypes,

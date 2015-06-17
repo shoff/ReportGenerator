@@ -1,20 +1,22 @@
 ﻿using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Palmmedia.ReportGenerator.Parser.Analysis;
 
 namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
 {
+    using NUnit.Framework;
+
     /// <summary>
     /// This is a test class for MethodMetric and is intended
     /// to contain all MethodMetric Unit Tests
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class MethodMetricTest
     {
         /// <summary>
         /// A test for the Constructor
         /// </summary>
-        [TestMethod]
+        [Test]
         public void Constructor()
         {
             MethodMetric sut = new MethodMetric("Test");
@@ -25,7 +27,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
         /// <summary>
         /// A test for AddMetric
         /// </summary>
-        [TestMethod]
+        [Test]
         public void AddMetric_AddSingleMetric_MetricIsStored()
         {
             MethodMetric sut = new MethodMetric("Test");
@@ -40,7 +42,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
         /// <summary>
         /// A test for Merge
         /// </summary>
-        [TestMethod]
+        [Test]
         public void Merge_MergeMethodMetric_MetricsAreStored()
         {
             var metric1 = new Metric("Metric1", 10);
@@ -61,7 +63,7 @@ namespace Palmmedia.ReportGeneratorTest.Parser.Analysis
         /// <summary>
         /// A test for Equals
         /// </summary>
-        [TestMethod]
+        [Test]
         public void Equals()
         {
             var target1 = new MethodMetric("Test");
