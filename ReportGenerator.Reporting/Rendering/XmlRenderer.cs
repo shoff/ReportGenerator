@@ -42,7 +42,7 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// Adds custom summary elements to the report.
         /// </summary>
         /// <param name="assemblies">The assemblies.</param>
-        public void CustomSummary(IEnumerable<Assembly> assemblies)
+        public void CustomSummary(ICollection<Assembly> assemblies)
         {
         }
 
@@ -74,7 +74,7 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// Adds the test methods to the report.
         /// </summary>
         /// <param name="testMethods">The test methods.</param>
-        public void TestMethods(IEnumerable<TestMethod> testMethods)
+        public void TestMethods(ICollection<TestMethod> testMethods)
         {
         }
 
@@ -114,7 +114,7 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// Adds a metrics table to the report.
         /// </summary>
         /// <param name="headers">The headers.</param>
-        public void BeginMetricsTable(IEnumerable<string> headers)
+        public void BeginMetricsTable(ICollection<string> headers)
         {
         }
 
@@ -122,7 +122,7 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// Adds a file analysis table to the report.
         /// </summary>
         /// <param name="headers">The headers.</param>
-        public void BeginLineAnalysisTable(IEnumerable<string> headers)
+        public void BeginLineAnalysisTable(ICollection<string> headers)
         {
         }
 
@@ -143,7 +143,7 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// </summary>
         /// <param name="key">The text of the first column.</param>
         /// <param name="files">The files.</param>
-        public void KeyValueRow(string key, IEnumerable<string> files)
+        public void KeyValueRow(string key, ICollection<string> files)
         {
             if (files == null)
             {
@@ -222,7 +222,7 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// Charts the specified historic coverages.
         /// </summary>
         /// <param name="historicCoverages">The historic coverages.</param>
-        public void Chart(IEnumerable<HistoricCoverage> historicCoverages)
+        public void Chart(ICollection<HistoricCoverage> historicCoverages)
         {
         }
 

@@ -41,7 +41,7 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// </summary>
         /// <param name="path">The path of the file.</param>
         /// <param name="lineCoverage">The line coverage.</param>
-        internal CodeFile(string path, int[] lineCoverage)
+        public CodeFile(string path, int[] lineCoverage)
             : this(path, lineCoverage, null)
         {
         }
@@ -52,7 +52,8 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// <param name="path">The path.</param>
         /// <param name="lineCoverage">The line coverage.</param>
         /// <param name="branches">The branches.</param>
-        internal CodeFile(string path, int[] lineCoverage, IDictionary<int, List<Branch>> branches)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
+        public CodeFile(string path, int[] lineCoverage, IDictionary<int, List<Branch>> branches)
         {
             if (path == null)
             {
@@ -193,7 +194,7 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// </summary>
         /// <param name="testMethod">The test method.</param>
         /// <param name="coverage">The coverage.</param>
-        internal void AddCoverageByTestMethod(TestMethod testMethod, int[] coverage)
+        public void AddCoverageByTestMethod(TestMethod testMethod, int[] coverage)
         {
             if (testMethod == null)
             {
@@ -212,7 +213,7 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// Performs the analysis of the source file.
         /// </summary>
         /// <returns>The analysis result.</returns>
-        internal FileAnalysis AnalyzeFile()
+        public FileAnalysis AnalyzeFile()
         {
             if (!System.IO.File.Exists(this.Path))
             {
@@ -282,7 +283,7 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// Merges the given file with the current instance.
         /// </summary>
         /// <param name="file">The file to merge.</param>
-        internal void Merge(CodeFile file)
+        public void Merge(CodeFile file)
         {
             if (file == null)
             {

@@ -59,7 +59,7 @@ namespace Palmmedia.ReportGenerator.Reporting
             reportRenderer.BeginKeyValueTable();
             reportRenderer.KeyValueRow(ReportResources.Class, @class.Name);
             reportRenderer.KeyValueRow(ReportResources.Assembly, @class.Assembly.ShortName);
-            reportRenderer.KeyValueRow(ReportResources.Files3, @class.Files.Select(f => f.Path));
+            reportRenderer.KeyValueRow(ReportResources.Files3, (ICollection<string>)@class.Files.Select(f => f.Path));
             reportRenderer.KeyValueRow(ReportResources.CoveredLines, @class.CoveredLines.ToString(CultureInfo.InvariantCulture));
             reportRenderer.KeyValueRow(ReportResources.UncoveredLines, (@class.CoverableLines - @class.CoveredLines).ToString(CultureInfo.InvariantCulture));
             reportRenderer.KeyValueRow(ReportResources.CoverableLines, @class.CoverableLines.ToString(CultureInfo.InvariantCulture));
@@ -87,7 +87,7 @@ namespace Palmmedia.ReportGenerator.Reporting
             {
                 reportRenderer.Header(ReportResources.Metrics);
 
-                reportRenderer.BeginMetricsTable(Enumerable.Repeat(ReportResources.Method, 1).Union(metrics.First().Metrics.Select(m => m.Name)));
+                reportRenderer.BeginMetricsTable((ICollection<string>)Enumerable.Repeat(ReportResources.Method, 1).Union(metrics.First().Metrics.Select(m => m.Name)));
 
                 foreach (var metric in metrics)
                 {
@@ -104,7 +104,7 @@ namespace Palmmedia.ReportGenerator.Reporting
                 var testMethods = @class.Files
                     .SelectMany(f => f.TestMethods)
                     .Distinct()
-                    .OrderBy(l => l.ShortName);
+                    .OrderBy(l => l.ShortName).ToList();
 
                 reportRenderer.TestMethods(testMethods);
 
@@ -182,7 +182,7 @@ namespace Palmmedia.ReportGenerator.Reporting
             if (historicCoverages.Any(h => h.CoverageQuota.HasValue || h.BranchCoverageQuota.HasValue))
             {
                 reportRenderer.Header(ReportResources.History);
-                reportRenderer.Chart(historicCoverages);
+                reportRenderer.Chart(historicCoverages.ToList());
             }
 
             reportRenderer.Header(ReportResources.Assemblies);

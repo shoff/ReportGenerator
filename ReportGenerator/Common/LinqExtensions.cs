@@ -7,7 +7,7 @@ namespace Palmmedia.ReportGenerator.Common
     /// <summary>
     /// Linq extensions.
     /// </summary>
-    internal static class LinqExtensions
+    public static class LinqExtensions
     {
         /// <summary>
         /// Creates a <see cref="HashSet&lt;T&gt;"/> from an <see cref="IEnumerable&lt;T&gt;"/>.
@@ -15,7 +15,7 @@ namespace Palmmedia.ReportGenerator.Common
         /// <typeparam name="T">The type.</typeparam>
         /// <param name="input">The input.</param>
         /// <returns>A <see cref="HashSet&lt;T&gt;"/>.</returns>
-        internal static HashSet<T> ToHashSet<T>(this IEnumerable<T> input)
+        public static HashSet<T> ToHashSet<T>(this IEnumerable<T> input)
         {
             if (input == null)
             {
@@ -38,7 +38,7 @@ namespace Palmmedia.ReportGenerator.Common
         /// <typeparam name="T">The type.</typeparam>
         /// <param name="input">The input.</param>
         /// <returns>A <see cref="Queue&lt;T&gt;"/>.</returns>
-        internal static Queue<T> ToQueue<T>(this IEnumerable<T> input)
+        public static Queue<T> ToQueue<T>(this IEnumerable<T> input)
         {
             if (input == null)
             {
@@ -64,7 +64,7 @@ namespace Palmmedia.ReportGenerator.Common
         /// <returns>
         ///   <c>true</c> if <see cref="XElement"/> has an <see cref="XAttribute"/> with the given value; otherwise, <c>false</c>.
         /// </returns>
-        internal static bool HasAttributeWithValue(this XElement element, XName attributeName, string attributeValue)
+        public static bool HasAttributeWithValue(this XElement element, XName attributeName, string attributeValue)
         {
             if (element == null)
             {

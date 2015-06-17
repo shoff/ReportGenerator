@@ -8,14 +8,14 @@ namespace Palmmedia.ReportGenerator.Common
     /// <summary>
     /// Searches files based on file pattern with support for wildcards.
     /// </summary>
-    internal static class FileSearch
+    public static class FileSearch
     {
         /// <summary>
         /// Gets the files matching the given file pattern..
         /// </summary>
         /// <param name="pattern">The file pattern.</param>
         /// <returns>The files.</returns>
-        internal static IEnumerable<string> GetFiles(string pattern)
+        public static IEnumerable<string> GetFiles(string pattern)
         {
             if (string.IsNullOrEmpty(pattern))
             {

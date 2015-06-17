@@ -8,7 +8,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch
     /// <summary>
     /// Searches directories for files and ignores directories that are not accessible.
     /// </summary>
-    internal static class SafeDirectorySearcher
+    public static class SafeDirectorySearcher
     {
         /// <summary>
         /// Returns an enumerable collection of files names that match a search patter in a specified path.
@@ -18,7 +18,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch
         /// <param name="searchPattern">The search pattern.</param>
         /// <param name="searchOption">The search option.</param>
         /// <returns>The found files.</returns>
-        internal static IEnumerable<string> EnumerateFiles(string path, string searchPattern, SearchOption searchOption)
+        public static IEnumerable<string> EnumerateFiles(string path, string searchPattern, SearchOption searchOption)
         {
             try
             {

@@ -9,7 +9,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch
     /// <summary>
     /// Searches one directory for class files.
     /// </summary>
-    internal class ClassSearcher
+    public class ClassSearcher
     {
         /// <summary>
         /// The Logger.
@@ -30,7 +30,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch
         /// Initializes a new instance of the <see cref="ClassSearcher"/> class.
         /// </summary>
         /// <param name="directory">The directory that should be searched for class files.</param>
-        internal ClassSearcher(string directory)
+        public ClassSearcher(string directory)
         {
             this.Directory = directory;
         }
@@ -45,14 +45,14 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch
         /// <summary>
         /// Gets the directory that should be searched for class files.
         /// </summary>
-        internal string Directory { get; private set; }
+        public string Directory { get; private set; }
 
         /// <summary>
         /// Gets the files the given class is defined in.
         /// </summary>
         /// <param name="className">Name of the class (with full namespace).</param>
         /// <returns>The files the class is defined in.</returns>
-        internal virtual IEnumerable<string> GetFilesOfClass(string className)
+        public virtual IEnumerable<string> GetFilesOfClass(string className)
         {
             if (!this.initialized)
             {

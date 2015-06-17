@@ -6,13 +6,15 @@ using System.Text.RegularExpressions;
 
 namespace Palmmedia.ReportGenerator.Reporting
 {
+    using System.Diagnostics.Contracts;
+
     /// <summary>
     /// Default implementation of <see cref="IAssemblyFilter"/>.
     /// An assembly is included if at least one include filter matches their name.
     /// The assembly is excluded if at least one exclude filter matches its name.
     /// Exclusion filters take precedence over inclusion filters. Wildcards are allowed in filters.
     /// </summary>
-    internal class DefaultAssemblyFilter : IAssemblyFilter
+    public class DefaultAssemblyFilter : IAssemblyFilter
     {
         /// <summary>
         /// The include filters.
@@ -28,20 +30,17 @@ namespace Palmmedia.ReportGenerator.Reporting
         /// Initializes a new instance of the <see cref="DefaultAssemblyFilter"/> class.
         /// </summary>
         /// <param name="filters">The filters.</param>
-        internal DefaultAssemblyFilter(IEnumerable<string> filters)
+        public DefaultAssemblyFilter(ICollection<string> filters)
         {
-            if (filters == null)
-            {
-                throw new ArgumentNullException("filters");
-            }
+            Contract.Requires<ArgumentNullException>(filters != null);
 
             this.excludeFilters = filters
                 .Where(f => f.StartsWith("-", StringComparison.OrdinalIgnoreCase))
-                .Select(f => CreateFilterRegex(f));
+                .Select(CreateFilterRegex);
 
             this.includeFilters = filters
                 .Where(f => f.StartsWith("+", StringComparison.OrdinalIgnoreCase))
-                .Select(f => CreateFilterRegex(f));
+                .Select(CreateFilterRegex);
 
             if (!this.includeFilters.Any())
             {
@@ -58,14 +57,13 @@ namespace Palmmedia.ReportGenerator.Reporting
         /// </returns>
         public bool IsAssemblyIncludedInReport(string assemblyName)
         {
+            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(assemblyName));
+
             if (this.excludeFilters.Any(f => Regex.IsMatch(assemblyName, f)))
             {
                 return false;
             }
-            else
-            {
-                return this.includeFilters.Any(f => Regex.IsMatch(assemblyName, f));
-            }
+            return this.includeFilters.Any(f => Regex.IsMatch(assemblyName, f));
         }
 
         /// <summary>

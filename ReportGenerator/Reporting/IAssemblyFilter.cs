@@ -4,7 +4,7 @@
     /// Interface to filter assemblies based on their name during report generation.
     /// This can be used to include only a subset of all assemblies in the report.
     /// </summary>
-    internal interface IAssemblyFilter
+    public interface IAssemblyFilter
     {
         /// <summary>
         /// Determines whether the given assembly should be included in the report.

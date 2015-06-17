@@ -9,10 +9,12 @@ using Palmmedia.ReportGenerator.Properties;
 
 namespace Palmmedia.ReportGenerator.Parser.Preprocessing
 {
+    using System.Diagnostics.Contracts;
+
     /// <summary>
     /// Preprocessor for PartCover 2.3 reports.
     /// </summary>
-    internal class PartCover23ReportPreprocessor : ReportPreprocessorBase
+    public class PartCover23ReportPreprocessor : ReportPreprocessorBase
     {
         /// <summary>
         /// The Logger.
@@ -25,7 +27,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing
         /// <param name="report">The report.</param>
         /// <param name="classSearcherFactory">The class searcher factory.</param>
         /// <param name="globalClassSearcher">The global class searcher.</param>
-        internal PartCover23ReportPreprocessor(XContainer report, ClassSearcherFactory classSearcherFactory, ClassSearcher globalClassSearcher)
+        public PartCover23ReportPreprocessor(XContainer report, ClassSearcherFactory classSearcherFactory, ClassSearcher globalClassSearcher)
             : base(report, classSearcherFactory, globalClassSearcher)
         {
         }
@@ -33,7 +35,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing
         /// <summary>
         /// Executes the preprocessing of the report.
         /// </summary>
-        internal override void Execute()
+        public override void Execute()
         {
             var filenameByFileIdDictionary = this.Report
                 .Descendants("File")
@@ -51,6 +53,9 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing
         /// <param name="file">The file path.</param>
         protected override void AddNewFile(XContainer filesContainer, string fileId, string file)
         {
+            Contract.Requires<ArgumentNullException>(filesContainer != null);
+            Contract.Requires<ArgumentNullException>(fileId != null);
+            Contract.Requires<ArgumentNullException>(file != null);
             XDocument document = filesContainer as XDocument;
 
             if (document != null)

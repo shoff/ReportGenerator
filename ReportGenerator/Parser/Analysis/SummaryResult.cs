@@ -14,7 +14,7 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// </summary>
         /// <param name="assemblies">The assemblies.</param>
         /// <param name="usedParser">The used parser.</param>
-        internal SummaryResult(IEnumerable<Assembly> assemblies, string usedParser)
+        public SummaryResult(ICollection<Assembly> assemblies, string usedParser)
         {
             if (assemblies == null)
             {
@@ -36,7 +36,7 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// <value>
         /// The assemblies.
         /// </value>
-        public IEnumerable<Assembly> Assemblies { get; private set; }
+        public ICollection<Assembly> Assemblies { get; private set; }
 
         /// <summary>
         /// Gets the used parser.

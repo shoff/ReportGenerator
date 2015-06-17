@@ -12,7 +12,7 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="value">The value.</param>
-        internal Metric(string name, decimal value)
+        public Metric(string name, decimal value)
         {
             if (name == null)
             {
@@ -31,6 +31,6 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// <summary>
         /// Gets the value.
         /// </summary>
-        public decimal Value { get; internal set; }
+        public decimal Value { get; set; }
     }
 }

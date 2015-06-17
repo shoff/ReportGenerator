@@ -7,14 +7,14 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch
     /// <summary>
     /// Searches a list of paths for the longest common directory.
     /// </summary>
-    internal static class CommonDirectorySearcher
+    public static class CommonDirectorySearcher
     {
         /// <summary>
         /// Gets the longest common directory of the given paths.
         /// </summary>
         /// <param name="files">The files.</param>
         /// <returns>The longest common directory of the given paths.</returns>
-        internal static string GetCommonDirectory(IEnumerable<string> files)
+        public static string GetCommonDirectory(IEnumerable<string> files)
         {
             if (files == null)
             {

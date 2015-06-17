@@ -6,12 +6,15 @@ namespace Palmmedia.ReportGenerator.Parser
     /// <summary>
     /// Interface for different parsers.
     /// </summary>
-    internal interface IParser
+    public interface IParser
     {
         /// <summary>
         /// Gets the assemblies that have been found in the report.
         /// </summary>
         /// <value>The assemblies.</value>
-        IEnumerable<Assembly> Assemblies { get; }
+        ICollection<Assembly> Assemblies
+        {
+            get;
+        }
     }
 }

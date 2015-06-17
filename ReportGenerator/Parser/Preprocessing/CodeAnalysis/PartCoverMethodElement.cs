@@ -14,7 +14,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis
     /// To provide correct reports the line numbers are determined from the source code files instead of
     /// PartCover's coverage information.
     /// </summary>
-    internal class PartCoverMethodElement : SourceElement
+    public class PartCoverMethodElement : SourceElement
     {
         /// <summary>
         /// The delimiters between parameters.
@@ -47,7 +47,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis
         /// <param name="classname">The name of the class.</param>
         /// <param name="methodname">The name of the method.</param>
         /// <param name="signature">The signature of the method.</param>
-        internal PartCoverMethodElement(string classname, string methodname, string signature)
+        public PartCoverMethodElement(string classname, string methodname, string signature)
             : base(classname)
         {
             if (methodname == null)
@@ -85,7 +85,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis
         /// <returns>
         /// A <see cref="SourceElementPosition"/> or <c>null</c> if <see cref="SourceElement"/> does not match the <see cref="ICSharpCode.NRefactory.PatternMatching.INode"/>.
         /// </returns>
-        internal override SourceElementPosition GetSourceElementPosition(INode node)
+        public override SourceElementPosition GetSourceElementPosition(INode node)
         {
             if (this.IsConstructor)
             {

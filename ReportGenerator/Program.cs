@@ -8,34 +8,91 @@ using Palmmedia.ReportGenerator.Reporting;
 
 namespace Palmmedia.ReportGenerator
 {
+    using System.Diagnostics.Contracts;
+    using System.IO;
+
     /// <summary>
     /// Command line access to the ReportBuilder.
     /// </summary>
-    internal class Program
+    public class Program
     {
         /// <summary>
         /// The Logger.
         /// </summary>
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(Program));
+        private static readonly ILog logger = LogManager.GetLogger(typeof(Program));
 
         /// <summary>
         /// Executes the report generation.
         /// </summary>
         /// <param name="configuration">The configuration.</param>
         /// <returns><c>true</c> if report was generated successfully; otherwise <c>false</c>.</returns>
-        internal static bool Execute(ReportConfiguration configuration)
+        /// <exception cref="IOException"><paramref>
+        ///     <name>path</name>
+        ///   </paramref>
+        ///   is a file name.</exception>
+        public static bool Execute(ReportConfiguration configuration)
         {
-            if (configuration == null)
+
+            Contract.Requires<ArgumentNullException>(configuration != null);
+
+            if (!SetupLogging(configuration))
             {
-                throw new ArgumentNullException("configuration");
+                return false;
             }
 
-            var appender = new ColoredConsoleAppender()
+            // this is all logging until here.
+
+            var stopWatch = new System.Diagnostics.Stopwatch();
+            stopWatch.Start();
+            DateTime executionTime = DateTime.Now;
+
+            var parser = ParserFactory.CreateParser(configuration.ReportFiles, configuration.SourceDirectories);
+
+            if (configuration.HistoryDirectory != null)
             {
-                Layout = new log4net.Layout.PatternLayout("%message%newline")
-            };
-            appender.AddMapping(new ColoredConsoleAppender.LevelColors { Level = log4net.Core.Level.Warn, ForeColor = ColoredConsoleAppender.Colors.Purple | ColoredConsoleAppender.Colors.HighIntensity });
-            appender.AddMapping(new ColoredConsoleAppender.LevelColors { Level = log4net.Core.Level.Error, ForeColor = ColoredConsoleAppender.Colors.Red | ColoredConsoleAppender.Colors.HighIntensity });
+                new HistoryParser(
+                    parser.Assemblies,
+                    configuration.HistoryDirectory)
+                        .ApplyHistoricCoverage();
+            }
+
+            new Reporting.ReportGenerator(
+                parser,
+                new DefaultAssemblyFilter(configuration.Filters),
+                configuration.ReportBuilderFactory.GetReportBuilders(configuration.TargetDirectory, configuration.ReportTypes))
+                    .CreateReport(configuration.HistoryDirectory != null, executionTime);
+
+            if (configuration.HistoryDirectory != null)
+            {
+                new HistoryReportGenerator(
+                    parser,
+                    configuration.HistoryDirectory)
+                        .CreateReport(executionTime);
+            }
+
+            stopWatch.Stop();
+            logger.InfoFormat(Resources.ReportGenerationTook, stopWatch.ElapsedMilliseconds / 1000d);
+
+            return true;
+        }
+
+        private static bool SetupLogging(ReportConfiguration configuration)
+        {
+            var appender = new ColoredConsoleAppender() { Layout = new log4net.Layout.PatternLayout("%message%newline") };
+            appender.AddMapping(
+                new ColoredConsoleAppender.LevelColors
+                    {
+                        Level = log4net.Core.Level.Warn,
+                        ForeColor =
+                            ColoredConsoleAppender.Colors.Purple | ColoredConsoleAppender.Colors.HighIntensity
+                    });
+            appender.AddMapping(
+                new ColoredConsoleAppender.LevelColors
+                    {
+                        Level = log4net.Core.Level.Error,
+                        ForeColor =
+                            ColoredConsoleAppender.Colors.Red | ColoredConsoleAppender.Colors.HighIntensity
+                    });
             appender.ActivateOptions();
             log4net.Config.BasicConfigurator.Configure(appender);
 
@@ -52,38 +109,6 @@ namespace Palmmedia.ReportGenerator
             {
                 appender.Threshold = log4net.Core.Level.Error;
             }
-
-            var stopWatch = new System.Diagnostics.Stopwatch();
-            stopWatch.Start();
-            DateTime executionTime = DateTime.Now;
-
-            var parser = ParserFactory.CreateParser(configuration.ReportFiles, configuration.SourceDirectories);
-
-            if (configuration.HistoryDirectory != null)
-            {
-                new Reporting.HistoryParser(
-                    parser.Assemblies,
-                    configuration.HistoryDirectory)
-                        .ApplyHistoricCoverage();
-            }
-
-            new Reporting.ReportGenerator(
-                parser,
-                new DefaultAssemblyFilter(configuration.Filters),
-                configuration.ReportBuilderFactory.GetReportBuilders(configuration.TargetDirectory, configuration.ReportTypes))
-                    .CreateReport(configuration.HistoryDirectory != null, executionTime);
-
-            if (configuration.HistoryDirectory != null)
-            {
-                new Reporting.HistoryReportGenerator(
-                    parser,
-                    configuration.HistoryDirectory)
-                        .CreateReport(executionTime);
-            }
-
-            stopWatch.Stop();
-            Logger.InfoFormat(Resources.ReportGenerationTook, stopWatch.ElapsedMilliseconds / 1000d);
-
             return true;
         }
 
@@ -92,7 +117,11 @@ namespace Palmmedia.ReportGenerator
         /// </summary>
         /// <param name="args">The command line arguments.</param>
         /// <returns>Return code indicating success/failure.</returns>
-        internal static int Main(string[] args)
+        /// <exception cref="IOException"><paramref>
+        ///     <name>path</name>
+        ///   </paramref>
+        ///   is a file name.</exception>
+        public static int Main(string[] args)
         {
             var reportConfigurationBuilder = new ReportConfigurationBuilder(new MefReportBuilderFactory());
 

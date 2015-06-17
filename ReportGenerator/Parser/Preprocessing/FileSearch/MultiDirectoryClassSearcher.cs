@@ -7,7 +7,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch
     /// <summary>
     /// Searches several directories for class files.
     /// </summary>
-    internal class MultiDirectoryClassSearcher : ClassSearcher
+    public class MultiDirectoryClassSearcher : ClassSearcher
     {
         /// <summary>
         /// The <see cref="ClassSearcher">ClassSearchers</see>.
@@ -18,7 +18,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch
         /// Initializes a new instance of the <see cref="MultiDirectoryClassSearcher"/> class.
         /// </summary>
         /// <param name="classSearchers">The <see cref="ClassSearcher">ClassSearchers</see>.</param>
-        internal MultiDirectoryClassSearcher(IEnumerable<ClassSearcher> classSearchers)
+        public MultiDirectoryClassSearcher(IEnumerable<ClassSearcher> classSearchers)
         {
             if (classSearchers == null)
             {
@@ -33,7 +33,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch
         /// </summary>
         /// <param name="className">Name of the class (with full namespace).</param>
         /// <returns>The files the class is defined in.</returns>
-        internal override IEnumerable<string> GetFilesOfClass(string className)
+        public override IEnumerable<string> GetFilesOfClass(string className)
         {
             return this.classSearchers
                 .SelectMany(c => c.GetFilesOfClass(className))

@@ -25,7 +25,7 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// Initializes a new instance of the <see cref="MethodMetric"/> class.
         /// </summary>
         /// <param name="name">The name.</param>
-        internal MethodMetric(string name)
+        public MethodMetric(string name)
         {
             if (name == null)
             {
@@ -40,7 +40,7 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="metrics">The metrics.</param>
-        internal MethodMetric(string name, IEnumerable<Metric> metrics)
+        public MethodMetric(string name, IEnumerable<Metric> metrics)
         {
             this.Name = name;
             this.AddMetrics(metrics);
@@ -112,7 +112,7 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// Adds the given metric.
         /// </summary>
         /// <param name="metric">The metric.</param>
-        internal void AddMetric(Metric metric)
+        public void AddMetric(Metric metric)
         {
             this.metrics.Add(metric);
         }
@@ -121,7 +121,7 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// Adds the given metrics.
         /// </summary>
         /// <param name="metrics">The metrics to add.</param>
-        internal void AddMetrics(IEnumerable<Metric> metrics)
+        public void AddMetrics(IEnumerable<Metric> metrics)
         {
             this.metrics.AddRange(metrics);
         }
@@ -130,7 +130,7 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// Merges the given method metric with the current instance.
         /// </summary>
         /// <param name="methodMetric">The method metric to merge.</param>
-        internal void Merge(MethodMetric methodMetric)
+        public void Merge(MethodMetric methodMetric)
         {
             if (methodMetric == null)
             {

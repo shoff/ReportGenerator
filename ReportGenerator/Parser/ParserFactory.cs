@@ -12,7 +12,7 @@ namespace Palmmedia.ReportGenerator.Parser
     /// <summary>
     /// Initiates the corresponding parser to the given report file.
     /// </summary>
-    internal static class ParserFactory
+    public static class ParserFactory
     {
         /// <summary>
         /// The Logger.
@@ -27,7 +27,7 @@ namespace Palmmedia.ReportGenerator.Parser
         /// <returns>
         /// The IParser instance.
         /// </returns>
-        internal static IParser CreateParser(IEnumerable<string> reportFiles, IEnumerable<string> sourceDirectories)
+        public static IParser CreateParser(IEnumerable<string> reportFiles, IEnumerable<string> sourceDirectories)
         {
             if (reportFiles == null)
             {

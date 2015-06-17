@@ -14,7 +14,7 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// <param name="lineCoverageByTestMethod">The line coverage by test method.</param>
         /// <param name="lineNumber">The line number.</param>
         /// <param name="lineContent">Content of the line.</param>
-        internal LineAnalysis(int lineVisits, IDictionary<TestMethod, ShortLineAnalysis> lineCoverageByTestMethod, int lineNumber, string lineContent)
+        public LineAnalysis(int lineVisits, IDictionary<TestMethod, ShortLineAnalysis> lineCoverageByTestMethod, int lineNumber, string lineContent)
             : base(lineVisits)
         {
             this.LineCoverageByTestMethod = lineCoverageByTestMethod;
@@ -31,7 +31,7 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// <param name="lineContent">Content of the line.</param>
         /// <param name="coveredBranches">The covered branches.</param>
         /// <param name="totalBranches">The total branches.</param>
-        internal LineAnalysis(int lineVisits, IDictionary<TestMethod, ShortLineAnalysis> lineCoverageByTestMethod, int lineNumber, string lineContent, int coveredBranches, int totalBranches)
+        public LineAnalysis(int lineVisits, IDictionary<TestMethod, ShortLineAnalysis> lineCoverageByTestMethod, int lineNumber, string lineContent, int coveredBranches, int totalBranches)
             : this(lineVisits, lineCoverageByTestMethod, lineNumber, lineContent)
         {
             this.CoveredBranches = coveredBranches;

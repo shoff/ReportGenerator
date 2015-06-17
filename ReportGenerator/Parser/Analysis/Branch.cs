@@ -15,7 +15,7 @@
         /// </summary>
         /// <param name="branchVisits">The number of branch visits.</param>
         /// <param name="identifier">The identifier.</param>
-        internal Branch(int branchVisits, string identifier)
+        public Branch(int branchVisits, string identifier)
         {
             this.BranchVisits = branchVisits;
             this.identifier = identifier;
@@ -24,7 +24,7 @@
         /// <summary>
         /// Gets the number of branch visits.
         /// </summary>
-        public int BranchVisits { get; internal set; }
+        public int BranchVisits { get; set; }
 
         /// <summary>
         /// Determines whether the specified <see cref="System.Object"/> is equal to this instance.

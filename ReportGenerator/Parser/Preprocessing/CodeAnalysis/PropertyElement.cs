@@ -7,7 +7,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis
     /// <summary>
     /// Represents a property in a source file.
     /// </summary>
-    internal class PropertyElement : SourceElement
+    public class PropertyElement : SourceElement
     {
         /// <summary>
         /// The name of the property.
@@ -19,7 +19,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis
         /// </summary>
         /// <param name="classname">The classname.</param>
         /// <param name="name">The name of the property.</param>
-        internal PropertyElement(string classname, string name)
+        public PropertyElement(string classname, string name)
             : base(classname)
         {
             if (name == null)
@@ -37,7 +37,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis
         /// <returns>
         /// A <see cref="SourceElementPosition"/> or <c>null</c> if <see cref="SourceElement"/> does not match the <see cref="ICSharpCode.NRefactory.PatternMatching.INode"/>.
         /// </returns>
-        internal override SourceElementPosition GetSourceElementPosition(INode node)
+        public override SourceElementPosition GetSourceElementPosition(INode node)
         {
             PropertyDeclaration propertyDeclaration = node as PropertyDeclaration;
 

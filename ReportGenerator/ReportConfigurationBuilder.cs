@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
-using System.Text.RegularExpressions;
-using Palmmedia.ReportGenerator.Properties;
-using Palmmedia.ReportGenerator.Reporting;
+﻿
 
 namespace Palmmedia.ReportGenerator
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.Contracts;
+    using System.Text.RegularExpressions;
+    using Palmmedia.ReportGenerator.Reporting;
+
     /// <summary>
     /// Builder for <see cref="ReportConfiguration"/>.
     /// Creates instances of <see cref="ReportConfiguration"/> based on command line parameters.
     /// </summary>
-    internal class ReportConfigurationBuilder
+    public class ReportConfigurationBuilder
     {
         /// <summary>
         /// The report builder factory.
@@ -23,14 +22,13 @@ namespace Palmmedia.ReportGenerator
         /// <summary>
         /// Initializes a new instance of the <see cref="ReportConfigurationBuilder"/> class.
         /// </summary>
-        /// <param name="reportBuilderFactory">The report builder factory.</param>
-        internal ReportConfigurationBuilder(
+        /// <param name="reportBuilderFactory">
+        /// The report builder factory.
+        /// </param>
+        public ReportConfigurationBuilder(
             IReportBuilderFactory reportBuilderFactory)
         {
-            if (reportBuilderFactory == null)
-            {
-                throw new ArgumentNullException("reportBuilderFactory");
-            }
+            Contract.Requires<ArgumentNullException>(reportBuilderFactory != null);
 
             this.reportBuilderFactory = reportBuilderFactory;
         }
@@ -38,92 +36,96 @@ namespace Palmmedia.ReportGenerator
         /// <summary>
         /// Initializes a new instance of the <see cref="ReportConfiguration"/> class.
         /// </summary>
-        /// <param name="args">The command line arguments.</param>
-        /// <returns>The report configuration.</returns>
-        internal ReportConfiguration Create(string[] args)
+        /// <param name="args">
+        /// The command line arguments.
+        /// </param>
+        /// <returns>
+        /// The report configuration.
+        /// </returns>
+        public ReportConfiguration Create(string[] args)
         {
-            if (args == null)
-            {
-                throw new ArgumentNullException("args");
-            }
+            Contract.Requires<ArgumentNullException>(args != null);
 
             if (args.Length > 0 && Regex.IsMatch(args[0], "-\\w{2,}:"))
             {
                 return this.CreateBasedOnNamedArguments(args);
             }
-            else
-            {
-                return this.CreateBasedOnLegacyArguments(args);
-            }
+
+            return this.CreateBasedOnLegacyArguments(args);
         }
 
         /// <summary>
         /// Shows the help of the program.
         /// </summary>
-        internal void ShowHelp()
+        // TODO convert to form
+        public void ShowHelp()
         {
-            var availableReportTypes = this.reportBuilderFactory.GetAvailableReportTypes();
+            // var availableReportTypes = this.reportBuilderFactory.GetAvailableReportTypes();
 
-            Console.WriteLine();
-            Console.WriteLine(typeof(ReportConfigurationBuilder).Assembly.GetName().Name + " "
-                + typeof(ReportConfigurationBuilder).Assembly.GetName().Version);
+            // Console.WriteLine();
+            // Console.WriteLine(typeof(ReportConfigurationBuilder).Assembly.GetName().Name + " "
+            // + typeof(ReportConfigurationBuilder).Assembly.GetName().Version);
 
-            AssemblyCopyrightAttribute assemblyCopyrightAttribute = typeof(ReportConfigurationBuilder).Assembly
-                .GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false)
-                .Cast<AssemblyCopyrightAttribute>()
-                .FirstOrDefault();
+            // AssemblyCopyrightAttribute assemblyCopyrightAttribute = typeof(ReportConfigurationBuilder).Assembly
+            // .GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false)
+            // .Cast<AssemblyCopyrightAttribute>()
+            // .FirstOrDefault();
 
-            if (assemblyCopyrightAttribute != null)
-            {
-                Console.WriteLine(assemblyCopyrightAttribute.Copyright);
-            }
+            // if (assemblyCopyrightAttribute != null)
+            // {
+            // Console.WriteLine(assemblyCopyrightAttribute.Copyright);
+            // }
 
-            Console.WriteLine();
-            Console.WriteLine(Help.Parameters);
-            Console.WriteLine("    " + Help.Parameters1);
-            Console.WriteLine("    " + Help.Parameters2);
-            Console.WriteLine(string.Format(CultureInfo.InvariantCulture, "    " + Help.Parameters3, string.Join("|", availableReportTypes.Take(3).Union(new[] { "..." }))));
-            Console.WriteLine("    " + Help.Parameters4);
-            Console.WriteLine("    " + Help.Parameters5);
-            Console.WriteLine("    " + Help.Parameters6);
-            Console.WriteLine(string.Format(CultureInfo.InvariantCulture, "    " + Help.Parameters7, string.Join("|", Enum.GetNames(typeof(VerbosityLevel)))));
+            // Console.WriteLine();
+            // Console.WriteLine(Help.Parameters);
+            // Console.WriteLine("    " + Help.Parameters1);
+            // Console.WriteLine("    " + Help.Parameters2);
+            // Console.WriteLine(string.Format(CultureInfo.InvariantCulture, "    " + Help.Parameters3, string.Join("|", availableReportTypes.Take(3).Union(new[] { "..." }))));
+            // Console.WriteLine("    " + Help.Parameters4);
+            // Console.WriteLine("    " + Help.Parameters5);
+            // Console.WriteLine("    " + Help.Parameters6);
+            // Console.WriteLine(string.Format(CultureInfo.InvariantCulture, "    " + Help.Parameters7, string.Join("|", Enum.GetNames(typeof(VerbosityLevel)))));
 
-            Console.WriteLine();
-            Console.WriteLine(Help.Explanations);
-            Console.WriteLine("    " + Help.Explanations1);
-            Console.WriteLine("    " + Help.Explanations2);
-            Console.WriteLine("    " + Help.Explanations3);
-            Console.WriteLine(string.Format(CultureInfo.InvariantCulture, "    " + Help.ReportTypeValues, string.Join(", ", availableReportTypes)));
-            Console.WriteLine("    " + Help.Explanations4);
-            Console.WriteLine("    " + Help.Explanations5);
-            Console.WriteLine("    " + Help.Explanations6);
-            Console.WriteLine("    " + Help.Explanations7);
-            Console.WriteLine("    " + Help.Explanations8);
-            Console.WriteLine("    " + Help.Explanations9);
-            Console.WriteLine("    " + Help.Explanations10);
-            Console.WriteLine(string.Format(CultureInfo.InvariantCulture, "    " + Help.VerbosityValues, string.Join(", ", Enum.GetNames(typeof(VerbosityLevel)))));
+            // Console.WriteLine();
+            // Console.WriteLine(Help.Explanations);
+            // Console.WriteLine("    " + Help.Explanations1);
+            // Console.WriteLine("    " + Help.Explanations2);
+            // Console.WriteLine("    " + Help.Explanations3);
+            // Console.WriteLine(string.Format(CultureInfo.InvariantCulture, "    " + Help.ReportTypeValues, string.Join(", ", availableReportTypes)));
+            // Console.WriteLine("    " + Help.Explanations4);
+            // Console.WriteLine("    " + Help.Explanations5);
+            // Console.WriteLine("    " + Help.Explanations6);
+            // Console.WriteLine("    " + Help.Explanations7);
+            // Console.WriteLine("    " + Help.Explanations8);
+            // Console.WriteLine("    " + Help.Explanations9);
+            // Console.WriteLine("    " + Help.Explanations10);
+            // Console.WriteLine(string.Format(CultureInfo.InvariantCulture, "    " + Help.VerbosityValues, string.Join(", ", Enum.GetNames(typeof(VerbosityLevel)))));
 
-            Console.WriteLine();
-            Console.WriteLine(Help.DefaultValues);
-            Console.WriteLine("   -reporttypes:Html");
-            Console.WriteLine("   -filters:+*");
-            Console.WriteLine("   -verbosity:" + VerbosityLevel.Verbose);
+            // Console.WriteLine();
+            // Console.WriteLine(Help.DefaultValues);
+            // Console.WriteLine("   -reporttypes:Html");
+            // Console.WriteLine("   -filters:+*");
+            // Console.WriteLine("   -verbosity:" + VerbosityLevel.Verbose);
 
-            Console.WriteLine();
-            Console.WriteLine(Help.Examples);
-            Console.WriteLine("   \"-reports:coverage.xml\" \"-targetdir:C:\\report\"");
-            Console.WriteLine("   \"-reports:target\\*\\*.xml\" \"-targetdir:C:\\report\" -reporttypes:Latex;HtmlSummary");
-            Console.WriteLine("   \"-reports:coverage1.xml;coverage2.xml\" \"-targetdir:report\"");
-            Console.WriteLine("   \"-reports:coverage.xml\" \"-targetdir:C:\\report\" -reporttypes:Latex \"-sourcedirs:C:\\MyProject\"");
-            Console.WriteLine("   \"-reports:coverage.xml\" \"-targetdir:C:\\report\" \"-sourcedirs:C:\\MyProject1;C:\\MyProject2\" \"-filters:+Included;-Excluded.*\"");
+            // Console.WriteLine();
+            // Console.WriteLine(Help.Examples);
+            // Console.WriteLine("   \"-reports:coverage.xml\" \"-targetdir:C:\\report\"");
+            // Console.WriteLine("   \"-reports:target\\*\\*.xml\" \"-targetdir:C:\\report\" -reporttypes:Latex;HtmlSummary");
+            // Console.WriteLine("   \"-reports:coverage1.xml;coverage2.xml\" \"-targetdir:report\"");
+            // Console.WriteLine("   \"-reports:coverage.xml\" \"-targetdir:C:\\report\" -reporttypes:Latex \"-sourcedirs:C:\\MyProject\"");
+            // Console.WriteLine("   \"-reports:coverage.xml\" \"-targetdir:C:\\report\" \"-sourcedirs:C:\\MyProject1;C:\\MyProject2\" \"-filters:+Included;-Excluded.*\"");
         }
 
         /// <summary>
         /// Initializes a <see cref="ReportConfiguration"/> instance based on "named" command line parameters.
         /// E.g. -reports:test.xml (Key: "reports", Value: "test.xml")
         /// </summary>
-        /// <param name="args">The command line arguments.</param>
-        /// <returns>The report configuration.</returns>
+        /// <param name="args">
+        /// The command line arguments.
+        /// </param>
+        /// <returns>
+        /// The report configuration.
+        /// </returns>
         private ReportConfiguration CreateBasedOnNamedArguments(string[] args)
         {
             var namedArguments = new Dictionary<string, string>();
@@ -187,20 +189,25 @@ namespace Palmmedia.ReportGenerator
                 verbosityLevel = value;
             }
 
-            return new ReportConfiguration(this.reportBuilderFactory, reportFilePatterns, targetDirectory, historyDirectory, reportTypes, sourceDirectories, filters, verbosityLevel);
+            return new ReportConfiguration(this.reportBuilderFactory, reportFilePatterns, targetDirectory, 
+                historyDirectory, reportTypes, sourceDirectories, filters, verbosityLevel);
         }
 
         /// <summary>
         /// Initializes a <see cref="ReportConfiguration"/> instance based on "legacy" command line parameters.
         /// Only the parameters of ReportGenerator 1.2.7.0 are applied to provide legacy support.
         /// </summary>
-        /// <param name="args">The command line arguments.</param>
-        /// <returns>The report configuration.</returns>
+        /// <param name="args">
+        /// The command line arguments.
+        /// </param>
+        /// <returns>
+        /// The report configuration.
+        /// </returns>
         private ReportConfiguration CreateBasedOnLegacyArguments(string[] args)
         {
             var reportFilePatterns = new string[] { };
             string targetDirectory = string.Empty;
-            string[] reportTypes = new string[] { };
+            string[] reportTypes = { };
             var sourceDirectories = new string[] { };
             var filters = new string[] { };
             string verbosityLevel = null;
@@ -220,7 +227,8 @@ namespace Palmmedia.ReportGenerator
                 reportTypes = new[] { args[2] };
             }
 
-            return new ReportConfiguration(this.reportBuilderFactory, reportFilePatterns, targetDirectory, null, reportTypes, sourceDirectories, filters, verbosityLevel);
+            return new ReportConfiguration(this.reportBuilderFactory, reportFilePatterns, targetDirectory, 
+                null, reportTypes, sourceDirectories, filters, verbosityLevel);
         }
     }
 }

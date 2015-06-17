@@ -9,7 +9,7 @@
         /// Initializes a new instance of the <see cref="ShortLineAnalysis"/> class.
         /// </summary>
         /// <param name="lineVisits">The number of line visits.</param>
-        internal ShortLineAnalysis(int lineVisits)
+        public ShortLineAnalysis(int lineVisits)
         {
             this.LineVisits = lineVisits;
 

@@ -11,7 +11,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing
     /// <summary>
     /// Base class for report preprocessing.
     /// </summary>
-    internal abstract class ReportPreprocessorBase
+    public abstract class ReportPreprocessorBase
     {
         /// <summary>
         /// The <see cref="ClassSearcherFactory"/> used to create instances of <see cref="ClassSearcher"/>.
@@ -34,7 +34,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing
         /// <param name="report">The report.</param>
         /// <param name="classSearcherFactory">The class searcher factory.</param>
         /// <param name="globalClassSearcher">The global class searcher.</param>
-        internal ReportPreprocessorBase(XContainer report, ClassSearcherFactory classSearcherFactory, ClassSearcher globalClassSearcher)
+        public ReportPreprocessorBase(XContainer report, ClassSearcherFactory classSearcherFactory, ClassSearcher globalClassSearcher)
         {
             this.Report = report;
             this.classSearcherFactory = classSearcherFactory;
@@ -54,7 +54,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing
         /// <summary>
         /// Executes the preprocessing of the report.
         /// </summary>
-        internal abstract void Execute();
+        public abstract void Execute();
 
         /// <summary>
         /// Adds a new source code file to the report.

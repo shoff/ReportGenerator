@@ -10,6 +10,8 @@ using Palmmedia.ReportGenerator.Properties;
 
 namespace Palmmedia.ReportGenerator.Reporting.Rendering
 {
+    using System.Diagnostics.Contracts;
+
     /// <summary>
     /// HTML report renderer.
     /// </summary>
@@ -45,7 +47,7 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <summary>
         /// Dictionary containing the filenames of the class reports by class.
         /// </summary>
-        private static readonly Dictionary<string, string> FileNameByClass = new Dictionary<string, string>();
+        private static readonly Dictionary<string, string> fileNameByClass = new Dictionary<string, string>();
 
         /// <summary>
         /// Indicates that only a summary report is created (no class reports).
@@ -71,6 +73,8 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// </summary>
         /// <param name="targetDirectory">The target directory.</param>
         /// <param name="title">The title.</param>
+        /// <exception cref="OutOfMemoryException">There is insufficient memory to allocate a buffer for the returned string. </exception>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
         public void BeginSummaryReport(string targetDirectory, string title)
         {
             string targetPath = Path.Combine(targetDirectory, "index.htm");
@@ -92,6 +96,9 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <param name="targetDirectory">The target directory.</param>
         /// <param name="assemblyName">Name of the assembly.</param>
         /// <param name="className">Name of the class.</param>
+        /// <exception cref="ArgumentNullException">A string or object is passed in as null. </exception>
+        /// <exception cref="ObjectDisposedException">The <see cref="T:System.IO.TextWriter" /> is closed. </exception>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
         public void BeginClassReport(string targetDirectory, string assemblyName, string className)
         {
             string fileName = GetClassReportFilename(assemblyName, className);
@@ -105,8 +112,14 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// Adds a header to the report.
         /// </summary>
         /// <param name="text">The text.</param>
+        /// <exception cref="ArgumentNullException"><paramref>
+        ///     <name>format</name>
+        ///   </paramref>
+        ///   is null. </exception>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
         public void Header(string text)
         {
+            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(text));
             this.reportTextWriter.WriteLine("<h1>{0}</h1>", WebUtility.HtmlEncode(text));
         }
 
@@ -114,12 +127,12 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// Adds the test methods to the report.
         /// </summary>
         /// <param name="testMethods">The test methods.</param>
-        public void TestMethods(IEnumerable<TestMethod> testMethods)
+        /// <exception cref="ObjectDisposedException">The <see cref="T:System.IO.TextWriter" /> is closed. </exception>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
+        public void TestMethods(ICollection<TestMethod> testMethods)
         {
-            if (testMethods == null)
-            {
-                throw new ArgumentNullException("testMethods");
-            }
+            Contract.Requires<ArgumentNullException>(testMethods != null);
+
 
             if (!testMethods.Any())
             {
@@ -150,7 +163,7 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
 
             this.reportTextWriter.WriteLine("<script type=\"text/javascript\">");
             this.reportTextWriter.WriteLine("/* <![CDATA[ */");
-            this.reportTextWriter.WriteLine("document.write('{0}');", html.ToString());
+            this.reportTextWriter.WriteLine("document.write('{0}');", html);
             this.reportTextWriter.WriteLine("/* ]]> */");
             this.reportTextWriter.WriteLine("</script>");
         }
@@ -159,23 +172,32 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// Adds a file of a class to a report.
         /// </summary>
         /// <param name="path">The path of the file.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="format" /> is null. </exception>
+        /// <exception cref="ObjectDisposedException">The <see cref="T:System.IO.TextWriter" /> is closed. </exception>
+        /// <exception cref="FormatException">The format specification in format is invalid.-or- The number indicating an argument to be formatted is less than zero, or larger than or equal to the number of provided objects to be formatted. </exception>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
         public void File(string path)
         {
-            this.reportTextWriter.WriteLine("<h2 id=\"{0}\">{1}</h2>", WebUtility.HtmlEncode(HtmlRenderer.ReplaceNonLetterChars(path)), WebUtility.HtmlEncode(path));
+            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(path));
+            this.reportTextWriter.WriteLine("<h2 id=\"{0}\">{1}</h2>", 
+                WebUtility.HtmlEncode(ReplaceNonLetterChars(path)), WebUtility.HtmlEncode(path));
         }
 
         /// <summary>
         /// Adds a paragraph to the report.
         /// </summary>
         /// <param name="text">The text.</param>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
         public void Paragraph(string text)
         {
+            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(text));
             this.reportTextWriter.WriteLine("<p>{0}</p>", WebUtility.HtmlEncode(text));
         }
 
         /// <summary>
         /// Adds a table with two columns to the report.
         /// </summary>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
         public void BeginKeyValueTable()
         {
             this.reportTextWriter.WriteLine("<table class=\"overview\">");
@@ -189,6 +211,7 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <summary>
         /// Adds a summary table to the report.
         /// </summary>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
         public void BeginSummaryTable()
         {
             this.reportTextWriter.WriteLine("<div data-ng-if=\"filteringEnabled\" data-reactive-table data-data=\"assemblies\"></div>");
@@ -234,12 +257,11 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// Adds custom summary elements to the report.
         /// </summary>
         /// <param name="assemblies">The assemblies.</param>
-        public void CustomSummary(IEnumerable<Assembly> assemblies)
+        /// <exception cref="ObjectDisposedException">The <see cref="T:System.IO.TextWriter" /> is closed. </exception>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
+        public void CustomSummary(ICollection<Assembly> assemblies)
         {
-            if (assemblies == null)
-            {
-                throw new ArgumentNullException("assemblies");
-            }
+            Contract.Requires<ArgumentNullException>(assemblies != null);
 
             this.reportTextWriter.WriteLine("<script type=\"text/javascript\">");
             this.reportTextWriter.WriteLine("/* <![CDATA[ */");
@@ -297,12 +319,11 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// Adds a metrics table to the report.
         /// </summary>
         /// <param name="headers">The headers.</param>
-        public void BeginMetricsTable(IEnumerable<string> headers)
+        /// <exception cref="ObjectDisposedException">The <see cref="T:System.IO.TextWriter" /> is closed. </exception>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
+        public void BeginMetricsTable(ICollection<string> headers)
         {
-            if (headers == null)
-            {
-                throw new ArgumentNullException("headers");
-            }
+            Contract.Requires<ArgumentNullException>(headers != null);
 
             this.reportTextWriter.WriteLine("<table class=\"overview\">");
             this.reportTextWriter.Write("<thead><tr>");
@@ -320,12 +341,11 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// Adds a file analysis table to the report.
         /// </summary>
         /// <param name="headers">The headers.</param>
-        public void BeginLineAnalysisTable(IEnumerable<string> headers)
+        /// <exception cref="ObjectDisposedException">The <see cref="T:System.IO.TextWriter" /> is closed. </exception>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
+        public void BeginLineAnalysisTable(ICollection<string> headers)
         {
-            if (headers == null)
-            {
-                throw new ArgumentNullException("headers");
-            }
+            Contract.Requires<ArgumentNullException>(headers != null);
 
             this.reportTextWriter.WriteLine("<table class=\"lineAnalysis\">");
             this.reportTextWriter.Write("<thead><tr>");
@@ -344,8 +364,11 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// </summary>
         /// <param name="key">The text of the first column.</param>
         /// <param name="value">The text of the second column.</param>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
         public void KeyValueRow(string key, string value)
         {
+            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(key));
+            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(value));
             this.reportTextWriter.WriteLine(
                 "<tr><th>{0}</th><td>{1}</td></tr>",
                 WebUtility.HtmlEncode(key),
@@ -357,9 +380,13 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// </summary>
         /// <param name="key">The text of the first column.</param>
         /// <param name="files">The files.</param>
-        public void KeyValueRow(string key, IEnumerable<string> files)
+        /// <exception cref="IOException">An I/O error occurs. </exception>
+        public void KeyValueRow(string key, ICollection<string> files)
         {
-            string value = string.Join("<br />", files.Select(v => string.Format(CultureInfo.InvariantCulture, "<a href=\"#{0}\">{1}</a>", WebUtility.HtmlEncode(ReplaceNonLetterChars(v)), WebUtility.HtmlEncode(v))));
+            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(key));
+            Contract.Requires<ArgumentNullException>(files != null);
+            string value = string.Join("<br />", files.Select(v => string.Format(CultureInfo.InvariantCulture, 
+                "<a href=\"#{0}\">{1}</a>", WebUtility.HtmlEncode(ReplaceNonLetterChars(v)), WebUtility.HtmlEncode(v))));
 
             this.reportTextWriter.WriteLine(
                 "<tr><th>{0}</th><td>{1}</td></tr>",
@@ -371,12 +398,10 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// Adds the given metric values to the report.
         /// </summary>
         /// <param name="metric">The metric.</param>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
         public void MetricsRow(MethodMetric metric)
         {
-            if (metric == null)
-            {
-                throw new ArgumentNullException("metric");
-            }
+            Contract.Requires<ArgumentNullException>(metric != null);
 
             this.reportTextWriter.Write("<tr>");
 
@@ -394,13 +419,10 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// Adds the coverage information of a single line of a file to the report.
         /// </summary>
         /// <param name="analysis">The line analysis.</param>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
         public void LineAnalysis(LineAnalysis analysis)
         {
-            if (analysis == null)
-            {
-                throw new ArgumentNullException("analysis");
-            }
-
+            Contract.Requires<ArgumentNullException>(analysis != null);
             string formattedLine = analysis.LineContent
                 .Replace(((char)11).ToString(), "  ") // replace tab
                 .Replace(((char)9).ToString(), "  "); // replace tab
@@ -478,6 +500,8 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <summary>
         /// Finishes the current table.
         /// </summary>
+        /// <exception cref="ObjectDisposedException">The <see cref="T:System.IO.TextWriter" /> is closed. </exception>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
         public void FinishTable()
         {
             this.reportTextWriter.WriteLine("</tbody>");
@@ -488,12 +512,13 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// Charts the specified historic coverages.
         /// </summary>
         /// <param name="historicCoverages">The historic coverages.</param>
-        public void Chart(IEnumerable<HistoricCoverage> historicCoverages)
+        /// <exception cref="ArgumentNullException"><paramref name="format" /> is null. </exception>
+        /// <exception cref="ObjectDisposedException">The <see cref="T:System.IO.TextWriter" /> is closed. </exception>
+        /// <exception cref="FormatException">The format specification in format is invalid.-or- The number indicating an argument to be formatted is less than zero, or larger than or equal to the number of provided objects to be formatted. </exception>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
+        public void Chart(ICollection<HistoricCoverage> historicCoverages)
         {
-            if (historicCoverages == null)
-            {
-                throw new ArgumentNullException("historicCoverages");
-            }
+            Contract.Requires<ArgumentNullException>(historicCoverages != null);
 
             historicCoverages = this.FilterHistoricCoverages(historicCoverages, 100);
 
@@ -538,12 +563,11 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// Adds the coverage information of an assembly to the report.
         /// </summary>
         /// <param name="assembly">The assembly.</param>
+        /// <exception cref="ObjectDisposedException">The <see cref="T:System.IO.TextWriter" /> is closed. </exception>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
         public void SummaryAssembly(Assembly assembly)
         {
-            if (assembly == null)
-            {
-                throw new ArgumentNullException("assembly");
-            }
+            Contract.Requires<ArgumentNullException>(assembly != null);
 
             this.reportTextWriter.Write("<tr>");
             this.reportTextWriter.Write("<th>{0}</th>", WebUtility.HtmlEncode(assembly.Name));
@@ -567,12 +591,11 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// Adds the coverage information of a class to the report.
         /// </summary>
         /// <param name="class">The class.</param>
+        /// <exception cref="ObjectDisposedException">The <see cref="T:System.IO.TextWriter" /> is closed. </exception>
+        /// <exception cref="IOException">An I/O error occurs. </exception>
         public void SummaryClass(Class @class)
         {
-            if (@class == null)
-            {
-                throw new ArgumentNullException("class");
-            }
+            Contract.Requires<ArgumentNullException>(@class != null);
 
             string filenameColumn = @class.Name;
 
@@ -719,30 +742,30 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         {
             string key = assemblyName + "_" + className;
 
-            string fileName = null;
+            string fileName;
 
-            if (!FileNameByClass.TryGetValue(key, out fileName))
+            if (!fileNameByClass.TryGetValue(key, out fileName))
             {
-                lock (FileNameByClass)
+                lock (fileNameByClass)
                 {
-                    if (!FileNameByClass.TryGetValue(key, out fileName))
+                    if (!fileNameByClass.TryGetValue(key, out fileName))
                     {
                         string shortClassName = className.Substring(className.LastIndexOf('.') + 1);
-                        fileName = RendererBase.ReplaceInvalidPathChars(assemblyName + "_" + shortClassName) + ".htm";
+                        fileName = ReplaceInvalidPathChars(assemblyName + "_" + shortClassName) + ".htm";
 
-                        if (FileNameByClass.Values.Any(v => v.Equals(fileName, StringComparison.OrdinalIgnoreCase)))
+                        if (fileNameByClass.Values.Any(v => v.Equals(fileName, StringComparison.OrdinalIgnoreCase)))
                         {
                             int counter = 2;
 
                             do
                             {
-                                fileName = RendererBase.ReplaceInvalidPathChars(assemblyName + "_" + shortClassName + counter) + ".htm";
+                                fileName = ReplaceInvalidPathChars(assemblyName + "_" + shortClassName + counter) + ".htm";
                                 counter++;
                             }
-                            while (FileNameByClass.Values.Any(v => v.Equals(fileName, StringComparison.OrdinalIgnoreCase)));
+                            while (fileNameByClass.Values.Any(v => v.Equals(fileName, StringComparison.OrdinalIgnoreCase)));
                         }
 
-                        FileNameByClass.Add(key, fileName);
+                        fileNameByClass.Add(key, fileName);
                     }
                 }
             }
@@ -980,7 +1003,7 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <param name="historicCoverages">The historic coverages.</param>
         /// <param name="maximum">The maximum.</param>
         /// <returns>The filtered historic coverages.</returns>
-        private IEnumerable<HistoricCoverage> FilterHistoricCoverages(IEnumerable<HistoricCoverage> historicCoverages, int maximum)
+        private ICollection<HistoricCoverage> FilterHistoricCoverages(ICollection<HistoricCoverage> historicCoverages, int maximum)
         {
             var result = new List<HistoricCoverage>();
 

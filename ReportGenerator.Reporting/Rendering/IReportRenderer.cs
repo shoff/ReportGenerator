@@ -4,7 +4,7 @@ using Palmmedia.ReportGenerator.Parser.Analysis;
 namespace Palmmedia.ReportGenerator.Reporting.Rendering
 {
     /// <summary>
-    /// Interface for report renderers.
+    /// Interface for report renderer.
     /// </summary>
     public interface IReportRenderer
     {
@@ -47,7 +47,7 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// Adds the test methods to the report.
         /// </summary>
         /// <param name="testMethods">The test methods.</param>
-        void TestMethods(IEnumerable<TestMethod> testMethods);
+        void TestMethods(ICollection<TestMethod> testMethods);
 
         /// <summary>
         /// Adds a file of a class to a report.
@@ -75,19 +75,19 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// Adds custom summary elements to the report.
         /// </summary>
         /// <param name="assemblies">The assemblies.</param>
-        void CustomSummary(IEnumerable<Assembly> assemblies);
+        void CustomSummary(ICollection<Assembly> assemblies);
 
         /// <summary>
         /// Adds a metrics table to the report.
         /// </summary>
         /// <param name="headers">The headers.</param>
-        void BeginMetricsTable(IEnumerable<string> headers);
+        void BeginMetricsTable(ICollection<string> headers);
 
         /// <summary>
         /// Adds a file analysis table to the report.
         /// </summary>
         /// <param name="headers">The headers.</param>
-        void BeginLineAnalysisTable(IEnumerable<string> headers);
+        void BeginLineAnalysisTable(ICollection<string> headers);
 
         /// <summary>
         /// Adds a table row with two cells to the report.
@@ -101,7 +101,7 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// </summary>
         /// <param name="key">The text of the first column.</param>
         /// <param name="files">The files.</param>
-        void KeyValueRow(string key, IEnumerable<string> files);
+        void KeyValueRow(string key, ICollection<string> files);
 
         /// <summary>
         /// Adds the coverage information of an assembly to the report.
@@ -136,6 +136,6 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// Charts the specified historic coverages.
         /// </summary>
         /// <param name="historicCoverages">The historic coverages.</param>
-        void Chart(IEnumerable<HistoricCoverage> historicCoverages);
+        void Chart(ICollection<HistoricCoverage> historicCoverages);
     }
 }

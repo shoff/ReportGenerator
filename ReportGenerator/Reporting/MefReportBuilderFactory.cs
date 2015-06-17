@@ -12,12 +12,12 @@ namespace Palmmedia.ReportGenerator.Reporting
     /// <summary>
     /// Implementation of <see cref="IReportBuilderFactory"/> based on MEF.
     /// </summary>
-    internal class MefReportBuilderFactory : IReportBuilderFactory
+    public class MefReportBuilderFactory : IReportBuilderFactory
     {
         /// <summary>
         /// The Logger.
         /// </summary>
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(MefReportBuilderFactory));
+        private static readonly ILog logger = LogManager.GetLogger(typeof(MefReportBuilderFactory));
 
         /// <summary>
         /// Gets the available report types.
@@ -25,7 +25,7 @@ namespace Palmmedia.ReportGenerator.Reporting
         /// <returns>
         /// The available report types.
         /// </returns>
-        public IEnumerable<string> GetAvailableReportTypes()
+        public ICollection<string> GetAvailableReportTypes()
         {
             var reportBuilders = LoadReportBuilders();
 
@@ -44,9 +44,9 @@ namespace Palmmedia.ReportGenerator.Reporting
         /// <returns>
         /// The report builders.
         /// </returns>
-        public IEnumerable<IReportBuilder> GetReportBuilders(string targetDirectory, IEnumerable<string> reportTypes)
+        public ICollection<IReportBuilder> GetReportBuilders(string targetDirectory, IEnumerable<string> reportTypes)
         {
-            Logger.InfoFormat(Resources.InitializingReportBuilders, string.Join(", ", reportTypes));
+            logger.InfoFormat(Resources.InitializingReportBuilders, string.Join(", ", reportTypes));
 
             var reportBuilders = LoadReportBuilders()
                 .Where(r => reportTypes.Contains(r.ReportType, StringComparer.OrdinalIgnoreCase))
@@ -74,12 +74,12 @@ namespace Palmmedia.ReportGenerator.Reporting
 
                     if (nonDefaultParsers.Length > 1)
                     {
-                        Logger.WarnFormat(" " + Resources.SeveralCustomReportBuildersWithSameReportType, reportBuilderGroup.Key);
+                        logger.WarnFormat(" " + Resources.SeveralCustomReportBuildersWithSameReportType, reportBuilderGroup.Key);
                     }
 
                     if (nonDefaultParsers.Length < reportBuilderGroup.Count())
                     {
-                        Logger.WarnFormat(" " + Resources.DefaultReportBuilderReplaced, reportBuilderGroup.Key);
+                        logger.WarnFormat(" " + Resources.DefaultReportBuilderReplaced, reportBuilderGroup.Key);
                     }
                 }
             }
@@ -96,7 +96,7 @@ namespace Palmmedia.ReportGenerator.Reporting
         /// Loads the report builders.
         /// </summary>
         /// <returns>The report builders.</returns>
-        private static IEnumerable<IReportBuilder> LoadReportBuilders()
+        private static ICollection<IReportBuilder> LoadReportBuilders()
         {
             AggregateCatalog aggregateCatalog = new AggregateCatalog();
 
@@ -113,7 +113,7 @@ namespace Palmmedia.ReportGenerator.Reporting
                 }
                 catch (FileLoadException)
                 {
-                    Logger.ErrorFormat(Resources.FileLoadError, file.FullName);
+                    logger.ErrorFormat(Resources.FileLoadError, file.FullName);
                     throw;
                 }
                 catch (ReflectionTypeLoadException ex)
@@ -121,7 +121,7 @@ namespace Palmmedia.ReportGenerator.Reporting
                     if (!file.Name.Equals("ICSharpCode.NRefactory.Cecil.dll", StringComparison.OrdinalIgnoreCase))
                     {
                         string errors = string.Join(Environment.NewLine, ex.LoaderExceptions.Select(e => "-" + e.Message));
-                        Logger.ErrorFormat(Resources.FileReflectionLoadError, file.FullName, errors);
+                        logger.ErrorFormat(Resources.FileReflectionLoadError, file.FullName, errors);
                     }
 
                     // Ignore assemblies that throw this exception
@@ -131,7 +131,7 @@ namespace Palmmedia.ReportGenerator.Reporting
             using (var container = new CompositionContainer(aggregateCatalog))
             {
                 var reportBuilders = container.GetExportedValues<IReportBuilder>();
-                return reportBuilders;
+                return (ICollection<IReportBuilder>)reportBuilders;
             }
         }
     }

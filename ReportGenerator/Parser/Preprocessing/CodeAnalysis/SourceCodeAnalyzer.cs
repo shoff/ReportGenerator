@@ -9,7 +9,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis
     /// <summary>
     /// Helper class to determine the begin and end line number of source code elements within a source code file.
     /// </summary>
-    internal static class SourceCodeAnalyzer
+    public static class SourceCodeAnalyzer
     {
         /// <summary>
         /// The name of the last source code file that has successfully been parsed.
@@ -26,7 +26,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <returns>All classes (with full namespace).</returns>
-        internal static IEnumerable<string> GetClassesInFile(string filename)
+        public static IEnumerable<string> GetClassesInFile(string filename)
         {
             if (filename == null)
             {
@@ -53,7 +53,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis
         /// <param name="filename">The filename.</param>
         /// <param name="sourceElement">The source element.</param>
         /// <returns>A <see cref="SourceElementPosition"/> or <c>null</c> if source element can not be found.</returns>
-        internal static SourceElementPosition FindSourceElement(string filename, SourceElement sourceElement)
+        public static SourceElementPosition FindSourceElement(string filename, SourceElement sourceElement)
         {
             if (filename == null)
             {

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <sourcedir>
+    <dir>C:\Projects\CodeCoverage\Reports</dir>
+  </sourcedir>
+  <historydir>C:\Project\CodeCoverage\History</historydir>
+  <targetdir>C:\Project\CodeCoverage\Target</targetdir>
+
+
+</configuration>

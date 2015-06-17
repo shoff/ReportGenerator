@@ -5,7 +5,7 @@ namespace Palmmedia.ReportGenerator.Reporting
     /// <summary>
     /// Helper class for unblocking files.
     /// </summary>
-    internal static class FileUnblocker
+    public static class FileUnblocker
     {
         /// <summary>
         /// Unblocks the given file.

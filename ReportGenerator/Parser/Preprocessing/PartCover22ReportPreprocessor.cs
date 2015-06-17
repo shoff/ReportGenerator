@@ -9,15 +9,17 @@ using Palmmedia.ReportGenerator.Properties;
 
 namespace Palmmedia.ReportGenerator.Parser.Preprocessing
 {
+    using System.Diagnostics.Contracts;
+
     /// <summary>
     /// Preprocessor for PartCover 2.2 reports.
     /// </summary>
-    internal class PartCover22ReportPreprocessor : ReportPreprocessorBase
+    public class PartCover22ReportPreprocessor : ReportPreprocessorBase
     {
         /// <summary>
         /// The Logger.
         /// </summary>
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(PartCover22ReportPreprocessor));
+        private static readonly ILog logger = LogManager.GetLogger(typeof(PartCover22ReportPreprocessor));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PartCover22ReportPreprocessor"/> class.
@@ -25,7 +27,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing
         /// <param name="report">The report.</param>
         /// <param name="classSearcherFactory">The class searcher factory.</param>
         /// <param name="globalClassSearcher">The global class searcher.</param>
-        internal PartCover22ReportPreprocessor(XContainer report, ClassSearcherFactory classSearcherFactory, ClassSearcher globalClassSearcher)
+        public PartCover22ReportPreprocessor(XContainer report, ClassSearcherFactory classSearcherFactory, ClassSearcher globalClassSearcher)
             : base(report, classSearcherFactory, globalClassSearcher)
         {
         }
@@ -33,7 +35,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing
         /// <summary>
         /// Executes the preprocessing of the report.
         /// </summary>
-        internal override void Execute()
+        public override void Execute()
         {
             var filenameByFileIdDictionary = this.Report
                 .Descendants("file")
@@ -50,6 +52,9 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing
         /// <param name="file">The file path.</param>
         protected override void AddNewFile(XContainer filesContainer, string fileId, string file)
         {
+            Contract.Requires<ArgumentNullException>(filesContainer != null);
+            Contract.Requires<ArgumentNullException>(fileId != null);
+            Contract.Requires<ArgumentNullException>(file != null);
             XDocument document = filesContainer as XDocument;
 
             if (document != null)
@@ -117,7 +122,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing
 
             if (unexecutedProperties.LongLength > 0)
             {
-                Logger.DebugFormat("  " + Resources.AddedCoverageInformationOfProperties, counter, unexecutedProperties.LongLength);
+                logger.DebugFormat("  " + Resources.AddedCoverageInformationOfProperties, counter, unexecutedProperties.LongLength);
             }
         }
     }

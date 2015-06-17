@@ -7,7 +7,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing
     /// <summary>
     /// Preprocessor for Visual Studio reports.
     /// </summary>
-    internal class VisualStudioReportPreprocessor
+    public class VisualStudioReportPreprocessor
     {
         /// <summary>
         /// The report file as XContainer.
@@ -18,7 +18,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing
         /// Initializes a new instance of the <see cref="VisualStudioReportPreprocessor"/> class.
         /// </summary>
         /// <param name="report">The report.</param>
-        internal VisualStudioReportPreprocessor(XContainer report)
+        public VisualStudioReportPreprocessor(XContainer report)
         {
             this.report = report;
         }
@@ -26,7 +26,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing
         /// <summary>
         /// Executes the preprocessing of the report.
         /// </summary>
-        internal void Execute()
+        public void Execute()
         {
             foreach (var module in this.report.Descendants("Module").ToArray())
             {

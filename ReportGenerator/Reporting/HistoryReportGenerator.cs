@@ -8,16 +8,18 @@ using Palmmedia.ReportGenerator.Properties;
 
 namespace Palmmedia.ReportGenerator.Reporting
 {
+    using System.Diagnostics.Contracts;
+
     /// <summary>
     /// Generates historic report containing coverage information of current test run.
     /// This information is used to create historic charts in reports.
     /// </summary>
-    internal class HistoryReportGenerator
+    public class HistoryReportGenerator
     {
         /// <summary>
         /// The Logger.
         /// </summary>
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(HistoryReportGenerator));
+        private static readonly ILog logger = LogManager.GetLogger(typeof(HistoryReportGenerator));
 
         /// <summary>
         /// The parser to use.
@@ -34,17 +36,11 @@ namespace Palmmedia.ReportGenerator.Reporting
         /// </summary>
         /// <param name="parser">The parser.</param>
         /// <param name="historyDirectory">The history directory.</param>
-        internal HistoryReportGenerator(IParser parser, string historyDirectory)
+        public HistoryReportGenerator(IParser parser, string historyDirectory)
         {
-            if (parser == null)
-            {
-                throw new ArgumentNullException("parser");
-            }
-
-            if (historyDirectory == null)
-            {
-                throw new ArgumentNullException("historyDirectory");
-            }
+            Contract.Requires<ArgumentNullException>(parser != null);
+            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(historyDirectory));
+            Contract.Requires<DirectoryNotFoundException>(Directory.Exists(historyDirectory));
 
             this.parser = parser;
             this.historyDirectory = historyDirectory;
@@ -54,9 +50,9 @@ namespace Palmmedia.ReportGenerator.Reporting
         /// Starts the generation of the report.
         /// </summary>
         /// <param name="executionTime">The execution time.</param>
-        internal void CreateReport(DateTime executionTime)
+        public void CreateReport(DateTime executionTime)
         {
-            Logger.Info(Resources.CreatingHistoryReport);
+            logger.Info(Resources.CreatingHistoryReport);
 
             string date = executionTime.ToString("yyyy-MM-dd_HH-mm-ss", CultureInfo.InvariantCulture);
 

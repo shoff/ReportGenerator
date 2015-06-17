@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ReportGenerator.Windows
 {
+    using Palmmedia.ReportGenerator;
+    using Palmmedia.ReportGenerator.Reporting;
+
     static class Program
     {
         /// <summary>
@@ -16,7 +16,10 @@ namespace ReportGenerator.Windows
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            Application.Run(new ReportGeneratorForm());
         }
+
+
     }
 }

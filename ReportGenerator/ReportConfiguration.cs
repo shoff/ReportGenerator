@@ -9,30 +9,32 @@ using Palmmedia.ReportGenerator.Reporting;
 
 namespace Palmmedia.ReportGenerator
 {
+    using System.Diagnostics.Contracts;
+
     /// <summary>
     /// Provides all parameters that are required for report generation.
     /// </summary>
-    internal class ReportConfiguration
+    public class ReportConfiguration
     {
         /// <summary>
         /// The Logger.
         /// </summary>
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(ReportConfiguration));
+        private static readonly ILog logger = LogManager.GetLogger(typeof(ReportConfiguration));
 
         /// <summary>
         /// The report files.
         /// </summary>
-        private List<string> reportFiles = new List<string>();
+        private readonly List<string> reportFiles = new List<string>();
 
         /// <summary>
         /// The report file pattern that could not be parsed.
         /// </summary>
-        private List<string> failedReportFilePatterns = new List<string>();
+        private readonly List<string> failedReportFilePatterns = new List<string>();
 
         /// <summary>
         /// Determines whether the verbosity level was successfully parsed during initialization.
         /// </summary>
-        private bool verbosityLevelValid = true;
+        private readonly bool verbosityLevelValid = true;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReportConfiguration" /> class.
@@ -45,45 +47,23 @@ namespace Palmmedia.ReportGenerator
         /// <param name="sourceDirectories">The source directories.</param>
         /// <param name="filters">The filters.</param>
         /// <param name="verbosityLevel">The verbosity level.</param>
-        internal ReportConfiguration(
+        public ReportConfiguration(
             IReportBuilderFactory reportBuilderFactory,
             IEnumerable<string> reportFilePatterns,
             string targetDirectory,
             string historyDirectory,
-            IEnumerable<string> reportTypes,
-            IEnumerable<string> sourceDirectories,
-            IEnumerable<string> filters,
+            ICollection<string> reportTypes,
+            ICollection<string> sourceDirectories,
+            ICollection<string> filters,
             string verbosityLevel)
         {
-            if (reportBuilderFactory == null)
-            {
-                throw new ArgumentNullException("reportBuilderFactory");
-            }
-
-            if (reportFilePatterns == null)
-            {
-                throw new ArgumentNullException("reportFilePatterns");
-            }
-
-            if (targetDirectory == null)
-            {
-                throw new ArgumentNullException("targetDirectory");
-            }
-
-            if (reportTypes == null)
-            {
-                throw new ArgumentNullException("reportTypes");
-            }
-
-            if (sourceDirectories == null)
-            {
-                throw new ArgumentNullException("sourceDirectories");
-            }
-
-            if (filters == null)
-            {
-                throw new ArgumentNullException("filters");
-            }
+            Contract.Requires<ArgumentNullException>(reportBuilderFactory != null);
+            Contract.Requires<ArgumentNullException>(reportFilePatterns != null);
+            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(targetDirectory));
+            Contract.Requires<ArgumentNullException>(reportTypes != null);
+            Contract.Requires<ArgumentNullException>(sourceDirectories != null);
+            Contract.Requires<ArgumentNullException>(filters != null);
+            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(verbosityLevel));
 
             this.ReportBuilderFactory = reportBuilderFactory;
 
@@ -102,9 +82,10 @@ namespace Palmmedia.ReportGenerator
             this.TargetDirectory = targetDirectory;
             this.HistoryDirectory = historyDirectory;
 
-            if (reportTypes.Any())
+            var reportsCollection = reportTypes as string[] ?? reportTypes.ToArray();
+            if (reportsCollection.Any())
             {
-                this.ReportTypes = reportTypes;
+                this.ReportTypes = reportsCollection;
             }
             else
             {
@@ -113,24 +94,24 @@ namespace Palmmedia.ReportGenerator
 
             this.SourceDirectories = sourceDirectories;
             this.Filters = filters;
-
-            if (verbosityLevel != null)
-            {
-                VerbosityLevel parsedVerbosityLevel = VerbosityLevel.Verbose;
-                this.verbosityLevelValid = Enum.TryParse<VerbosityLevel>(verbosityLevel, true, out parsedVerbosityLevel);
-                this.VerbosityLevel = parsedVerbosityLevel;
-            }
+            VerbosityLevel parsedVerbosityLevel = VerbosityLevel.Verbose;
+            this.verbosityLevelValid = Enum.TryParse<VerbosityLevel>(verbosityLevel, true, out parsedVerbosityLevel);
+            this.VerbosityLevel = parsedVerbosityLevel;
         }
 
         /// <summary>
         /// Gets the report builder factory.
         /// </summary>
-        internal IReportBuilderFactory ReportBuilderFactory { get; private set; }
+        public IReportBuilderFactory ReportBuilderFactory
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// Gets the report files.
         /// </summary>
-        internal IEnumerable<string> ReportFiles
+        public ICollection<string> ReportFiles
         {
             get
             {
@@ -141,32 +122,56 @@ namespace Palmmedia.ReportGenerator
         /// <summary>
         /// Gets the target directory.
         /// </summary>
-        internal string TargetDirectory { get; private set; }
+        public string TargetDirectory
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// Gets the history directory.
         /// </summary>
-        internal string HistoryDirectory { get; private set; }
+        public string HistoryDirectory
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// Gets the type of the report.
         /// </summary>
-        internal IEnumerable<string> ReportTypes { get; private set; }
+        public ICollection<string> ReportTypes
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// Gets the source directories.
         /// </summary>
-        internal IEnumerable<string> SourceDirectories { get; private set; }
+        public ICollection<string> SourceDirectories
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// Gets the filters.
         /// </summary>
-        internal IEnumerable<string> Filters { get; private set; }
+        public ICollection<string> Filters
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// Gets the verbosity level.
         /// </summary>
-        internal VerbosityLevel VerbosityLevel { get; private set; }
+        public VerbosityLevel VerbosityLevel
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// Validates all parameters.
@@ -174,7 +179,7 @@ namespace Palmmedia.ReportGenerator
         /// <returns>
         ///   <c>true</c> if all parameters are in a valid state; otherwise <c>false</c>.
         /// </returns>
-        internal bool Validate()
+        public bool Validate()
         {
             bool result = true;
 
@@ -182,16 +187,16 @@ namespace Palmmedia.ReportGenerator
             {
                 foreach (var failedReportFilePattern in this.failedReportFilePatterns)
                 {
-                    Logger.ErrorFormat(Resources.FailedReportFilePattern, failedReportFilePattern);
+                    logger.ErrorFormat(Resources.FailedReportFilePattern, failedReportFilePattern);
                 }
 
-                result &= false;
+                result = false;
             }
 
             if (!this.ReportFiles.Any())
             {
-                Logger.Error(Resources.NoReportFiles);
-                result &= false;
+                logger.Error(Resources.NoReportFiles);
+                result = false;
             }
             else
             {
@@ -199,16 +204,16 @@ namespace Palmmedia.ReportGenerator
                 {
                     if (!File.Exists(file))
                     {
-                        Logger.ErrorFormat(Resources.NotExistingReportFile, file);
-                        result &= false;
+                        logger.ErrorFormat(Resources.NotExistingReportFile, file);
+                        result = false;
                     }
                 }
             }
 
             if (string.IsNullOrEmpty(this.TargetDirectory))
             {
-                Logger.Error(Resources.NoTargetDirectory);
-                result &= false;
+                logger.Error(Resources.NoTargetDirectory);
+                result = false;
             }
             else if (!Directory.Exists(this.TargetDirectory))
             {
@@ -218,8 +223,8 @@ namespace Palmmedia.ReportGenerator
                 }
                 catch (Exception ex)
                 {
-                    Logger.ErrorFormat(Resources.TargetDirectoryCouldNotBeCreated, this.TargetDirectory, ex.Message);
-                    result &= false;
+                    logger.ErrorFormat(Resources.TargetDirectoryCouldNotBeCreated, this.TargetDirectory, ex.Message);
+                    result = false;
                 }
             }
 
@@ -231,8 +236,8 @@ namespace Palmmedia.ReportGenerator
                 }
                 catch (Exception ex)
                 {
-                    Logger.ErrorFormat(Resources.HistoryDirectoryCouldNotBeCreated, this.HistoryDirectory, ex.Message);
-                    result &= false;
+                    logger.ErrorFormat(Resources.HistoryDirectoryCouldNotBeCreated, this.HistoryDirectory, ex.Message);
+                    result = false;
                 }
             }
 
@@ -242,8 +247,8 @@ namespace Palmmedia.ReportGenerator
             {
                 if (!availableReportTypes.Contains(reportType, StringComparer.OrdinalIgnoreCase))
                 {
-                    Logger.ErrorFormat(Resources.UnknownReportType, reportType);
-                    result &= false;
+                    logger.ErrorFormat(Resources.UnknownReportType, reportType);
+                    result = false;
                 }
             }
 
@@ -251,8 +256,8 @@ namespace Palmmedia.ReportGenerator
             {
                 if (!Directory.Exists(directory))
                 {
-                    Logger.ErrorFormat(Resources.SourceDirectoryDoesNotExist, directory);
-                    result &= false;
+                    logger.ErrorFormat(Resources.SourceDirectoryDoesNotExist, directory);
+                    result = false;
                 }
             }
 
@@ -262,15 +267,15 @@ namespace Palmmedia.ReportGenerator
                     || (!filter.StartsWith("+", StringComparison.OrdinalIgnoreCase)
                         && !filter.StartsWith("-", StringComparison.OrdinalIgnoreCase)))
                 {
-                    Logger.ErrorFormat(Resources.InvalidFilter, filter);
-                    result &= false;
+                    logger.ErrorFormat(Resources.InvalidFilter, filter);
+                    result = false;
                 }
             }
 
             if (!this.verbosityLevelValid)
             {
-                Logger.Error(Resources.UnknownVerbosityLevel);
-                result &= false;
+                logger.Error(Resources.UnknownVerbosityLevel);
+                result = false;
             }
 
             return result;

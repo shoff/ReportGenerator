@@ -19,7 +19,7 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// Initializes a new instance of the <see cref="Assembly"/> class.
         /// </summary>
         /// <param name="name">The name of the assembly.</param>
-        internal Assembly(string name)
+        public Assembly(string name)
         {
             if (name == null)
             {
@@ -181,7 +181,7 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// Adds the given class to the assembly.
         /// </summary>
         /// <param name="class">The class to add.</param>
-        internal void AddClass(Class @class)
+        public void AddClass(Class @class)
         {
             this.classes.Add(@class);
         }
@@ -190,7 +190,7 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// Merges the given assembly with the current instance.
         /// </summary>
         /// <param name="assembly">The assembly to merge.</param>
-        internal void Merge(Assembly assembly)
+        public void Merge(Assembly assembly)
         {
             if (assembly == null)
             {

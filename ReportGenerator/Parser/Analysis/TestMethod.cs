@@ -18,7 +18,7 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="shortName">The short name.</param>
-        internal TestMethod(string name, string shortName)
+        public TestMethod(string name, string shortName)
         {
             if (name == null)
             {

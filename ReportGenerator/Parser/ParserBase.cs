@@ -8,7 +8,7 @@ namespace Palmmedia.ReportGenerator.Parser
     /// <summary>
     /// Base class for the <see cref="IParser"/> implementations.
     /// </summary>
-    internal abstract class ParserBase : IParser
+    public abstract class ParserBase : IParser
     {
         /// <summary>
         /// The assemblies found in the report.
@@ -19,11 +19,11 @@ namespace Palmmedia.ReportGenerator.Parser
         /// Gets the assemblies that have been found in the report.
         /// </summary>
         /// <value>The assemblies.</value>
-        public IEnumerable<Assembly> Assemblies
+        public ICollection<Assembly> Assemblies
         {
             get
             {
-                return this.assemblies.OrderBy(a => a.Name);
+                return this.assemblies.OrderBy(a => a.Name).ToList();
             }
         }
 
@@ -42,7 +42,7 @@ namespace Palmmedia.ReportGenerator.Parser
         /// Adds the given assembly.
         /// </summary>
         /// <param name="assembly">The assembly.</param>
-        protected internal void AddAssembly(Assembly assembly)
+        protected void AddAssembly(Assembly assembly)
         {
             this.assemblies.Add(assembly);
         }

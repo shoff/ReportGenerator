@@ -5,6 +5,8 @@ using Palmmedia.ReportGenerator.Reporting;
 
 namespace Palmmedia.ReportGenerator.MSBuild
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// MSBuild Task for generating reports.
     /// </summary>
@@ -90,8 +92,8 @@ namespace Palmmedia.ReportGenerator.MSBuild
                 this.TargetDirectory,
                 this.HistoryDirectory,
                 reportTypes,
-                this.SourceDirectories == null ? Enumerable.Empty<string>() : this.SourceDirectories.Select(r => r.ItemSpec),
-                this.Filters == null ? Enumerable.Empty<string>() : this.Filters.Select(r => r.ItemSpec),
+                (ICollection<string>)(this.SourceDirectories == null ? new List<string>() : this.SourceDirectories.Select(r => r.ItemSpec)),
+                (ICollection<string>)(this.Filters == null ? new List<string>() : this.Filters.Select(r => r.ItemSpec)),
                 this.VerbosityLevel);
 
             return Program.Execute(configuration);

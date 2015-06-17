@@ -10,7 +10,7 @@ namespace Palmmedia.ReportGenerator.Parser
     /// <summary>
     /// Parser that aggregates several parsers.
     /// </summary>
-    internal class MultiReportParser : ParserBase
+    public class MultiReportParser : ParserBase
     {
         /// <summary>
         /// The names of the aggregated parsers.
@@ -53,7 +53,7 @@ namespace Palmmedia.ReportGenerator.Parser
         /// Adds the parser.
         /// </summary>
         /// <param name="parser">The parser to add.</param>
-        internal void AddParser(IParser parser)
+        public void AddParser(IParser parser)
         {
             if (parser == null)
             {

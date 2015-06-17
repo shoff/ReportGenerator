@@ -10,20 +10,22 @@ using Palmmedia.ReportGenerator.Properties;
 
 namespace Palmmedia.ReportGenerator.Reporting
 {
+    using System.Diagnostics.Contracts;
+
     /// <summary>
     /// Reads all historic coverage files created by <see cref="HistoryReportGenerator"/> and adds the information to all classes.
     /// </summary>
-    internal class HistoryParser
+    public class HistoryParser
     {
         /// <summary>
         /// The Logger.
         /// </summary>
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(HistoryParser));
+        private static readonly ILog logger = LogManager.GetLogger(typeof(HistoryParser));
 
         /// <summary>
         /// The assemblies.
         /// </summary>
-        private readonly IEnumerable<Assembly> assemblies;
+        private readonly ICollection<Assembly> assemblies;
 
         /// <summary>
         /// The history directory.
@@ -35,29 +37,27 @@ namespace Palmmedia.ReportGenerator.Reporting
         /// </summary>
         /// <param name="assemblies">The assemblies.</param>
         /// <param name="historyDirectory">The history directory.</param>
-        internal HistoryParser(IEnumerable<Assembly> assemblies, string historyDirectory)
+        public HistoryParser(ICollection<Assembly> assemblies, string historyDirectory)
         {
-            if (assemblies == null)
-            {
-                throw new ArgumentNullException("assemblies");
-            }
-
-            if (historyDirectory == null)
-            {
-                throw new ArgumentNullException("historyDirectory");
-            }
+            Contract.Requires<ArgumentNullException>(assemblies != null);
+            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(historyDirectory));
+            Contract.Requires<DirectoryNotFoundException>(Directory.Exists(historyDirectory));
 
             this.assemblies = assemblies;
             this.historyDirectory = historyDirectory;
         }
 
         /// <summary>
-        /// Reads all historic coverage files created by <see cref="HistoryReportGenerator"/> and adds the information to all classes.
+        /// Reads all historic coverage files created by <see cref="HistoryReportGenerator" /> and adds the information to all classes.
         /// </summary>
-        internal void ApplyHistoricCoverage()
+        /// <exception cref="IOException"><paramref name="path" /> is a file name.</exception>
+        public void ApplyHistoricCoverage()
         {
-            Logger.Info(Resources.ReadingHistoricReports);
+            logger.Info(Resources.ReadingHistoricReports);
 
+
+
+            // ReSharper disable once ExceptionNotDocumented
             foreach (var file in Directory.EnumerateFiles(this.historyDirectory, "*_CoverageHistory.xml"))
             {
                 try
@@ -101,7 +101,7 @@ namespace Palmmedia.ReportGenerator.Reporting
                 }
                 catch (Exception ex)
                 {
-                    Logger.ErrorFormat(" " + Resources.ErrorDuringReadingHistoricReport, file, ex.Message);
+                    logger.ErrorFormat(" " + Resources.ErrorDuringReadingHistoricReport, file, ex.Message);
                 }
             }
         }

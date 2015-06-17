@@ -4,9 +4,12 @@ using System.Linq;
 
 namespace Palmmedia.ReportGenerator.Parser.Analysis
 {
+    using System.Diagnostics.Contracts;
+
     /// <summary>
     /// Represents a class.
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "Class")]
     public class Class
     {
         /// <summary>
@@ -34,17 +37,10 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// </summary>
         /// <param name="name">The name of the class.</param>
         /// <param name="assembly">The assembly.</param>
-        internal Class(string name, Assembly assembly)
+        public Class(string name, Assembly assembly)
         {
-            if (name == null)
-            {
-                throw new ArgumentNullException("name");
-            }
-
-            if (assembly == null)
-            {
-                throw new ArgumentNullException("assembly");
-            }
+            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(name));
+            Contract.Requires<ArgumentNullException>(assembly != null);
 
             this.Name = name;
             this.Assembly = assembly;
@@ -65,11 +61,11 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// Gets the files.
         /// </summary>
         /// <value>The files.</value>
-        public IEnumerable<CodeFile> Files
+        public ICollection<CodeFile> Files
         {
             get
             {
-                return this.files.OrderBy(f => f.Path);
+                return this.files.OrderBy(f => f.Path).ToList();
             }
         }
 
@@ -77,7 +73,7 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// Gets the method metrics.
         /// </summary>
         /// <value>The method metrics.</value>
-        public IEnumerable<MethodMetric> MethodMetrics
+        public ICollection<MethodMetric> MethodMetrics
         {
             get
             {
@@ -89,7 +85,7 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// Gets the historic coverage information.
         /// </summary>
         /// <value>The historic coverage information.</value>
-        public IEnumerable<HistoricCoverage> HistoricCoverages
+        public ICollection<HistoricCoverage> HistoricCoverages
         {
             get
             {
@@ -244,7 +240,7 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// Adds the given file.
         /// </summary>
         /// <param name="codeFile">The code file.</param>
-        internal void AddFile(CodeFile codeFile)
+        public void AddFile(CodeFile codeFile)
         {
             this.files.Add(codeFile);
         }
@@ -253,7 +249,7 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// Adds the given method metric.
         /// </summary>
         /// <param name="methodMetric">The method metric.</param>
-        internal void AddMethodMetric(MethodMetric methodMetric)
+        public void AddMethodMetric(MethodMetric methodMetric)
         {
             this.methodMetrics.Add(methodMetric);
         }
@@ -262,7 +258,7 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// Adds the given historic coverage.
         /// </summary>
         /// <param name="historicCoverage">The historic coverage.</param>
-        internal void AddHistoricCoverage(HistoricCoverage historicCoverage)
+        public void AddHistoricCoverage(HistoricCoverage historicCoverage)
         {
             this.historicCoverages.Add(historicCoverage);
         }
@@ -271,7 +267,7 @@ namespace Palmmedia.ReportGenerator.Parser.Analysis
         /// Merges the given class with the current instance.
         /// </summary>
         /// <param name="class">The class to merge.</param>
-        internal void Merge(Class @class)
+        public void Merge(Class @class)
         {
             if (@class == null)
             {
