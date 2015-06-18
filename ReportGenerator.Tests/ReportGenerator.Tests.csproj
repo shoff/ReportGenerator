@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FFCA13D6-B6CE-442A-9F93-149AE9B0AA1B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ReportGenerator.Tests</RootNamespace>
+    <AssemblyName>ReportGenerator.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>../PalmmediaKey.snk</AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.NRefactory, Version=5.0.0.0, Culture=neutral, PublicKeyToken=d4bfe873e7598c49, processorArchitecture=MSIL">
+      <HintPath>..\packages\ICSharpCode.NRefactory.5.5.1\lib\Net40\ICSharpCode.NRefactory.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.NRefactory.Cecil, Version=5.0.0.0, Culture=neutral, PublicKeyToken=d4bfe873e7598c49, processorArchitecture=MSIL">
+      <HintPath>..\packages\ICSharpCode.NRefactory.5.5.1\lib\Net40\ICSharpCode.NRefactory.Cecil.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.NRefactory.CSharp, Version=5.0.0.0, Culture=neutral, PublicKeyToken=d4bfe873e7598c49, processorArchitecture=MSIL">
+      <HintPath>..\packages\ICSharpCode.NRefactory.5.5.1\lib\Net40\ICSharpCode.NRefactory.CSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.NRefactory.Xml, Version=5.0.0.0, Culture=neutral, PublicKeyToken=d4bfe873e7598c49, processorArchitecture=MSIL">
+      <HintPath>..\packages\ICSharpCode.NRefactory.5.5.1\lib\Net40\ICSharpCode.NRefactory.Xml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil.Mdb, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.Mdb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil.Pdb, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.Pdb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil.Rocks, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.Rocks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Moq, Version=4.2.1502.911, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.2.1502.0911\lib\net40\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\FileSearchTest.cs" />
+    <Compile Include="Parser\Analysis\BranchTest.cs" />
+    <Compile Include="Parser\VisualStudioParserTest_2013.cs" />
+    <Compile Include="Parser\VisualStudioParserTest_2012.cs" />
+    <Compile Include="Parser\DynamicCodeCoverageParserTest.cs" />
+    <Compile Include="Parser\Preprocessing\DynamicCodeCoverageReportPreprocessorTest.cs" />
+    <Compile Include="Parser\Preprocessing\VisualStudioReportPreprocessorTest.cs" />
+    <Compile Include="Parser\VisualStudioParserTest_2010.cs" />
+    <Compile Include="ReportConfigurationBuilderTest.cs" />
+    <Compile Include="Parser\Analysis\AssemblyTest.cs" />
+    <Compile Include="Parser\Analysis\CodeFileTest.cs" />
+    <Compile Include="Parser\Analysis\MethodMetricTest.cs" />
+    <Compile Include="Parser\Preprocessing\FileSearch\ClassSearcherFactoryTest.cs" />
+    <Compile Include="ReportConfigurationTest.cs" />
+    <Compile Include="FileManager.cs" />
+    <Compile Include="Parser\Preprocessing\CodeAnalysis\SourceCodeAnalyzerTest.cs" />
+    <Compile Include="Parser\Analysis\ClassTest.cs" />
+    <Compile Include="Parser\Preprocessing\FileSearch\CommonDirectorySearcherTest.cs" />
+    <Compile Include="Parser\OpenCoverParserTest.cs" />
+    <Compile Include="Parser\PartCover23ParserTest_35109.cs" />
+    <Compile Include="Parser\MultiReportParserTest.cs" />
+    <Compile Include="Parser\NCoverParserTest.cs" />
+    <Compile Include="Parser\ParserFactoryTest.cs" />
+    <Compile Include="Parser\PartCover22ParserTest.cs" />
+    <Compile Include="Parser\PartCover23ParserTest.cs" />
+    <Compile Include="Parser\Preprocessing\FileSearch\ClassSearcherTest.cs" />
+    <Compile Include="Parser\Preprocessing\PartCover23ReportPreprocessorTest.cs" />
+    <Compile Include="Parser\Preprocessing\PartCover22ReportPreprocessorTest.cs" />
+    <Compile Include="Parser\Preprocessing\OpenCoverReportPreprocessorTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reporting\MefReportBuilderFactoryTest.cs" />
+    <Compile Include="Reporting\DefaultAssemblyFilterTest.cs" />
+    <Compile Include="TestFiles\Project\AbstractClass.cs" />
+    <Compile Include="TestFiles\Project\AnalyzerTestClass.cs" />
+    <Compile Include="TestFiles\Project\ClassWithExcludes.cs" />
+    <Compile Include="TestFiles\Project\CodeContract_Contract.cs" />
+    <Compile Include="TestFiles\Project\CodeContract_Interface.cs" />
+    <Compile Include="TestFiles\Project\CodeContract_Target.cs" />
+    <Compile Include="TestFiles\Project\CoverageExcludeAttribute.cs" />
+    <Compile Include="TestFiles\Project\GenericClass.cs" />
+    <Compile Include="TestFiles\Project\NotMatchingFileName.cs" />
+    <Compile Include="TestFiles\Project\PartialClass.cs" />
+    <Compile Include="TestFiles\Project\PartialClass2.cs" />
+    <Compile Include="TestFiles\Project\PartialClassWithAutoProperties.cs" />
+    <Compile Include="TestFiles\Project\PartialClassWithAutoProperties2.cs" />
+    <Compile Include="TestFiles\Project\TestClass.cs" />
+    <Compile Include="TestFiles\Project\TestClass2.cs" />
+    <Content Include="TestFiles\Reports\DynamicCodeCoverage.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Reports\MultiDynamicCodeCoverage.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Reports\MultiNCover1.5.8.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Reports\MultiOpenCover.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Reports\MultiPartcover2.2.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Reports\MultiPartcover2.3.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Reports\NCover1.5.8.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Reports\OpenCover.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Reports\OpenCoverWithTrackedMethods.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Reports\Partcover2.2.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Reports\Partcover2.3.0.35109.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Reports\Partcover2.3.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Reports\Partcover4.0.10620.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ReportGenerator.Reporting\ReportGenerator.Reporting.csproj">
+      <Project>{006e4f14-5f6f-416c-8f81-9082ed76a991}</Project>
+      <Name>ReportGenerator.Reporting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReportGenerator.Windows\ReportGenerator.Windows.csproj">
+      <Project>{5862e78e-fb29-4e8e-bbe1-10e39acf1e4f}</Project>
+      <Name>ReportGenerator.Windows</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReportGenerator\ReportGenerator.csproj">
+      <Project>{BBDF4589-00C7-44C9-97E5-641D708BCA3C}</Project>
+      <Name>ReportGenerator</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="TestFiles\Reports\MultiVisualStudio2010.coveragexml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\Reports\VisualStudio2010.coveragexml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\Reports\VisualStudio2012.coveragexml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\Reports\VisualStudio2013.coveragexml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

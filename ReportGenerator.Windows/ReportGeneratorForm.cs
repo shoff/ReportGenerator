@@ -11,7 +11,6 @@ namespace ReportGenerator.Windows
     using log4net;
     using log4net.Appender;
     using Palmmedia.ReportGenerator;
-    using Palmmedia.ReportGenerator.Parser;
     using Palmmedia.ReportGenerator.Properties;
     using Palmmedia.ReportGenerator.Reporting;
 
@@ -200,7 +199,7 @@ namespace ReportGenerator.Windows
             stopWatch.Start();
             DateTime executionTime = DateTime.Now;
 
-            var parser = ParserFactory.CreateParser(configuration.ReportFiles, configuration.SourceDirectories);
+            var parser = Palmmedia.ReportGenerator.Parser.ParserFactory.CreateParser(configuration.ReportFiles, configuration.SourceDirectories);
 
             if (configuration.HistoryDirectory != null)
             {

@@ -5,14 +5,10 @@ using System.Linq;
 
 namespace Palmmedia.ReportGenerator.Common
 {
-    /// <summary>
-    /// Searches files based on file pattern with support for wildcards.
-    /// </summary>
+    /// <summary>Searches files based on file pattern with support for wildcards.</summary>
     public static class FileSearch
     {
-        /// <summary>
-        /// Gets the files matching the given file pattern..
-        /// </summary>
+        /// <summary>Gets the files matching the given file pattern.</summary>
         /// <param name="pattern">The file pattern.</param>
         /// <returns>The files.</returns>
         public static IEnumerable<string> GetFiles(string pattern)
