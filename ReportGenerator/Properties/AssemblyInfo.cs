@@ -38,5 +38,5 @@ using System.Runtime.InteropServices;
 [assembly: NeutralResourcesLanguageAttribute("en-US")]
 
 [assembly: CLSCompliant(true)]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("ReportGeneratorTest")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("ReportGenerator.Tests")]
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("DynamicProxyGenAssembly2")]

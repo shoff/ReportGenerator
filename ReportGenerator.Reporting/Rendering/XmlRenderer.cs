@@ -256,20 +256,20 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <summary>
         /// Adds the coverage information of a class to the report.
         /// </summary>
-        /// <param name="class">The class.</param>
-        public void SummaryClass(Class @class)
+        /// <param name="summaryClass">The class.</param>
+        public void SummaryClass(Class summaryClass)
         {
-            if (@class == null)
+            if (summaryClass == null)
             {
-                throw new ArgumentNullException("class");
+                throw new ArgumentNullException("summaryClass");
             }
 
             this.reportTextWriter.WriteStartElement("Class");
-            this.reportTextWriter.WriteAttributeString("name", @class.Name);
-            this.reportTextWriter.WriteAttributeString("coverage", @class.CoverageQuota.HasValue ? @class.CoverageQuota.Value.ToString(CultureInfo.InvariantCulture) : string.Empty);
-            this.reportTextWriter.WriteAttributeString("coveredlines", @class.CoveredLines.ToString(CultureInfo.InvariantCulture));
-            this.reportTextWriter.WriteAttributeString("coverablelines", @class.CoverableLines.ToString(CultureInfo.InvariantCulture));
-            this.reportTextWriter.WriteAttributeString("totallines", @class.TotalLines.HasValue ? @class.TotalLines.Value.ToString(CultureInfo.InvariantCulture) : string.Empty);
+            this.reportTextWriter.WriteAttributeString("name", summaryClass.Name);
+            this.reportTextWriter.WriteAttributeString("coverage", summaryClass.CoverageQuota.HasValue ? summaryClass.CoverageQuota.Value.ToString(CultureInfo.InvariantCulture) : string.Empty);
+            this.reportTextWriter.WriteAttributeString("coveredlines", summaryClass.CoveredLines.ToString(CultureInfo.InvariantCulture));
+            this.reportTextWriter.WriteAttributeString("coverablelines", summaryClass.CoverableLines.ToString(CultureInfo.InvariantCulture));
+            this.reportTextWriter.WriteAttributeString("totallines", summaryClass.TotalLines.HasValue ? summaryClass.TotalLines.Value.ToString(CultureInfo.InvariantCulture) : string.Empty);
             this.reportTextWriter.WriteEndElement();
         }
 

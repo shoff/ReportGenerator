@@ -1,7 +1,8 @@
-﻿namespace ReportGenerator.Tests.Parser.Preprocessing.CodeAnalysis
+﻿
+
+namespace ReportGenerator.Tests.Parser.Preprocessing.CodeAnalysis
 {
     using System.IO;
-    using System.Linq;
     using NUnit.Framework;
     using Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis;
 
@@ -11,7 +12,7 @@
         private static readonly string elementClassFile = Path.Combine(FileManager.GetCSharpCodeDirectory(), "AnalyzerTestClass.cs");
 
         [Test]
-        public void GetClassesInFile_AllClassesAreReturned()
+        public void GetClassesInFile_All_Classes_Are_Returned()
         {
             var classes = SourceCodeAnalyzer.GetClassesInFile(Path.Combine(FileManager.GetCSharpCodeDirectory(), "TestClass.cs"));
 
@@ -24,8 +25,8 @@
         public void FindMethod_SearchExistingMethod_PositionMustNotBeNullAndSupplyCorrectLinenumber()
         {
             PartCoverMethodElement partCoverMethodElement = new PartCoverMethodElement(
-                "Test.AnalyzerTestClass",
-                "DoSomething",
+                "Test.AnalyzerTestClass", 
+                "DoSomething", 
                 "string  (string, string[], System.Guid, string, string, System.Decimal, int, long, stringint, ref int, float, double, bool, unsigned byte, char, object, byte, short, unsigned int, unsigned long, unsigned short, ICSharpCode.NRefactory.Ast.INode)");
 
             var methodPosition = SourceCodeAnalyzer.FindSourceElement(elementClassFile, partCoverMethodElement);
@@ -53,8 +54,8 @@
         public void FindMethod_SearchNonExistingGenericMethod_PositionIsNull()
         {
             PartCoverMethodElement partCoverMethodElement = new PartCoverMethodElement(
-                "TestNamespace.AnalyzerTestClass",
-                "GenericMethod",
+                "TestNamespace.AnalyzerTestClass", 
+                "GenericMethod", 
                 "void  (int)");
 
             var methodPosition = SourceCodeAnalyzer.FindSourceElement(elementClassFile, partCoverMethodElement);

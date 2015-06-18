@@ -141,21 +141,51 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reporting\MefReportBuilderFactoryTest.cs" />
     <Compile Include="Reporting\DefaultAssemblyFilterTest.cs" />
-    <Compile Include="TestFiles\Project\AbstractClass.cs" />
-    <Compile Include="TestFiles\Project\AnalyzerTestClass.cs" />
-    <Compile Include="TestFiles\Project\ClassWithExcludes.cs" />
-    <Compile Include="TestFiles\Project\CodeContract_Contract.cs" />
-    <Compile Include="TestFiles\Project\CodeContract_Interface.cs" />
-    <Compile Include="TestFiles\Project\CodeContract_Target.cs" />
-    <Compile Include="TestFiles\Project\CoverageExcludeAttribute.cs" />
-    <Compile Include="TestFiles\Project\GenericClass.cs" />
-    <Compile Include="TestFiles\Project\NotMatchingFileName.cs" />
-    <Compile Include="TestFiles\Project\PartialClass.cs" />
-    <Compile Include="TestFiles\Project\PartialClass2.cs" />
-    <Compile Include="TestFiles\Project\PartialClassWithAutoProperties.cs" />
-    <Compile Include="TestFiles\Project\PartialClassWithAutoProperties2.cs" />
-    <Compile Include="TestFiles\Project\TestClass.cs" />
-    <Compile Include="TestFiles\Project\TestClass2.cs" />
+    <Content Include="TestFiles\Project\AbstractClass.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Project\AnalyzerTestClass.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Project\ClassWithExcludes.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Project\CodeContract_Contract.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Project\CodeContract_Interface.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Project\CodeContract_Target.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Project\CoverageExcludeAttribute.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Project\GenericClass.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Project\NotMatchingFileName.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Project\PartialClass.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Project\PartialClass2.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Project\PartialClassWithAutoProperties.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Project\PartialClassWithAutoProperties2.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Project\TestClass.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\Project\TestClass2.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestFiles\Reports\DynamicCodeCoverage.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -358,19 +358,19 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <summary>
         /// Adds the coverage information of a class to the report.
         /// </summary>
-        /// <param name="class">The class.</param>
-        public void SummaryClass(Class @class)
+        /// <param name="summaryClass">The class.</param>
+        public void SummaryClass(Class summaryClass)
         {
-            if (@class == null)
+            if (summaryClass == null)
             {
-                throw new ArgumentNullException("class");
+                throw new ArgumentNullException("summaryClass");
             }
 
             string row = string.Format(
                 CultureInfo.InvariantCulture,
                 @"{0} & {1}\\",
-                EscapeLatexChars(@class.Name),
-                @class.CoverageQuota.HasValue ? @class.CoverageQuota.Value.ToString(CultureInfo.InvariantCulture) + @"\%" : string.Empty);
+                EscapeLatexChars(summaryClass.Name),
+                summaryClass.CoverageQuota.HasValue ? summaryClass.CoverageQuota.Value.ToString(CultureInfo.InvariantCulture) + @"\%" : string.Empty);
 
             this.reportTextWriter.WriteLine(row);
         }

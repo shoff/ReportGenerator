@@ -53,9 +53,6 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing
         /// <param name="file">The file path.</param>
         protected override void AddNewFile(XContainer filesContainer, string fileId, string file)
         {
-            Contract.Requires<ArgumentNullException>(filesContainer != null);
-            Contract.Requires<ArgumentNullException>(fileId != null);
-            Contract.Requires<ArgumentNullException>(file != null);
             XDocument document = filesContainer as XDocument;
 
             if (document != null)

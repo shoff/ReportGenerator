@@ -119,7 +119,6 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <exception cref="IOException">An I/O error occurs. </exception>
         public void Header(string text)
         {
-            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(text));
             this.reportTextWriter.WriteLine("<h1>{0}</h1>", WebUtility.HtmlEncode(text));
         }
 
@@ -131,9 +130,6 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <exception cref="IOException">An I/O error occurs. </exception>
         public void TestMethods(ICollection<TestMethod> testMethods)
         {
-            Contract.Requires<ArgumentNullException>(testMethods != null);
-
-
             if (!testMethods.Any())
             {
                 return;
@@ -178,7 +174,6 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <exception cref="IOException">An I/O error occurs. </exception>
         public void File(string path)
         {
-            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(path));
             this.reportTextWriter.WriteLine("<h2 id=\"{0}\">{1}</h2>", 
                 WebUtility.HtmlEncode(ReplaceNonLetterChars(path)), WebUtility.HtmlEncode(path));
         }
@@ -190,7 +185,6 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <exception cref="IOException">An I/O error occurs. </exception>
         public void Paragraph(string text)
         {
-            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(text));
             this.reportTextWriter.WriteLine("<p>{0}</p>", WebUtility.HtmlEncode(text));
         }
 
@@ -261,8 +255,6 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <exception cref="IOException">An I/O error occurs. </exception>
         public void CustomSummary(ICollection<Assembly> assemblies)
         {
-            Contract.Requires<ArgumentNullException>(assemblies != null);
-
             this.reportTextWriter.WriteLine("<script type=\"text/javascript\">");
             this.reportTextWriter.WriteLine("/* <![CDATA[ */");
 
@@ -323,8 +315,6 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <exception cref="IOException">An I/O error occurs. </exception>
         public void BeginMetricsTable(ICollection<string> headers)
         {
-            Contract.Requires<ArgumentNullException>(headers != null);
-
             this.reportTextWriter.WriteLine("<table class=\"overview\">");
             this.reportTextWriter.Write("<thead><tr>");
 
@@ -345,8 +335,6 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <exception cref="IOException">An I/O error occurs. </exception>
         public void BeginLineAnalysisTable(ICollection<string> headers)
         {
-            Contract.Requires<ArgumentNullException>(headers != null);
-
             this.reportTextWriter.WriteLine("<table class=\"lineAnalysis\">");
             this.reportTextWriter.Write("<thead><tr>");
 
@@ -367,8 +355,6 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <exception cref="IOException">An I/O error occurs. </exception>
         public void KeyValueRow(string key, string value)
         {
-            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(key));
-            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(value));
             this.reportTextWriter.WriteLine(
                 "<tr><th>{0}</th><td>{1}</td></tr>",
                 WebUtility.HtmlEncode(key),
@@ -383,8 +369,6 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <exception cref="IOException">An I/O error occurs. </exception>
         public void KeyValueRow(string key, ICollection<string> files)
         {
-            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(key));
-            Contract.Requires<ArgumentNullException>(files != null);
             string value = string.Join("<br />", files.Select(v => string.Format(CultureInfo.InvariantCulture, 
                 "<a href=\"#{0}\">{1}</a>", WebUtility.HtmlEncode(ReplaceNonLetterChars(v)), WebUtility.HtmlEncode(v))));
 
@@ -401,8 +385,6 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <exception cref="IOException">An I/O error occurs. </exception>
         public void MetricsRow(MethodMetric metric)
         {
-            Contract.Requires<ArgumentNullException>(metric != null);
-
             this.reportTextWriter.Write("<tr>");
 
             this.reportTextWriter.Write("<td title=\"{0}\">{1}</td>", WebUtility.HtmlEncode(metric.Name), WebUtility.HtmlEncode(metric.ShortName));
@@ -422,7 +404,6 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <exception cref="IOException">An I/O error occurs. </exception>
         public void LineAnalysis(LineAnalysis analysis)
         {
-            Contract.Requires<ArgumentNullException>(analysis != null);
             string formattedLine = analysis.LineContent
                 .Replace(((char)11).ToString(), "  ") // replace tab
                 .Replace(((char)9).ToString(), "  "); // replace tab
@@ -518,8 +499,6 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <exception cref="IOException">An I/O error occurs. </exception>
         public void Chart(ICollection<HistoricCoverage> historicCoverages)
         {
-            Contract.Requires<ArgumentNullException>(historicCoverages != null);
-
             historicCoverages = this.FilterHistoricCoverages(historicCoverages, 100);
 
             var series = new List<string>();
@@ -567,8 +546,6 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <exception cref="IOException">An I/O error occurs. </exception>
         public void SummaryAssembly(Assembly assembly)
         {
-            Contract.Requires<ArgumentNullException>(assembly != null);
-
             this.reportTextWriter.Write("<tr>");
             this.reportTextWriter.Write("<th>{0}</th>", WebUtility.HtmlEncode(assembly.Name));
             this.reportTextWriter.Write("<th class=\"right\">{0}</th>", assembly.CoveredLines);
@@ -590,39 +567,38 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <summary>
         /// Adds the coverage information of a class to the report.
         /// </summary>
-        /// <param name="class">The class.</param>
+        /// <param name="summaryClass">The class.</param>
         /// <exception cref="ObjectDisposedException">The <see cref="T:System.IO.TextWriter" /> is closed. </exception>
         /// <exception cref="IOException">An I/O error occurs. </exception>
-        public void SummaryClass(Class @class)
+        public void SummaryClass(Class summaryClass)
         {
-            Contract.Requires<ArgumentNullException>(@class != null);
 
-            string filenameColumn = @class.Name;
+            string filenameColumn = summaryClass.Name;
 
             if (!this.onlySummary)
             {
                 filenameColumn = string.Format(
                     CultureInfo.InvariantCulture,
                     "<a href=\"{0}\">{1}</a>",
-                    WebUtility.HtmlEncode(GetClassReportFilename(@class.Assembly.ShortName, @class.Name)),
-                    WebUtility.HtmlEncode(@class.Name));
+                    WebUtility.HtmlEncode(GetClassReportFilename(summaryClass.Assembly.ShortName, summaryClass.Name)),
+                    WebUtility.HtmlEncode(summaryClass.Name));
             }
 
             this.reportTextWriter.Write("<tr>");
             this.reportTextWriter.Write("<td>{0}</td>", filenameColumn);
-            this.reportTextWriter.Write("<td class=\"right\">{0}</td>", @class.CoveredLines);
-            this.reportTextWriter.Write("<td class=\"right\">{0}</td>", @class.CoverableLines - @class.CoveredLines);
-            this.reportTextWriter.Write("<td class=\"right\">{0}</td>", @class.CoverableLines);
-            this.reportTextWriter.Write("<td class=\"right\">{0}</td>", @class.TotalLines.GetValueOrDefault());
+            this.reportTextWriter.Write("<td class=\"right\">{0}</td>", summaryClass.CoveredLines);
+            this.reportTextWriter.Write("<td class=\"right\">{0}</td>", summaryClass.CoverableLines - summaryClass.CoveredLines);
+            this.reportTextWriter.Write("<td class=\"right\">{0}</td>", summaryClass.CoverableLines);
+            this.reportTextWriter.Write("<td class=\"right\">{0}</td>", summaryClass.TotalLines.GetValueOrDefault());
             this.reportTextWriter.Write(
                 "<td title=\"{0}\" class=\"right\">{1}</td>",
-                @class.CoverageType,
-                @class.CoverageQuota.HasValue ? @class.CoverageQuota.Value.ToString(CultureInfo.InvariantCulture) + "%" : string.Empty);
-            this.reportTextWriter.Write("<td>{0}</td>", CreateCoverageTable(@class.CoverageQuota));
+                summaryClass.CoverageType,
+                summaryClass.CoverageQuota.HasValue ? summaryClass.CoverageQuota.Value.ToString(CultureInfo.InvariantCulture) + "%" : string.Empty);
+            this.reportTextWriter.Write("<td>{0}</td>", CreateCoverageTable(summaryClass.CoverageQuota));
             this.reportTextWriter.Write(
                 "<td class=\"right\">{0}</td>",
-                @class.BranchCoverageQuota.HasValue ? @class.BranchCoverageQuota.Value.ToString(CultureInfo.InvariantCulture) + "%" : string.Empty);
-            this.reportTextWriter.Write("<td>{0}</td>", CreateCoverageTable(@class.BranchCoverageQuota));
+                summaryClass.BranchCoverageQuota.HasValue ? summaryClass.BranchCoverageQuota.Value.ToString(CultureInfo.InvariantCulture) + "%" : string.Empty);
+            this.reportTextWriter.Write("<td>{0}</td>", CreateCoverageTable(summaryClass.BranchCoverageQuota));
             this.reportTextWriter.WriteLine("</tr>");
         }
 
@@ -722,14 +698,11 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
             {
                 return lightcolor ? "lightgreen" : "green";
             }
-            else if (lineVisitStatus == LineVisitStatus.NotCovered)
+            if (lineVisitStatus == LineVisitStatus.NotCovered)
             {
                 return lightcolor ? "lightred" : "red";
             }
-            else
-            {
-                return lightcolor ? "lightgray" : "gray";
-            }
+            return lightcolor ? "lightgray" : "gray";
         }
 
         /// <summary>

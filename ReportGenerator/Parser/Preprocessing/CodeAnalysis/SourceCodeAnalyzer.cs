@@ -6,32 +6,32 @@ using ICSharpCode.NRefactory.CSharp;
 
 namespace Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis
 {
+    using System.Diagnostics.Contracts;
+    using System.Security;
+    using log4net;
+
     /// <summary>
     /// Helper class to determine the begin and end line number of source code elements within a source code file.
     /// </summary>
     public static class SourceCodeAnalyzer
     {
-        /// <summary>
-        /// The name of the last source code file that has successfully been parsed.
-        /// </summary>
+        private static readonly ILog logger = LogManager.GetLogger(typeof(SourceCodeAnalyzer));
+
+        /// <summary>The name of the last source code file that has successfully been parsed.</summary>
         private static string lastFilename;
 
-        /// <summary>
-        /// The <see cref="AstNode"/> of the last source code file that has successfully been parsed.
-        /// </summary>
+        /// <summary>The <see cref="AstNode"/> of the last source code file that has successfully been parsed.</summary>
         private static AstNode lastNode;
 
-        /// <summary>
-        /// Gets all classes in the given file.
-        /// </summary>
+        /// <summary>Gets all classes in the given file.</summary>
         /// <param name="filename">The filename.</param>
         /// <returns>All classes (with full namespace).</returns>
-        public static IEnumerable<string> GetClassesInFile(string filename)
+        /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
+        /// <exception cref="UnauthorizedAccessException">Condition.</exception>
+        /// <exception cref="IOException">Condition.</exception>
+        public static ICollection<string> GetClassesInFile(string filename)
         {
-            if (filename == null)
-            {
-                throw new ArgumentNullException("filename");
-            }
+            Contract.Requires<ArgumentNullException>(!string.IsNullOrWhiteSpace(filename));
 
             AstNode parentNode = GetParentNode(filename);
 
@@ -39,10 +39,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis
             {
                 return new string[] { };
             }
-            else
-            {
-                return FindClasses(new AstNode[] { parentNode }).Select(c => GetFullClassName(c)).Distinct();
-            }
+            return (ICollection<string>)FindClasses(new[] { parentNode }).Select(GetFullClassName).Distinct();
         }
 
         /// <summary>
@@ -53,17 +50,13 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis
         /// <param name="filename">The filename.</param>
         /// <param name="sourceElement">The source element.</param>
         /// <returns>A <see cref="SourceElementPosition"/> or <c>null</c> if source element can not be found.</returns>
+        /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
+        /// <exception cref="IOException">Condition.</exception>
+        /// <exception cref="UnauthorizedAccessException">Condition.</exception>
         public static SourceElementPosition FindSourceElement(string filename, SourceElement sourceElement)
         {
-            if (filename == null)
-            {
-                throw new ArgumentNullException("filename");
-            }
-
-            if (sourceElement == null)
-            {
-                throw new ArgumentNullException("sourceElement");
-            }
+            Contract.Requires<ArgumentNullException>(!string.IsNullOrWhiteSpace(filename));
+            Contract.Requires<ArgumentNullException>(sourceElement != null);
 
             AstNode parentNode = GetParentNode(filename);
 
@@ -71,32 +64,27 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis
             {
                 return null;
             }
-            else
-            {
-                var matchingClasses = FindClasses(new AstNode[] { parentNode }).Where(c => GetFullClassName(c) == sourceElement.Classname);
 
-                return FindSourceElement(matchingClasses, sourceElement);
-            }
+            var matchingClasses = FindClasses(new[] { parentNode }).Where(c => GetFullClassName(c) == sourceElement.Classname);
+            return FindSourceElement(matchingClasses, sourceElement);
         }
 
-        /// <summary>
-        /// Searches the given <see cref="ICSharpCode.NRefactory.PatternMatching.INode">INodes</see> recursively for classes.
-        /// </summary>
+        /// <summary>Searches the given <see cref="ICSharpCode.NRefactory.PatternMatching.INode">INodes</see> recursively for classes.</summary>
         /// <param name="nodes">The nodes.</param>
         /// <returns>The type declarations corresponding to all classes.</returns>
-        private static IEnumerable<TypeDeclaration> FindClasses(IEnumerable<AstNode> nodes)
+        internal static ICollection<TypeDeclaration> FindClasses(IEnumerable<AstNode> nodes)
         {
             var result = new List<TypeDeclaration>();
 
             foreach (var node in nodes)
             {
-                var @class = node as TypeDeclaration;
-                if (@class != null)
+                var typeDeclaration  = node as TypeDeclaration;
+                if (typeDeclaration != null)
                 {
-                    result.Add(@class);
+                    result.Add(typeDeclaration);
                 }
 
-                if (@class != null || node is NamespaceDeclaration || node is SyntaxTree)
+                if (typeDeclaration != null || node is NamespaceDeclaration || node is SyntaxTree)
                 {
                     result.AddRange(FindClasses(node.Children));
                 }
@@ -105,15 +93,17 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis
             return result;
         }
 
-        /// <summary>
-        /// Searches the given <see cref="ICSharpCode.NRefactory.PatternMatching.INode">INodes</see> recursively for the given <see cref="SourceElement"/>.
-        /// </summary>
+        /// <summary>Searches the given <see cref="ICSharpCode.NRefactory.PatternMatching.INode">INodes</see> recursively for the given <see cref="SourceElement"/>.</summary>
         /// <param name="nodes">The nodes.</param>
         /// <param name="sourceElement">The source element.</param>
         /// <returns>A <see cref="SourceElementPosition"/> or <c>null</c> if source element can not be found.</returns>
-        private static SourceElementPosition FindSourceElement(IEnumerable<AstNode> nodes, SourceElement sourceElement)
+        internal static SourceElementPosition FindSourceElement(IEnumerable<AstNode> nodes, SourceElement sourceElement)
         {
-            foreach (var node in nodes)
+            Contract.Requires<ArgumentNullException>(nodes != null);
+            Contract.Requires<ArgumentNullException>(sourceElement != null);
+            var astNodes = nodes as AstNode[] ?? nodes.ToArray();
+            
+            foreach (var node in astNodes)
             {
                 var sourceElementPosition = sourceElement.GetSourceElementPosition(node);
                 if (sourceElementPosition != null)
@@ -122,7 +112,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis
                 }
             }
 
-            foreach (var node in nodes)
+            foreach (var node in astNodes)
             {
                 var sourceElementPosition = FindSourceElement(node.Children, sourceElement);
                 if (sourceElementPosition != null)
@@ -134,47 +124,50 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis
             return null;
         }
 
-        /// <summary>
-        /// Gets the topmost <see cref="ICSharpCode.NRefactory.PatternMatching.INode"/> in the given source file.
-        /// </summary>
+        /// <summary>Gets the topmost <see cref="ICSharpCode.NRefactory.PatternMatching.INode"/> in the given source file.</summary>
         /// <param name="filename">The filename.</param>
         /// <returns>The topmost <see cref="ICSharpCode.NRefactory.PatternMatching.INode"/> in the given source file.</returns>
-        private static AstNode GetParentNode(string filename)
+        /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
+        /// <exception cref="IOException">Condition.</exception>
+        /// <exception cref="UnauthorizedAccessException">Condition.</exception>
+        internal static AstNode GetParentNode(string filename)
         {
+            Contract.Requires<ArgumentNullException>(!string.IsNullOrWhiteSpace(filename));
+
             if (filename.Equals(lastFilename))
             {
                 return lastNode;
             }
-            else
+
+            try
             {
-                try
+                using (var fs = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
-                    using (var fs = new FileStream(filename, FileMode.Open, FileAccess.Read))
+                    var parser = new CSharpParser();
+
+                    var syntaxTree = parser.Parse(fs, filename);
+
+                    if (parser.HasErrors || syntaxTree == null)
                     {
-                        var parser = new CSharpParser();
-
-                        var syntaxTree = parser.Parse(fs, filename);
-
-                        if (parser.HasErrors || syntaxTree == null)
-                        {
-                            return null;
-                        }
-
-                        // Cache the node
-                        lastFilename = filename;
-                        lastNode = syntaxTree;
-
-                        return lastNode;
+                        return null;
                     }
+
+                    // Cache the node
+                    lastFilename = filename;
+                    lastNode = syntaxTree;
+
+                    return lastNode;
                 }
-                catch (System.IO.IOException)
-                {
-                    return null;
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    return null;
-                } 
+            }
+            catch (IOException ioe)
+            {
+                logger.Error(ioe.Message, ioe);
+                throw;
+            }
+            catch (UnauthorizedAccessException uae)
+            {
+                logger.Error(uae.Message, uae);
+                throw;
             }
         }
 
@@ -183,11 +176,14 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis
         /// </summary>
         /// <param name="typeDeclaration">The type declaration.</param>
         /// <returns>The full name of the class.</returns>
-        private static string GetFullClassName(TypeDeclaration typeDeclaration)
+        internal static string GetFullClassName(TypeDeclaration typeDeclaration)
         {
-            string result = typeDeclaration.Name;
+            Contract.Requires<ArgumentNullException>(typeDeclaration != null);
+            Contract.Ensures(Contract.Result<string>() != null);
 
+            string result = typeDeclaration.Name;
             AstNode current = typeDeclaration;
+
             while (current.Parent != null)
             {
                 current = current.Parent;
