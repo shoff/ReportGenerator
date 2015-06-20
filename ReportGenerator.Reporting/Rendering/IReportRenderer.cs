@@ -149,7 +149,6 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
     [ContractClassFor(typeof(IReportRenderer))]
     public abstract class ReportRendererContract : IReportRenderer
     {
-       
         public void BeginSummaryReport(string targetDirectory, string title)
         {
             Contract.Requires<ArgumentNullException>(!string.IsNullOrWhiteSpace(targetDirectory));

@@ -1,33 +1,22 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using log4net;
-using Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis;
-using Palmmedia.ReportGenerator.Properties;
-
-namespace Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch
+﻿namespace Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using log4net;
+    using Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis;
+    using Palmmedia.ReportGenerator.Properties;
+
     /// <summary>
-    /// Searches one directory for class files.
+    ///   Searches one directory for class files.
     /// </summary>
-    public class ClassSearcher
+    public class ClassSearcher : IClassSearcher
     {
-        /// <summary>
-        /// The Logger.
-        /// </summary>
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(ClassSearcher));
-
-        /// <summary>
-        /// Dictionary containing the files a class is defined in by its classname.
-        /// </summary>
+        private static readonly ILog logger = LogManager.GetLogger(typeof(ClassSearcher));
         private readonly Dictionary<string, HashSet<string>> filesByClassName = new Dictionary<string, HashSet<string>>();
-
-        /// <summary>
-        /// Indicates whether file search was executed.
-        /// </summary>
         private bool initialized;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ClassSearcher"/> class.
+        ///   Initializes a new instance of the <see cref="ClassSearcher" /> class.
         /// </summary>
         /// <param name="directory">The directory that should be searched for class files.</param>
         public ClassSearcher(string directory)
@@ -36,23 +25,23 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ClassSearcher"/> class.
+        ///   Initializes a new instance of the <see cref="ClassSearcher" /> class.
         /// </summary>
         protected ClassSearcher()
         {
         }
 
         /// <summary>
-        /// Gets the directory that should be searched for class files.
+        ///   Gets the directory that should be searched for class files.
         /// </summary>
         public string Directory { get; private set; }
 
         /// <summary>
-        /// Gets the files the given class is defined in.
+        ///   Gets the files the given class is defined in.
         /// </summary>
         /// <param name="className">Name of the class (with full namespace).</param>
         /// <returns>The files the class is defined in.</returns>
-        public virtual IEnumerable<string> GetFilesOfClass(string className)
+        public virtual ICollection<string> GetFilesOfClass(string className)
         {
             if (!this.initialized)
             {
@@ -66,14 +55,12 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch
             {
                 return filesOfClass;
             }
-            else
-            {
-                return new string[] { };
-            }
+
+            return new string[] { };
         }
 
         /// <summary>
-        /// Searches the class files.
+        ///   Searches the class files.
         /// </summary>
         private void SearchClassFiles()
         {
@@ -82,7 +69,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch
                 return;
             }
 
-            Logger.DebugFormat("  " + Resources.IndexingClasses, new DirectoryInfo(this.Directory).FullName);
+            logger.DebugFormat("  " + Resources.IndexingClasses, new DirectoryInfo(this.Directory).FullName);
 
             foreach (var file in SafeDirectorySearcher.EnumerateFiles(this.Directory, "*.cs", SearchOption.AllDirectories))
             {

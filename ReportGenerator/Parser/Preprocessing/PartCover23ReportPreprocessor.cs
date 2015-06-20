@@ -24,8 +24,8 @@
         /// <param name="globalClassSearcher">The global class searcher.</param>
         public PartCover23ReportPreprocessor(
             XContainer report, 
-            ClassSearcherFactory classSearcherFactory, 
-            ClassSearcher globalClassSearcher)
+            IClassSearcherFactory classSearcherFactory, 
+            IClassSearcher globalClassSearcher)
             : base(report, classSearcherFactory, globalClassSearcher)
         {
         }

@@ -9,6 +9,8 @@ using Palmmedia.ReportGenerator.Parser.Analysis;
 
 namespace Palmmedia.ReportGenerator.Reporting.Rendering
 {
+    using System.Diagnostics.Contracts;
+
     /// <summary>
     /// XML report renderer.
     /// </summary>
@@ -67,7 +69,7 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <param name="text">The text.</param>
         public void Header(string text)
         {
-            this.reportTextWriter.WriteStartElement(XmlRenderer.ReplaceNonLetterChars(text));
+            this.reportTextWriter.WriteStartElement(ReplaceNonLetterChars(text));
         }
 
         /// <summary>
@@ -133,7 +135,7 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <param name="value">The text of the second column.</param>
         public void KeyValueRow(string key, string value)
         {
-            this.reportTextWriter.WriteStartElement(XmlRenderer.ReplaceNonLetterChars(key));
+            this.reportTextWriter.WriteStartElement(ReplaceNonLetterChars(key));
             this.reportTextWriter.WriteValue(value);
             this.reportTextWriter.WriteEndElement();
         }
@@ -145,12 +147,9 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <param name="files">The files.</param>
         public void KeyValueRow(string key, ICollection<string> files)
         {
-            if (files == null)
-            {
-                throw new ArgumentNullException("files");
-            }
+            Contract.Requires<ArgumentNullException>(files != null);
 
-            this.reportTextWriter.WriteStartElement(XmlRenderer.ReplaceNonLetterChars(key));
+            this.reportTextWriter.WriteStartElement(ReplaceNonLetterChars(key));
 
             foreach (var file in files)
             {
@@ -168,16 +167,13 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <param name="metric">The metric.</param>
         public void MetricsRow(MethodMetric metric)
         {
-            if (metric == null)
-            {
-                throw new ArgumentNullException("metric");
-            }
+            Contract.Requires<ArgumentNullException>(metric != null);
 
-            this.reportTextWriter.WriteStartElement(XmlRenderer.ReplaceNonLetterChars(metric.ShortName));
+            this.reportTextWriter.WriteStartElement(ReplaceNonLetterChars(metric.ShortName));
 
             foreach (var m in metric.Metrics)
             {
-                this.reportTextWriter.WriteStartElement(XmlRenderer.ReplaceNonLetterChars(m.Name));
+                this.reportTextWriter.WriteStartElement(ReplaceNonLetterChars(m.Name));
                 this.reportTextWriter.WriteValue(m.Value.ToString(CultureInfo.InvariantCulture));
                 this.reportTextWriter.WriteEndElement();
             }
@@ -191,10 +187,7 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <param name="analysis">The line analysis.</param>
         public void LineAnalysis(LineAnalysis analysis)
         {
-            if (analysis == null)
-            {
-                throw new ArgumentNullException("analysis");
-            }
+            Contract.Requires<ArgumentNullException>(analysis != null);
 
             this.reportTextWriter.WriteStartElement("LineAnalysis");
             this.reportTextWriter.WriteAttributeString("line", analysis.LineNumber.ToString(CultureInfo.InvariantCulture));
@@ -232,11 +225,7 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <param name="assembly">The assembly.</param>
         public void SummaryAssembly(Assembly assembly)
         {
-            if (assembly == null)
-            {
-                throw new ArgumentNullException("assembly");
-            }
-
+            Contract.Requires<ArgumentNullException>(assembly != null);
             if (this.closeAssemblyNode)
             {
                 this.reportTextWriter.WriteEndElement();
@@ -259,11 +248,7 @@ namespace Palmmedia.ReportGenerator.Reporting.Rendering
         /// <param name="summaryClass">The class.</param>
         public void SummaryClass(Class summaryClass)
         {
-            if (summaryClass == null)
-            {
-                throw new ArgumentNullException("summaryClass");
-            }
-
+            Contract.Requires<ArgumentNullException>(summaryClass != null);
             this.reportTextWriter.WriteStartElement("Class");
             this.reportTextWriter.WriteAttributeString("name", summaryClass.Name);
             this.reportTextWriter.WriteAttributeString("coverage", summaryClass.CoverageQuota.HasValue ? summaryClass.CoverageQuota.Value.ToString(CultureInfo.InvariantCulture) : string.Empty);

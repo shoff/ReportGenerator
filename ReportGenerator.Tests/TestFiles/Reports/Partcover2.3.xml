@@ -4,7 +4,7 @@
  <File id="1" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\Program.cs" />
  <File id="2" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass.cs" />
  <File id="3" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass2.cs" />
- <Assembly name="ReportGenerator.Tests" module="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\Test.exe" />
+ <Assembly name="ReportGenerator.Tests" module="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\ReportGenerator.Tests.dll" />
  <Type asm="ReportGenerator.Tests" name="ReportGenerator.Tests.TestFiles.Project.TestClass" flags="1048576">
   <Method name="SampleFunction" sig="void  ()" flags="134" iflags="0">
    <pt visit="1" pos="0" len="1" fid="2" sl="8" sc="9" el="8" ec="10" />

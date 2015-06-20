@@ -1,51 +1,48 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Xml.Linq;
-using log4net;
-using Palmmedia.ReportGenerator.Common;
-using Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis;
-using Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch;
-using Palmmedia.ReportGenerator.Properties;
-
-namespace Palmmedia.ReportGenerator.Parser.Preprocessing
+﻿namespace Palmmedia.ReportGenerator.Parser.Preprocessing
 {
+    using System;
+    using System.Globalization;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using System.Xml.Linq;
+    using log4net;
+    using Palmmedia.ReportGenerator.Common;
+    using Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis;
+    using Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch;
+    using Palmmedia.ReportGenerator.Properties;
+
     /// <summary>
-    /// Preprocessor for OpenCover reports.
+    ///   Preprocessor for OpenCover reports.
     /// </summary>
     public class OpenCoverReportPreprocessor : ReportPreprocessorBase
     {
-        /// <summary>
-        /// Regex to analyze/split a method name.
-        /// </summary>
         private const string MethodRegex = @"^.*::(?<MethodName>.+)\((?<Arguments>.*)\)$";
+        private static readonly ILog logger = LogManager.GetLogger(typeof(OpenCoverReportPreprocessor));
 
         /// <summary>
-        /// The Logger.
-        /// </summary>
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(OpenCoverReportPreprocessor));
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OpenCoverReportPreprocessor"/> class.
+        ///   Initializes a new instance of the <see cref="OpenCoverReportPreprocessor" /> class.
         /// </summary>
         /// <param name="report">The report.</param>
         /// <param name="classSearcherFactory">The class searcher factory.</param>
         /// <param name="globalClassSearcher">The global class searcher.</param>
-        public OpenCoverReportPreprocessor(XContainer report, ClassSearcherFactory classSearcherFactory, ClassSearcher globalClassSearcher)
+        public OpenCoverReportPreprocessor(
+            XContainer report, 
+            IClassSearcherFactory classSearcherFactory, 
+            IClassSearcher globalClassSearcher)
             : base(report, classSearcherFactory, globalClassSearcher)
         {
         }
 
         /// <summary>
-        /// Executes the preprocessing of the report.
+        ///   Executes the preprocessing of the report.
         /// </summary>
         public override void Execute()
         {
-            foreach (var module in this.Report.Descendants("Module").ToArray())
+            var modules = this.Report.Descendants("Module").ToArray();
+            foreach (var module in modules)
             {
                 this.AddCoverageDataOfAutoProperties(module);
-                ApplyClassNameToStartupCodeElements(module);
+                this.ApplyClassNameToStartupCodeElements(module);
 
                 // A new instance is created for every module.
                 this.ClassSearcher = null;
@@ -53,7 +50,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing
         }
 
         /// <summary>
-        /// Adds a new source code file to the report.
+        ///   Adds a new source code file to the report.
         /// </summary>
         /// <param name="filesContainer">The files container.</param>
         /// <param name="fileId">The file id.</param>
@@ -64,7 +61,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing
         }
 
         /// <summary>
-        /// Updates the property element.
+        ///   Updates the property element.
         /// </summary>
         /// <param name="property">The property.</param>
         /// <param name="elementPosition">The element position.</param>
@@ -74,59 +71,45 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing
             property.Add(new XElement("FileRef", new XAttribute("uid", fileId)));
 
             var seqpnt = new XElement(
-                "SequencePoint",
-                new XAttribute("vc", property.Element("MethodPoint").Attribute("vc").Value),
-                new XAttribute("sl", elementPosition.Start),
+                "SequencePoint", 
+                new XAttribute("vc", property.Element("MethodPoint").Attribute("vc").Value), 
+                new XAttribute("sl", elementPosition.Start), 
                 new XAttribute("fileid", fileId));
 
             property.Element("SequencePoints").Add(seqpnt);
         }
 
         /// <summary>
-        /// Applies the class name of the parent class to startup code elements.
+        ///   Applies the class name of the parent class to startup code elements.
         /// </summary>
         /// <param name="module">The module.</param>
-        private static void ApplyClassNameToStartupCodeElements(XElement module)
+        private void ApplyClassNameToStartupCodeElements(XElement module)
         {
-            var startupCodeClasses = module
-                .Elements("Classes")
-                .Elements("Class")
-                .Where(c => c.Element("FullName").Value.StartsWith("<StartupCode$", StringComparison.OrdinalIgnoreCase)
-                    && c.Element("FullName").Value.Contains("/"))
-                .ToArray();
+            var startupCodeClasses =
+                module.Elements("Classes").Elements("Class").Where(
+                    c =>
+                    c.Element("FullName").Value.StartsWith("<StartupCode$", StringComparison.OrdinalIgnoreCase)
+                    && c.Element("FullName").Value.Contains("/")).ToArray();
 
-            var classesInModule = module
-                .Elements("Classes")
-                .Elements("Class")
-                .Where(c => !c.Element("FullName").Value.StartsWith("<StartupCode$", StringComparison.OrdinalIgnoreCase))
-                .ToArray();
+            var classesInModule =
+                module.Elements("Classes").Elements("Class").Where(
+                    c => !c.Element("FullName").Value.StartsWith("<StartupCode$", StringComparison.OrdinalIgnoreCase)).ToArray();
 
             foreach (var startupCodeClass in startupCodeClasses)
             {
-                var methods = startupCodeClass
-                    .Elements("Methods")
-                    .Elements("Method")
-                    .Where(c => c.Element("FileRef") != null)
-                    .ToArray();
+                var methods =
+                    startupCodeClass.Elements("Methods").Elements("Method").Where(c => c.Element("FileRef") != null).ToArray();
 
-                var fileIds = methods.Elements("FileRef")
-                    .Select(e => e.Attribute("uid").Value)
-                    .Distinct()
-                    .ToArray();
+                var fileIds = methods.Elements("FileRef").Select(e => e.Attribute("uid").Value).Distinct().ToArray();
 
                 if (fileIds.Length != 1)
                 {
                     continue;
                 }
 
-                var lineNumbers = methods
-                    .Elements("SequencePoints")
-                    .Elements("SequencePoint")
-                    .Where(s => s.Attribute("sl") != null)
-                    .Select(s => int.Parse(s.Attribute("sl").Value, CultureInfo.InvariantCulture))
-                    .OrderBy(v => v)
-                    .Take(1)
-                    .ToArray();
+                var lineNumbers =
+                    methods.Elements("SequencePoints").Elements("SequencePoint").Where(s => s.Attribute("sl") != null).Select(
+                        s => int.Parse(s.Attribute("sl").Value, CultureInfo.InvariantCulture)).OrderBy(v => v).Take(1).ToArray();
 
                 if (lineNumbers.Length != 1)
                 {
@@ -134,62 +117,51 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing
                 }
 
                 XElement closestClass = null;
-                int closestLineNumber = 0;
+                var closestLineNumber = 0;
 
-                foreach (var @class in classesInModule)
+                foreach (var classes in classesInModule)
                 {
-                    var methodsOfClass = @class
-                        .Elements("Methods")
-                        .Elements("Method")
-                        .Where(c => c.Element("FileRef") != null)
-                        .ToArray();
+                    var methodsOfClass =
+                        classes.Elements("Methods").Elements("Method").Where(c => c.Element("FileRef") != null).ToArray();
 
-                    var fileIdsOfClass = methodsOfClass
-                        .Elements("FileRef")
-                        .Select(e => e.Attribute("uid").Value)
-                        .Distinct()
-                        .ToArray();
+                    var fileIdsOfClass = methodsOfClass.Elements("FileRef").Select(e => e.Attribute("uid").Value).Distinct().ToArray();
 
                     if (fileIdsOfClass.Length != 1 || fileIdsOfClass[0] != fileIds[0])
                     {
                         continue;
                     }
 
-                    var lineNumbersOfClass = methodsOfClass
-                        .Elements("SequencePoints")
-                        .Elements("SequencePoint")
-                        .Where(s => s.Attribute("sl") != null)
-                        .Select(s => int.Parse(s.Attribute("sl").Value, CultureInfo.InvariantCulture))
-                        .OrderBy(v => v)
-                        .Take(1)
-                        .ToArray();
+                    var lineNumbersOfClass =
+                        methodsOfClass.Elements("SequencePoints").Elements("SequencePoint").Where(s => s.Attribute("sl") != null)
+                            .Select(s => int.Parse(s.Attribute("sl").Value, CultureInfo.InvariantCulture)).OrderBy(v => v).Take(1)
+                            .ToArray();
 
                     /* Conditions:
                         * 1) No line numbers available
                         * 2) Class comes after current class
                         * 3) Closer class has already been found */
-                    if (lineNumbersOfClass.Length != 1
-                        || lineNumbersOfClass[0] > lineNumbers[0]
+                    if (lineNumbersOfClass.Length != 1 || lineNumbersOfClass[0] > lineNumbers[0]
                         || closestLineNumber > lineNumbersOfClass[0])
                     {
                         continue;
                     }
                     else
                     {
-                        closestClass = @class;
+                        closestClass = classes;
                         closestLineNumber = lineNumbersOfClass[0];
                     }
                 }
 
                 if (closestClass != null)
                 {
-                    startupCodeClass.Element("FullName").Value = closestClass.Element("FullName").Value + "/" + startupCodeClass.Element("FullName").Value;
+                    startupCodeClass.Element("FullName").Value = closestClass.Element("FullName").Value + "/"
+                                                                 + startupCodeClass.Element("FullName").Value;
                 }
             }
         }
 
         /// <summary>
-        /// Adds the coverage data of auto properties.
+        ///   Adds the coverage data of auto properties.
         /// </summary>
         /// <param name="module">The module.</param>
         private void AddCoverageDataOfAutoProperties(XElement module)
@@ -199,48 +171,41 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing
                 module.Add(new XElement("Files"));
             }
 
-            var filenameByFileIdDictionary = module
-                .Element("Files")
-                .Elements("File")
-                .ToDictionary(f => f.Attribute("uid").Value, f => f.Attribute("fullPath").Value);
+            var filenameByFileIdDictionary = module.Element("Files").Elements("File").ToDictionary(
+                f => f.Attribute("uid").Value, 
+                f => f.Attribute("fullPath").Value);
 
-            Func<XElement, bool> isProperty = v => v.HasAttributeWithValue("isGetter", "true") || v.HasAttributeWithValue("isSetter", "true");
+            Func<XElement, bool> isProperty =
+                v => v.HasAttributeWithValue("isGetter", "true") || v.HasAttributeWithValue("isSetter", "true");
 
-            var unexecutedProperties = module
-                                    .Elements("Classes")
-                                    .Elements("Class")
-                                    .Where(c => !c.Element("FullName").Value.Contains("__")
-                                        && !c.Element("FullName").Value.Contains("<")
-                                        && !c.Element("FullName").Value.Contains("/"))
-                                    .Elements("Methods")
-                                    .Elements("Method")
-                                    .Where(m => m.Attribute("skippedDueTo") == null
-                                        && isProperty(m)
-                                        && m.Element("SequencePoints") != null
-                                        && !m.Element("SequencePoints").Elements().Any())
-                                    .ToArray();
+            var unexecutedProperties =
+                module.Elements("Classes").Elements("Class").Where(
+                    c =>
+                    !c.Element("FullName").Value.Contains("__") && !c.Element("FullName").Value.Contains("<")
+                    && !c.Element("FullName").Value.Contains("/")).Elements("Methods").Elements("Method").Where(
+                        m =>
+                        m.Attribute("skippedDueTo") == null && isProperty(m) && m.Element("SequencePoints") != null
+                        && !m.Element("SequencePoints").Elements().Any()).ToArray();
 
             long counter = 0;
             foreach (var property in unexecutedProperties)
             {
-                string propertyName = Regex.Match(property.Element("Name").Value, MethodRegex).Groups["MethodName"].Value;
+                var propertyName = Regex.Match(property.Element("Name").Value, MethodRegex).Groups["MethodName"].Value;
 
-                var propertyElement = new PropertyElement(property.Parent.Parent.Element("FullName").Value.Replace("/", string.Empty), propertyName);
+                var propertyElement = new PropertyElement(
+                    property.Parent.Parent.Element("FullName").Value.Replace("/", string.Empty), 
+                    propertyName);
 
                 // Get files in which property could be defined
-                var fileIds = property.Parent
-                    .Elements("Method")
-                    .Elements("FileRef")
-                    .Select(f => f.Attribute("uid").Value)
-                    .Distinct()
-                    .ToArray();
+                var fileIds =
+                    property.Parent.Elements("Method").Elements("FileRef").Select(f => f.Attribute("uid").Value).Distinct().ToArray();
 
                 if (this.SearchElement(
-                    propertyElement,
-                    filenameByFileIdDictionary,
-                    fileIds,
-                    property,
-                    UpdatePropertyElement,
+                    propertyElement, 
+                    filenameByFileIdDictionary, 
+                    fileIds, 
+                    property, 
+                    UpdatePropertyElement, 
                     property.Parent.Parent.Parent.Parent.Element("Files")))
                 {
                     counter++;
@@ -249,7 +214,11 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing
 
             if (unexecutedProperties.LongLength > 0)
             {
-                Logger.DebugFormat("  " + Resources.AddedCoverageInformationOfPropertiesOpenCover, counter, unexecutedProperties.LongLength, module.Element("ModuleName").Value);
+                logger.DebugFormat(
+                    "  " + Resources.AddedCoverageInformationOfPropertiesOpenCover, 
+                    counter, 
+                    unexecutedProperties.LongLength, 
+                    module.Element("ModuleName").Value);
             }
         }
     }

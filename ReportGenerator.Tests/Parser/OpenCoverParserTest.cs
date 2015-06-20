@@ -1,14 +1,17 @@
 ﻿namespace ReportGenerator.Tests.Parser
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Xml.Linq;
+    using Moq;
     using NUnit.Framework;
     using Palmmedia.ReportGenerator.Parser;
     using Palmmedia.ReportGenerator.Parser.Analysis;
     using Palmmedia.ReportGenerator.Parser.Preprocessing;
     using Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch;
+    using ReportGenerator.Tests.TestHelpers;
 
     /// <summary>
     /// This is a test class for OpenCoverParser and is intended
@@ -17,57 +20,47 @@
     [TestFixture]
     public class OpenCoverParserTest
     {
-        private static readonly string FilePath1 = Path.Combine(FileManager.GetCSharpReportDirectory(), "OpenCover.xml");
+        private readonly string filePath1 = Path.Combine(FileManager.GetCSharpReportDirectory(), "OpenCover.xml");
+        private readonly string filePath2 = Path.Combine(FileManager.GetCSharpReportDirectory(), "OpenCoverWithTrackedMethods.xml");
+        private ICollection<Assembly> assembliesWithoutPreprocessing;
+        private ICollection<Assembly> assembliesWithPreprocessing;
+        private ICollection<Assembly> assembliesWithTrackedMethods;
+        private readonly string projectFolder = AppDomain.CurrentDomain.BaseDirectory + "\\TestFiles\\Project";
 
-        private static readonly string FilePath2 = Path.Combine(FileManager.GetCSharpReportDirectory(), "OpenCoverWithTrackedMethods.xml");
+        private Mock<IClassSearcherFactory> classSearcherFactoryMock;
+        private Mock<IClassSearcher> classSearcherMock;
 
-        private static IEnumerable<Assembly> assembliesWithoutPreprocessing;
 
-        private static IEnumerable<Assembly> assembliesWithPreprocessing;
-
-        private static IEnumerable<Assembly> assembliesWithTrackedMethods;
-
-        #region Additional test attributes
-
-        // You can use the following additional attributes as you write your tests:
-
-        // Use ClassInitialize to run code before running the first test in the class
         [SetUp]
         public void SetUp()
         {
-            FileManager.CopyTestClasses();
+            this.classSearcherFactoryMock = new Mock<IClassSearcherFactory>();
+            this.classSearcherMock = new Mock<IClassSearcher>();
 
-            assembliesWithoutPreprocessing = new OpenCoverParser(XDocument.Load(FilePath1)).Assemblies;
+            assembliesWithoutPreprocessing = new OpenCoverParser(XDocument.Load(filePath1)).Assemblies;
 
-            var report = XDocument.Load(FilePath1);
+            var report = XDocument.Load(filePath1);
             var classSearcherFactory = new ClassSearcherFactory();
-            var globalClassSearcher = classSearcherFactory.CreateClassSearcher("C:\\test");
-            new OpenCoverReportPreprocessor(report, classSearcherFactory, globalClassSearcher).Execute();
+            var globalClassSearcher = classSearcherFactory.CreateClassSearcher(projectFolder);
+            
+            // why are we doing this?
+            var openCoverReportPreporcessor = new OpenCoverReportPreprocessor(report, classSearcherFactory, globalClassSearcher);
+            openCoverReportPreporcessor.Execute();
+
             assembliesWithPreprocessing = new OpenCoverParser(report).Assemblies;
 
-            report = XDocument.Load(FilePath2);
+            report = XDocument.Load(filePath2);
             classSearcherFactory = new ClassSearcherFactory();
-            globalClassSearcher = classSearcherFactory.CreateClassSearcher("C:\\test");
+            globalClassSearcher = classSearcherFactory.CreateClassSearcher(projectFolder);
             new OpenCoverReportPreprocessor(report, classSearcherFactory, globalClassSearcher).Execute();
             assembliesWithTrackedMethods = new OpenCoverParser(report).Assemblies;
         }
 
-        // Use ClassCleanup to run code after all tests in a class have run
-        [TearDown]
-        public void MyClassCleanup()
-        {
-            FileManager.DeleteTestClasses();
-        }
-
-        #endregion
-
-        /// <summary>
-        /// A test for NumberOfLineVisits
-        /// </summary>
         [Test]
         public void NumberOfLineVisitsTest_WithoutPreprocessing()
         {
-            var fileAnalysis = GetFileAnalysis(assembliesWithoutPreprocessing, "Test.TestClass", "C:\\temp\\TestClass.cs");
+            var fileAnalysis = FileAnalysisCreator.GetFileAnalysis(assembliesWithoutPreprocessing, "ReportGenerator.Tests.TestFiles.Project.TestClass",
+                projectFolder + "\\TestClass.cs");
             Assert.AreEqual(1, fileAnalysis.Lines.Single(l => l.LineNumber == 9).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(1, fileAnalysis.Lines.Single(l => l.LineNumber == 10).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(1, fileAnalysis.Lines.Single(l => l.LineNumber == 11).LineVisits, "Wrong number of line visits");
@@ -76,7 +69,8 @@
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 23).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 31).LineVisits, "Wrong number of line visits");
 
-            fileAnalysis = GetFileAnalysis(assembliesWithoutPreprocessing, "Test.TestClass2", "C:\\temp\\TestClass2.cs");
+            fileAnalysis = FileAnalysisCreator.GetFileAnalysis(assembliesWithoutPreprocessing, "ReportGenerator.Tests.TestFiles.Project.TestClass2",
+                projectFolder + "\\TestClass2.cs");
             Assert.AreEqual(-1, fileAnalysis.Lines.Single(l => l.LineNumber == 13).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(-1, fileAnalysis.Lines.Single(l => l.LineNumber == 15).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 19).LineVisits, "Wrong number of line visits");
@@ -90,26 +84,26 @@
             Assert.AreEqual(1, fileAnalysis.Lines.Single(l => l.LineNumber == 45).CoveredBranches.Value, "Wrong number of covered branches");
             Assert.AreEqual(2, fileAnalysis.Lines.Single(l => l.LineNumber == 45).TotalBranches.Value, "Wrong number of total branches");
 
-            fileAnalysis = GetFileAnalysis(assembliesWithoutPreprocessing, "Test.PartialClass", "C:\\temp\\PartialClass.cs");
+            fileAnalysis = FileAnalysisCreator.GetFileAnalysis(assembliesWithoutPreprocessing, "ReportGenerator.Tests.TestFiles.Project.PartialClass", 
+                projectFolder + "\\PartialClass.cs");
             Assert.AreEqual(1, fileAnalysis.Lines.Single(l => l.LineNumber == 9).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 14).LineVisits, "Wrong number of line visits");
 
-            fileAnalysis = GetFileAnalysis(assembliesWithoutPreprocessing, "Test.PartialClass", "C:\\temp\\PartialClass2.cs");
+            fileAnalysis = FileAnalysisCreator.GetFileAnalysis(assembliesWithoutPreprocessing, "ReportGenerator.Tests.TestFiles.Project.PartialClass", 
+                projectFolder + "\\PartialClass2.cs");
             Assert.AreEqual(1, fileAnalysis.Lines.Single(l => l.LineNumber == 9).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 14).LineVisits, "Wrong number of line visits");
 
-            fileAnalysis = GetFileAnalysis(assembliesWithoutPreprocessing, "Test.ClassWithExcludes", "C:\\temp\\ClassWithExcludes.cs");
+            fileAnalysis = FileAnalysisCreator.GetFileAnalysis(assembliesWithoutPreprocessing, "ReportGenerator.Tests.TestFiles.Project.ClassWithExcludes",
+                projectFolder + "\\ClassWithExcludes.cs");
             Assert.AreEqual(-1, fileAnalysis.Lines.Single(l => l.LineNumber == 9).LineVisits, "Wrong number of line visits (Property is excluded)");
             Assert.AreEqual(-1, fileAnalysis.Lines.Single(l => l.LineNumber == 19).LineVisits, "Wrong number of line visits (Method is excluded)");
         }
 
-        /// <summary>
-        /// A test for NumberOfLineVisits
-        /// </summary>
         [Test]
         public void NumberOfLineVisitsTest_WithPreprocessing()
         {
-            var fileAnalysis = GetFileAnalysis(assembliesWithPreprocessing, "Test.TestClass", "C:\\temp\\TestClass.cs");
+            var fileAnalysis = FileAnalysisCreator.GetFileAnalysis(assembliesWithPreprocessing, "ReportGenerator.Tests.TestFiles.Project.TestClass", projectFolder + "\\TestClass.cs");
             Assert.AreEqual(1, fileAnalysis.Lines.Single(l => l.LineNumber == 9).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(1, fileAnalysis.Lines.Single(l => l.LineNumber == 10).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(1, fileAnalysis.Lines.Single(l => l.LineNumber == 11).LineVisits, "Wrong number of line visits");
@@ -118,7 +112,7 @@
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 23).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 31).LineVisits, "Wrong number of line visits");
 
-            fileAnalysis = GetFileAnalysis(assembliesWithPreprocessing, "Test.TestClass2", "C:\\temp\\TestClass2.cs");
+            fileAnalysis = FileAnalysisCreator.GetFileAnalysis(assembliesWithPreprocessing, "ReportGenerator.Tests.TestFiles.Project.TestClass2", projectFolder + "\\TestClass2.cs");
             Assert.AreEqual(3, fileAnalysis.Lines.Single(l => l.LineNumber == 13).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 15).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 19).LineVisits, "Wrong number of line visits");
@@ -132,26 +126,23 @@
             Assert.AreEqual(1, fileAnalysis.Lines.Single(l => l.LineNumber == 45).CoveredBranches.Value, "Wrong number of covered branches");
             Assert.AreEqual(2, fileAnalysis.Lines.Single(l => l.LineNumber == 45).TotalBranches.Value, "Wrong number of total branches");
 
-            fileAnalysis = GetFileAnalysis(assembliesWithPreprocessing, "Test.PartialClass", "C:\\temp\\PartialClass.cs");
+            fileAnalysis = FileAnalysisCreator.GetFileAnalysis(assembliesWithPreprocessing, "ReportGenerator.Tests.TestFiles.Project.PartialClass", projectFolder + "\\PartialClass.cs");
             Assert.AreEqual(1, fileAnalysis.Lines.Single(l => l.LineNumber == 9).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 14).LineVisits, "Wrong number of line visits");
 
-            fileAnalysis = GetFileAnalysis(assembliesWithPreprocessing, "Test.PartialClass", "C:\\temp\\PartialClass2.cs");
+            fileAnalysis = FileAnalysisCreator.GetFileAnalysis(assembliesWithPreprocessing, "ReportGenerator.Tests.TestFiles.Project.PartialClass", projectFolder + "\\PartialClass2.cs");
             Assert.AreEqual(1, fileAnalysis.Lines.Single(l => l.LineNumber == 9).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 14).LineVisits, "Wrong number of line visits");
 
-            fileAnalysis = GetFileAnalysis(assembliesWithPreprocessing, "Test.ClassWithExcludes", "C:\\temp\\ClassWithExcludes.cs");
+            fileAnalysis = FileAnalysisCreator.GetFileAnalysis(assembliesWithPreprocessing, "ReportGenerator.Tests.TestFiles.Project.ClassWithExcludes", projectFolder + "\\ClassWithExcludes.cs");
             Assert.AreEqual(-1, fileAnalysis.Lines.Single(l => l.LineNumber == 9).LineVisits, "Wrong number of line visits (Property is excluded)");
             Assert.AreEqual(-1, fileAnalysis.Lines.Single(l => l.LineNumber == 19).LineVisits, "Wrong number of line visits (Method is excluded)");
         }
 
-        /// <summary>
-        /// A test for NumberOfLineVisits
-        /// </summary>
         [Test]
         public void NumberOfLineVisitsTest_WithTrackedMethods()
         {
-            var fileAnalysis = GetFileAnalysis(assembliesWithTrackedMethods, "Test.PartialClass", "C:\\temp\\PartialClass.cs");
+            var fileAnalysis = FileAnalysisCreator.GetFileAnalysis(assembliesWithTrackedMethods, "ReportGenerator.Tests.TestFiles.Project.PartialClass", projectFolder + "\\PartialClass.cs");
 
             var line = fileAnalysis.Lines.Single(l => l.LineNumber == 9);
 
@@ -162,68 +153,49 @@
             Assert.AreEqual(1, line.LineCoverageByTestMethod.ElementAt(1).Value.LineVisits, "Wrong number of test methods");
         }
 
-        /// <summary>
-        /// A test for NumberOfFiles
-        /// </summary>
         [Test]
         public void NumberOfFilesTest()
         {
             Assert.AreEqual(11, assembliesWithoutPreprocessing.SelectMany(a => a.Classes).SelectMany(a => a.Files).Distinct().Count(), "Wrong number of files");
         }
 
-        /// <summary>
-        /// A test for FilesOfClass
-        /// </summary>
         [Test]
         public void FilesOfClassTest()
         {
-            Assert.AreEqual(1, assembliesWithoutPreprocessing.Single(a => a.Name == "Test").Classes.Single(c => c.Name == "Test.TestClass").Files.Count(), "Wrong number of files");
-            Assert.AreEqual(2, assembliesWithoutPreprocessing.Single(a => a.Name == "Test").Classes.Single(c => c.Name == "Test.PartialClass").Files.Count(), "Wrong number of files");
+            Assert.AreEqual(1, assembliesWithoutPreprocessing.Single(a => a.Name == "ReportGenerator.Tests").Classes
+                .Single(c => c.Name == "ReportGenerator.Tests.TestFiles.Project.TestClass").Files.Count(), "Wrong number of files");
+            Assert.AreEqual(2, assembliesWithoutPreprocessing.Single(a => a.Name == "ReportGenerator.Tests").Classes
+                .Single(c => c.Name == "ReportGenerator.Tests.TestFiles.Project.PartialClass").Files.Count(), "Wrong number of files");
         }
 
-        /// <summary>
-        /// A test for ClassesInAssembly
-        /// </summary>
         [Test]
         public void ClassesInAssemblyTest()
         {
             Assert.AreEqual(16, assembliesWithoutPreprocessing.SelectMany(a => a.Classes).Count(), "Wrong number of classes");
         }
 
-        /// <summary>
-        /// A test for Assemblies
-        /// </summary>
         [Test]
         public void AssembliesTest()
         {
             Assert.AreEqual(1, assembliesWithoutPreprocessing.Count(), "Wrong number of assemblies");
         }
 
-        /// <summary>
-        /// A test for GetCoverageQuotaOfClass.
-        /// </summary>
         [Test]
         public void GetCoverableLinesOfClassTest()
         {
-            Assert.AreEqual(4, assembliesWithoutPreprocessing.Single(a => a.Name == "Test").Classes.Single(c => c.Name == "Test.AbstractClass").CoverableLines, "Wrong Coverable Lines");
+            Assert.AreEqual(4, assembliesWithoutPreprocessing.Single(a => a.Name == "ReportGenerator.Tests").Classes.Single(c => c.Name == "ReportGenerator.Tests.TestFiles.Project.AbstractClass").CoverableLines, "Wrong Coverable Lines");
         }
 
-        /// <summary>
-        /// A test for GetCoverageQuotaOfClass.
-        /// </summary>
         [Test]
         public void GetCoverageQuotaOfClassTest()
         {
-            Assert.AreEqual(50m, assembliesWithoutPreprocessing.Single(a => a.Name == "Test").Classes.Single(c => c.Name == "Test.PartialClassWithAutoProperties").CoverageQuota, "Wrong coverage quota");
+            Assert.AreEqual(50m, assembliesWithoutPreprocessing.Single(a => a.Name == "ReportGenerator.Tests").Classes.Single(c => c.Name == "ReportGenerator.Tests.TestFiles.Project.PartialClassWithAutoProperties").CoverageQuota, "Wrong coverage quota");
         }
 
-        /// <summary>
-        /// A test for MethodMetrics
-        /// </summary>
         [Test]
         public void MethodMetricsTest()
         {
-            var metrics = assembliesWithoutPreprocessing.Single(a => a.Name == "Test").Classes.Single(c => c.Name == "Test.TestClass").MethodMetrics;
+            var metrics = assembliesWithoutPreprocessing.Single(a => a.Name == "ReportGenerator.Tests").Classes.Single(c => c.Name == "ReportGenerator.Tests.TestFiles.Project.TestClass").MethodMetrics;
 
             Assert.AreEqual(2, metrics.Count(), "Wrong number of method metrics");
             Assert.AreEqual("System.Void Test.TestClass::SampleFunction()", metrics.First().Name, "Wrong name of method");
@@ -237,13 +209,5 @@
             Assert.AreEqual(60, metrics.First().Metrics.ElementAt(2).Value, "Wrong value of metric");
         }
 
-        private static FileAnalysis GetFileAnalysis(IEnumerable<Assembly> assemblies, string className, string fileName)
-        {
-            return assemblies
-                .Single(a => a.Name == "Test").Classes
-                .Single(c => c.Name == className).Files
-                .Single(f => f.Path == fileName)
-                .AnalyzeFile();
-        }
     }
 }

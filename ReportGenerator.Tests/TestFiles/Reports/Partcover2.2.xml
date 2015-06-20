@@ -5,7 +5,7 @@
   <file id="1" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\Program.cs" />
   <file id="3" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass2.cs" />
   <file id="2" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass.cs" />
-  <type asm="ReportGenerator.Tests" name="Test.SomeClass" flags="1048577">
+  <type asm="ReportGenerator.Tests" name="ReportGenerator.Tests.TestFiles.Project.SomeClass" flags="1048577">
     <method name=".ctor" sig="void  ()" flags="6278" iflags="0">
       <code>
         <pt visit="1" pos="6" len="1" />
@@ -24,7 +24,7 @@
       </code>
     </method>
   </type>
-  <type asm="ReportGenerator.Tests" name="Test.TestClass" flags="1048576">
+  <type asm="ReportGenerator.Tests" name="ReportGenerator.Tests.TestFiles.Project.TestClass" flags="1048576">
     <method name=".ctor" sig="void  ()" flags="6278" iflags="0">
       <code>
         <pt visit="1" pos="6" len="1" />

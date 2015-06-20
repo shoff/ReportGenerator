@@ -9,7 +9,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch
     /// Instances are cached and reused if the directory of a <see cref="ClassSearcher"/> starts with the desired path.
     /// This avoids scanning the same directory several times.
     /// </summary>
-    public class ClassSearcherFactory
+    public class ClassSearcherFactory : IClassSearcherFactory
     {
         /// <summary>
         /// The cached <see cref="ClassSearcher">ClassSearchers</see>.
@@ -21,14 +21,15 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch
         /// </summary>
         /// <param name="directory">The directory that should be searched for class files.</param>
         /// <returns>The class searcher.</returns>
-        public ClassSearcher CreateClassSearcher(string directory)
+        public IClassSearcher CreateClassSearcher(string directory)
         {
             if (string.IsNullOrEmpty(directory))
             {
                 return new ClassSearcher(null);
             }
 
-            var cachedClassSearcher = this.cachedClassSearchers.FirstOrDefault(c => c.Directory != null && directory.StartsWith(c.Directory, StringComparison.OrdinalIgnoreCase));
+            var cachedClassSearcher = this.cachedClassSearchers.FirstOrDefault
+                (c => c.Directory != null && directory.StartsWith(c.Directory, StringComparison.OrdinalIgnoreCase));
 
             if (cachedClassSearcher == null)
             {
@@ -44,7 +45,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch
         /// </summary>
         /// <param name="directories">The directories that should be searched for class files.</param>
         /// <returns>The class searcher.</returns>
-        public ClassSearcher CreateClassSearcher(params string[] directories)
+        public IClassSearcher CreateClassSearcher(params string[] directories)
         {
             var classSearchers = directories.Select(d => this.CreateClassSearcher(d)).ToArray();
             return new MultiDirectoryClassSearcher(classSearchers);

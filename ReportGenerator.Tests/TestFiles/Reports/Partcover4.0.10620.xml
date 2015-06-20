@@ -10,7 +10,7 @@
  <File id="9" url="c:\temp\AbstractClass.cs" />
  <File id="10" url="c:\temp\TestClass.cs" />
  <File id="11" url="c:\temp\TestClass2.cs" />
- <Assembly id="1" name="ReportGenerator.Tests" module="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\Test.exe" domain="DefaultDomain" domainIdx="1" />
+ <Assembly id="1" name="ReportGenerator.Tests" module="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\ReportGenerator.Tests.dll" domain="DefaultDomain" domainIdx="1" />
  <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.AnalyzerTestClass" flags="0">
   <Method methoddef="100663297" name=".ctor" sig="void  ()" bodysize="22" flags="0" iflags="0">
    <pt visit="0" pos="0" len="7" fid="1" sl="9" sc="9" el="9" ec="35" />

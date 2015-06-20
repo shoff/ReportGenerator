@@ -12,22 +12,11 @@
     /// <summary>
     ///   Base class for report preprocessing.
     /// </summary>
-    public abstract class ReportPreprocessorBase
+    public abstract class ReportPreprocessorBase : IReportPreprocessorBase
     {
-        /// <summary>
-        ///   The <see cref="ClassSearcherFactory" /> used to create instances of <see cref="ClassSearcher" />.
-        /// </summary>
-        private readonly ClassSearcherFactory classSearcherFactory;
 
-        /// <summary>
-        ///   The global <see cref="ClassSearcher" /> instance which is instantiated depending on the source directories entered by
-        ///   the user.
-        /// </summary>
-        private readonly ClassSearcher globalClassSearcher;
-
-        /// <summary>
-        ///   The id of the last added file.
-        /// </summary>
+        private readonly IClassSearcherFactory classSearcherFactory;
+        private readonly IClassSearcher globalClassSearcher;
         private int currentFileId = int.MaxValue;
 
         /// <summary>
@@ -38,8 +27,8 @@
         /// <param name="globalClassSearcher">The global class searcher.</param>
         protected ReportPreprocessorBase(
             XContainer report, 
-            ClassSearcherFactory classSearcherFactory, 
-            ClassSearcher globalClassSearcher)
+            IClassSearcherFactory classSearcherFactory, 
+            IClassSearcher globalClassSearcher)
         {
             Contract.Requires<ArgumentNullException>(report != null);
             Contract.Requires<ArgumentNullException>(classSearcherFactory != null);
@@ -59,7 +48,7 @@
         /// Gets or sets the <see cref="ClassSearcher" /> instance which is instantiated during preprocessing depending on the
         ///source directories used in the report.
         /// </summary>
-        protected ClassSearcher ClassSearcher { get; set; }
+        protected IClassSearcher ClassSearcher { get; set; }
 
         /// <summary>
         ///   Executes the preprocessing of the report.
@@ -93,21 +82,24 @@
             Action<XContainer, SourceElementPosition, string> updateReportElement, 
             XContainer filesContainer)
         {
+            var classFields = fileIdsOfClass;
+            // TODO why is this func here?
+
             Func<bool> searchSourceElement = () =>
+            {
+                foreach (var fileId in classFields)
                 {
-                    foreach (var fileId in fileIdsOfClass)
+                    var elementPosition = SourceCodeAnalyzer.FindSourceElement(filenameByFileIdDictionary[fileId], sourceElement);
+
+                    if (elementPosition != null)
                     {
-                        var elementPosition = SourceCodeAnalyzer.FindSourceElement(filenameByFileIdDictionary[fileId], sourceElement);
-
-                        if (elementPosition != null)
-                        {
-                            updateReportElement(reportElement, elementPosition, fileId);
-                            return true;
-                        }
+                        updateReportElement(reportElement, elementPosition, fileId);
+                        return true;
                     }
+                }
 
-                    return false;
-                };
+                return false;
+            };
 
             // Search files from module first
             if (!searchSourceElement())
@@ -150,7 +142,7 @@
         /// <param name="filesContainer">The files container.</param>
         /// <returns>The ids of the files the class is defined in.</returns>
         private IEnumerable<string> TryToFindFileIdsOfClass(
-            ClassSearcher classSearcher, 
+            IClassSearcher classSearcher, 
             string className, 
             Dictionary<string, string> filenameByFileIdDictionary, 
             XContainer filesContainer)

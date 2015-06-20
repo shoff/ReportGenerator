@@ -1,37 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
-using log4net;
-using Palmmedia.ReportGenerator.Parser.Preprocessing;
-using Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch;
-using Palmmedia.ReportGenerator.Properties;
-
-namespace Palmmedia.ReportGenerator.Parser
+﻿namespace Palmmedia.ReportGenerator.Parser
 {
+    using System;
+    using System.Collections.Generic;
     using System.Diagnostics.Contracts;
+    using System.Linq;
+    using System.Xml.Linq;
+    using log4net;
+    using Palmmedia.ReportGenerator.Parser.Preprocessing;
+    using Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch;
+    using Palmmedia.ReportGenerator.Properties;
 
     /// <summary>
-    /// Initiates the corresponding parser to the given report file.
+    ///   Initiates the corresponding parser to the given report file.
     /// </summary>
     public static class ParserFactory
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(ParserFactory));
 
         /// <summary>
-        /// Tries to initiate the correct parsers for the given reports.
+        ///   Tries to initiate the correct parsers for the given reports.
         /// </summary>
         /// <param name="reportFiles">The report files to parse.</param>
         /// <param name="sourceDirectories">The source directories.</param>
         /// <returns>
-        /// The IParser instance.
+        ///   The IParser instance.
         /// </returns>
         public static IParser CreateParser(IEnumerable<string> reportFiles, IEnumerable<string> sourceDirectories)
         {
             Contract.Requires<ArgumentNullException>(reportFiles != null);
             Contract.Requires<ArgumentNullException>(sourceDirectories != null);
 
-            var classSearcherFactory = new ClassSearcherFactory();
+            IClassSearcherFactory classSearcherFactory = new ClassSearcherFactory();
             var globalClassSearcher = classSearcherFactory.CreateClassSearcher(sourceDirectories.ToArray());
 
             var multiReportParser = new MultiReportParser();
@@ -48,17 +47,19 @@ namespace Palmmedia.ReportGenerator.Parser
         }
 
         /// <summary>
-        /// Tries to initiate the correct parsers for the given report. An empty list is returned if no parser has been found.
-        /// The report may contain several reports. For every report an extra parser is initiated.
+        ///   Tries to initiate the correct parsers for the given report. An empty list is returned if no parser has been found.
+        ///   The report may contain several reports. For every report an extra parser is initiated.
         /// </summary>
         /// <param name="reportFile">The report file to parse.</param>
         /// <param name="classSearcherFactory">The class searcher factory.</param>
         /// <param name="globalClassSearcher">The global class searcher.</param>
         /// <returns>
-        /// The IParser instances or an empty list if no matching parser has been found.
+        ///   The IParser instances or an empty list if no matching parser has been found.
         /// </returns>
-        private static IEnumerable<IParser> GetParsersOfFile(string reportFile, 
-            ClassSearcherFactory classSearcherFactory, ClassSearcher globalClassSearcher)
+        private static IEnumerable<IParser> GetParsersOfFile(
+            string reportFile, 
+            IClassSearcherFactory classSearcherFactory, 
+            IClassSearcher globalClassSearcher)
         {
             var parsers = new List<IParser>();
 

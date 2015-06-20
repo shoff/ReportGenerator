@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
-using log4net;
-using Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis;
-using Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch;
-using Palmmedia.ReportGenerator.Properties;
+﻿
 
 namespace Palmmedia.ReportGenerator.Parser.Preprocessing
 {
-    using System.Diagnostics.Contracts;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Xml.Linq;
+    using log4net;
+    using Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis;
+    using Palmmedia.ReportGenerator.Parser.Preprocessing.FileSearch;
+    using Palmmedia.ReportGenerator.Properties;
 
     /// <summary>
     /// Preprocessor for PartCover 2.2 reports.
     /// </summary>
     public class PartCover22ReportPreprocessor : ReportPreprocessorBase
     {
-        /// <summary>
-        /// The Logger.
-        /// </summary>
         private static readonly ILog logger = LogManager.GetLogger(typeof(PartCover22ReportPreprocessor));
 
         /// <summary>
@@ -27,7 +24,10 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing
         /// <param name="report">The report.</param>
         /// <param name="classSearcherFactory">The class searcher factory.</param>
         /// <param name="globalClassSearcher">The global class searcher.</param>
-        public PartCover22ReportPreprocessor(XContainer report, ClassSearcherFactory classSearcherFactory, ClassSearcher globalClassSearcher)
+        public PartCover22ReportPreprocessor(
+            XContainer report, 
+            IClassSearcherFactory classSearcherFactory,
+            IClassSearcher globalClassSearcher)
             : base(report, classSearcherFactory, globalClassSearcher)
         {
         }
@@ -40,7 +40,6 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing
             var filenameByFileIdDictionary = this.Report
                 .Descendants("file")
                 .ToDictionary(f => f.Attribute("id").Value, f => f.Attribute("url").Value);
-
             this.AddCoverageDataOfAutoProperties(filenameByFileIdDictionary);
         }
 
