@@ -141,6 +141,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reporting\MefReportBuilderFactoryTest.cs" />
     <Compile Include="Reporting\DefaultAssemblyFilterTest.cs" />
+    <Content Include="TestFiles\Project\Program.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestFiles\Project\AbstractClass.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

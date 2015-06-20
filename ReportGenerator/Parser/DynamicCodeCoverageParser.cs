@@ -18,9 +18,6 @@ namespace Palmmedia.ReportGenerator.Parser
     /// </summary>
     public class DynamicCodeCoverageParser : ParserBase
     {
-        /// <summary>
-        /// The Logger.
-        /// </summary>
         private static readonly ILog logger = LogManager.GetLogger(typeof(DynamicCodeCoverageParser));
 
         /// <summary>

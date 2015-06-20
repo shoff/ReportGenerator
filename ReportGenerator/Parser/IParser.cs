@@ -12,9 +12,6 @@ namespace Palmmedia.ReportGenerator.Parser
         /// Gets the assemblies that have been found in the report.
         /// </summary>
         /// <value>The assemblies.</value>
-        ICollection<Assembly> Assemblies
-        {
-            get;
-        }
+        ICollection<Assembly> Assemblies { get; }
     }
 }

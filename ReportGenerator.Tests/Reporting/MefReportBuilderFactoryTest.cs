@@ -29,7 +29,6 @@ namespace ReportGenerator.Tests.Reporting
         public void GetReportBuilders_Default_Report_Builder_Returned()
         {
             var factory = new MefReportBuilderFactory();
-
             var reportBuilders = factory.GetReportBuilders("C:\\temp", new[] { "Html" });
             Assert.AreEqual(1, reportBuilders.Count(), "Default report builder not available.");
 

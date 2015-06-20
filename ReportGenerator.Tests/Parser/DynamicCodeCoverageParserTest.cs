@@ -15,7 +15,7 @@
     [TestFixture]
     public class DynamicCodeCoverageParserTest
     {
-        private static readonly string FilePath = Path.Combine(FileManager.GetCSharpReportDirectory(), "DynamicCodeCoverage.xml");
+        private static readonly string filePath = Path.Combine(FileManager.GetCSharpReportDirectory(), "DynamicCodeCoverage.xml");
 
         private static IEnumerable<Assembly> assemblies;
 
@@ -25,17 +25,17 @@
 
         // Use ClassInitialize to run code before running the first test in the class
         [SetUp]
-        public static void MyClassInitialize(TestContext testContext)
+        public void SetUp()
         {
             FileManager.CopyTestClasses();
 
-            var report = XDocument.Load(FilePath);
+            var report = XDocument.Load(filePath);
             assemblies = new DynamicCodeCoverageParser(report).Assemblies;
         }
 
         // Use ClassCleanup to run code after all tests in a class have run
         [TearDown]
-        public static void MyClassCleanup()
+        public void MyClassCleanup()
         {
             FileManager.DeleteTestClasses();
         }

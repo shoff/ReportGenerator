@@ -10,8 +10,8 @@
  <File id="9" url="c:\temp\AbstractClass.cs" />
  <File id="10" url="c:\temp\TestClass.cs" />
  <File id="11" url="c:\temp\TestClass2.cs" />
- <Assembly id="1" name="Test" module="C:\temp\Test.exe" domain="DefaultDomain" domainIdx="1" />
- <Type asmref="1" name="Test.AnalyzerTestClass" flags="0">
+ <Assembly id="1" name="ReportGenerator.Tests" module="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\Test.exe" domain="DefaultDomain" domainIdx="1" />
+ <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.AnalyzerTestClass" flags="0">
   <Method methoddef="100663297" name=".ctor" sig="void  ()" bodysize="22" flags="0" iflags="0">
    <pt visit="0" pos="0" len="7" fid="1" sl="9" sc="9" el="9" ec="35" />
    <pt visit="0" pos="7" len="1" fid="1" sl="10" sc="9" el="10" ec="10" />
@@ -35,12 +35,12 @@
    <pt visit="0" pos="0" len="9" />
   </Method>
  </Type>
- <Type asmref="1" name="Test.SomeModel" flags="0">
+ <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.SomeModel" flags="0">
   <Method methoddef="100663319" name=".ctor" sig="void  ()" bodysize="8" flags="0" iflags="0">
    <pt visit="0" pos="0" len="8" />
   </Method>
  </Type>
- <Type asmref="1" name="Test.ClassWithExcludes" flags="0">
+ <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.ClassWithExcludes" flags="0">
   <Method methoddef="100663302" name="get_IncludedProperty" sig="string  ()" bodysize="26" flags="0" iflags="0">
    <pt visit="0" pos="0" len="26" />
   </Method>
@@ -67,7 +67,7 @@
    <pt visit="2" pos="0" len="8" />
   </Method>
  </Type>
- <Type asmref="1" name="Test.CodeContract_Target" flags="0">
+ <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.CodeContract_Target" flags="0">
   <Method methoddef="100663310" name="Calculate" sig="int  (int)" bodysize="75" flags="0" iflags="0">
    <pt visit="2" pos="0" len="23" fid="3" sl="11" sc="13" el="11" ec="88" />
    <pt visit="1" pos="23" len="1" fid="4" sl="7" sc="9" el="7" ec="10" />
@@ -99,7 +99,7 @@
    <pt visit="0" pos="0" len="8" />
   </Method>
  </Type>
- <Type asmref="1" name="Test.PartialClassWithAutoProperties" flags="0">
+ <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.PartialClassWithAutoProperties" flags="0">
   <Method methoddef="100663323" name="get_Property2" sig="string  ()" bodysize="26" flags="0" iflags="0">
    <pt visit="0" pos="0" len="26" />
   </Method>
@@ -116,7 +116,7 @@
    <pt visit="2" pos="0" len="8" />
   </Method>
  </Type>
- <Type asmref="1" name="Test.AbstractGenericClass`2" flags="0">
+ <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.AbstractGenericClass`2" flags="0">
   <Method methoddef="100663313" name="Process" sig="bool  ()" bodysize="0" flags="0" iflags="0" />
   <Method methoddef="100663314" name="PostProcess" sig="bool  ()" bodysize="22" flags="0" iflags="0">
    <pt visit="0" pos="0" len="1" fid="5" sl="12" sc="9" el="12" ec="10" />
@@ -127,7 +127,7 @@
    <pt visit="2" pos="0" len="8" />
   </Method>
  </Type>
- <Type asmref="1" name="Test.GenericClass`2" flags="0">
+ <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.GenericClass`2" flags="0">
   <Method methoddef="100663316" name="Process" sig="bool  ()" bodysize="33" flags="0" iflags="0">
    <pt visit="1" pos="0" len="1" fid="5" sl="22" sc="9" el="22" ec="10" />
    <pt visit="1" pos="1" len="11" fid="5" sl="23" sc="13" el="23" ec="42" />
@@ -144,7 +144,7 @@
    <pt visit="2" pos="0" len="8" />
   </Method>
  </Type>
- <Type asmref="1" name="Test.PartialClass" flags="0">
+ <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.PartialClass" flags="0">
   <Method methoddef="100663328" name="ExecutedMethod_2" sig="void  ()" bodysize="14" flags="0" iflags="0">
    <pt visit="1" pos="0" len="1" fid="6" sl="8" sc="9" el="8" ec="10" />
    <pt visit="1" pos="1" len="11" fid="6" sl="9" sc="13" el="9" ec="39" />
@@ -187,7 +187,7 @@
    <pt visit="3" pos="0" len="8" />
   </Method>
  </Type>
- <Type asmref="1" name="Test.Program" flags="0">
+ <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.Program" flags="0">
   <Method methoddef="100663335" name="Main" sig="void  (string[])" bodysize="260" flags="0" iflags="0">
    <pt visit="1" pos="0" len="1" fid="8" sl="9" sc="9" el="9" ec="10" />
    <pt visit="1" pos="1" len="11" fid="8" sl="10" sc="13" el="10" ec="46" />
@@ -230,7 +230,7 @@
    <pt visit="0" pos="0" len="8" />
   </Method>
  </Type>
- <Type asmref="1" name="Test.AbstractClass" flags="0">
+ <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.AbstractClass" flags="0">
   <Method methoddef="100663339" name=".ctor" sig="void  ()" bodysize="22" flags="0" iflags="0">
    <pt visit="2" pos="0" len="7" fid="9" sl="7" sc="9" el="7" ec="31" />
    <pt visit="2" pos="7" len="1" fid="9" sl="8" sc="9" el="8" ec="10" />
@@ -240,7 +240,7 @@
   <Method methoddef="100663340" name="Method1" sig="void  ()" bodysize="0" flags="0" iflags="0" />
   <Method methoddef="100663341" name="Method2" sig="void  ()" bodysize="0" flags="0" iflags="0" />
  </Type>
- <Type asmref="1" name="Test.AbstractClass_SampleImpl1" flags="0">
+ <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.AbstractClass_SampleImpl1" flags="0">
   <Method methoddef="100663342" name=".ctor" sig="void  ()" bodysize="22" flags="0" iflags="0">
    <pt visit="1" pos="0" len="7" fid="9" sl="19" sc="9" el="20" ec="21" />
    <pt visit="1" pos="7" len="1" fid="9" sl="21" sc="9" el="21" ec="10" />
@@ -256,7 +256,7 @@
    <pt visit="0" pos="1" len="7" fid="9" sl="32" sc="13" el="32" ec="49" />
   </Method>
  </Type>
- <Type asmref="1" name="Test.AbstractClass_SampleImpl2" flags="0">
+ <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.AbstractClass_SampleImpl2" flags="0">
   <Method methoddef="100663345" name=".ctor" sig="void  ()" bodysize="22" flags="0" iflags="0">
    <pt visit="1" pos="0" len="7" fid="9" sl="38" sc="9" el="39" ec="21" />
    <pt visit="1" pos="7" len="1" fid="9" sl="40" sc="9" el="40" ec="10" />
@@ -272,7 +272,7 @@
    <pt visit="0" pos="1" len="7" fid="9" sl="51" sc="13" el="51" ec="49" />
   </Method>
  </Type>
- <Type asmref="1" name="Test.TestClass" flags="0">
+ <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.TestClass" flags="0">
   <Method methoddef="100663348" name="SampleFunction" sig="void  ()" bodysize="126" flags="0" iflags="0">
    <pt visit="1" pos="0" len="1" fid="10" sl="8" sc="9" el="8" ec="10" />
    <pt visit="1" pos="1" len="21" fid="10" sl="9" sc="13" el="12" ec="27" />
@@ -293,7 +293,7 @@
    <pt visit="1" pos="0" len="8" />
   </Method>
  </Type>
- <Type asmref="1" name="Test.TestClass2" flags="0">
+ <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.TestClass2" flags="0">
   <Method methoddef="100663350" name="get_ExecutedProperty" sig="string  ()" bodysize="26" flags="0" iflags="0">
    <pt visit="1" pos="0" len="26" />
   </Method>
@@ -377,7 +377,7 @@
    <pt visit="0" pos="0" len="8" />
   </Method>
  </Type>
- <Type asmref="1" name="Test.TestClassNestedClass" flags="0">
+ <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.TestClassNestedClass" flags="0">
   <Method methoddef="100663363" name="SampleFunction" sig="void  ()" bodysize="24" flags="0" iflags="0">
    <pt visit="0" pos="0" len="1" fid="10" sl="30" sc="13" el="30" ec="14" />
    <pt visit="0" pos="1" len="21" fid="10" sl="31" sc="17" el="34" ec="31" />
@@ -387,7 +387,7 @@
    <pt visit="0" pos="0" len="8" />
   </Method>
  </Type>
- <Type asmref="1" name="Test.TestClass2&lt;&gt;c__DisplayClass3" flags="0">
+ <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.TestClass2&lt;&gt;c__DisplayClass3" flags="0">
   <Method methoddef="100663365" name=".ctor" sig="void  ()" bodysize="8" flags="0" iflags="0">
    <pt visit="1" pos="0" len="8" />
   </Method>

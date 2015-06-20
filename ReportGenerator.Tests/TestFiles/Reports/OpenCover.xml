@@ -9,20 +9,20 @@
     </Module>
     <Module hash="25-39-89-B4-71-0A-8B-3D-4F-83-70-40-BB-44-12-ED-32-0C-26-8D">
       <Summary numSequencePoints="163" visitedSequencePoints="101" numBranchPoints="48" visitedBranchPoints="25" sequenceCoverage="61.96" branchCoverage="52.08" maxCyclomaticComplexity="6" minCyclomaticComplexity="1" />
-      <FullName>C:\temp\Test.exe</FullName>
+      <FullName>C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\Test.exe</FullName>
       <ModuleName>Test</ModuleName>
       <Files>
-        <File uid="1" fullPath="C:\temp\AnalyzerTestClass.cs" />
-        <File uid="3" fullPath="C:\temp\ClassWithExcludes.cs" />
-        <File uid="4" fullPath="C:\temp\CodeContract_Contract.cs" />
-        <File uid="5" fullPath="C:\temp\CodeContract_Target.cs" />
-        <File uid="6" fullPath="C:\temp\GenericClass.cs" />
-        <File uid="13" fullPath="C:\temp\PartialClass2.cs" />
-        <File uid="14" fullPath="C:\temp\PartialClass.cs" />
-        <File uid="16" fullPath="C:\temp\Program.cs" />
-        <File uid="18" fullPath="C:\temp\AbstractClass.cs" />
-        <File uid="21" fullPath="C:\temp\TestClass.cs" />
-        <File uid="26" fullPath="C:\temp\TestClass2.cs" />
+        <File uid="1" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\AnalyzerTestClass.cs" />
+        <File uid="3" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\ClassWithExcludes.cs" />
+        <File uid="4" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\CodeContract_Contract.cs" />
+        <File uid="5" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\CodeContract_Target.cs" />
+        <File uid="6" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\GenericClass.cs" />
+        <File uid="13" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass2.cs" />
+        <File uid="14" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass.cs" />
+        <File uid="16" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\Program.cs" />
+        <File uid="18" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\AbstractClass.cs" />
+        <File uid="21" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass.cs" />
+        <File uid="26" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass2.cs" />
       </Files>
       <Classes>
         <Class>

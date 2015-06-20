@@ -27,6 +27,7 @@
         /// </summary>
         /// <param name="assemblies">The assemblies.</param>
         /// <param name="historyDirectory">The history directory.</param>
+        [Pure]
         public HistoryParser(ICollection<Assembly> assemblies, string historyDirectory)
         {
             Contract.Requires<ArgumentNullException>(assemblies != null);

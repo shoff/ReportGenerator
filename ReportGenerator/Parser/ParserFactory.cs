@@ -9,15 +9,14 @@ using Palmmedia.ReportGenerator.Properties;
 
 namespace Palmmedia.ReportGenerator.Parser
 {
+    using System.Diagnostics.Contracts;
+
     /// <summary>
     /// Initiates the corresponding parser to the given report file.
     /// </summary>
     public static class ParserFactory
     {
-        /// <summary>
-        /// The Logger.
-        /// </summary>
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(ParserFactory));
+        private static readonly ILog logger = LogManager.GetLogger(typeof(ParserFactory));
 
         /// <summary>
         /// Tries to initiate the correct parsers for the given reports.
@@ -29,10 +28,8 @@ namespace Palmmedia.ReportGenerator.Parser
         /// </returns>
         public static IParser CreateParser(IEnumerable<string> reportFiles, IEnumerable<string> sourceDirectories)
         {
-            if (reportFiles == null)
-            {
-                throw new ArgumentNullException("reportFiles");
-            }
+            Contract.Requires<ArgumentNullException>(reportFiles != null);
+            Contract.Requires<ArgumentNullException>(sourceDirectories != null);
 
             var classSearcherFactory = new ClassSearcherFactory();
             var globalClassSearcher = classSearcherFactory.CreateClassSearcher(sourceDirectories.ToArray());
@@ -60,19 +57,20 @@ namespace Palmmedia.ReportGenerator.Parser
         /// <returns>
         /// The IParser instances or an empty list if no matching parser has been found.
         /// </returns>
-        private static IEnumerable<IParser> GetParsersOfFile(string reportFile, ClassSearcherFactory classSearcherFactory, ClassSearcher globalClassSearcher)
+        private static IEnumerable<IParser> GetParsersOfFile(string reportFile, 
+            ClassSearcherFactory classSearcherFactory, ClassSearcher globalClassSearcher)
         {
             var parsers = new List<IParser>();
 
             XContainer report = null;
             try
             {
-                Logger.InfoFormat(Resources.LoadingReport, reportFile);
+                logger.InfoFormat(Resources.LoadingReport, reportFile);
                 report = XDocument.Load(reportFile);
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormat(" " + Resources.ErrorDuringReadingReport, reportFile, ex.Message);
+                logger.ErrorFormat(" " + Resources.ErrorDuringReadingReport, reportFile, ex.Message);
                 return parsers;
             }
 
@@ -83,9 +81,9 @@ namespace Palmmedia.ReportGenerator.Parser
                 {
                     foreach (var item in report.Descendants("PartCoverReport"))
                     {
-                        Logger.Debug(" " + Resources.PreprocessingReport);
+                        logger.Debug(" " + Resources.PreprocessingReport);
                         new PartCover22ReportPreprocessor(item, classSearcherFactory, globalClassSearcher).Execute();
-                        Logger.DebugFormat(" " + Resources.InitiatingParser, "PartCover 2.2");
+                        logger.DebugFormat(" " + Resources.InitiatingParser, "PartCover 2.2");
                         parsers.Add(new PartCover22Parser(item));
                     }
                 }
@@ -93,9 +91,9 @@ namespace Palmmedia.ReportGenerator.Parser
                 {
                     foreach (var item in report.Descendants("PartCoverReport"))
                     {
-                        Logger.Debug(" " + Resources.PreprocessingReport);
+                        logger.Debug(" " + Resources.PreprocessingReport);
                         new PartCover23ReportPreprocessor(item, classSearcherFactory, globalClassSearcher).Execute();
-                        Logger.DebugFormat(" " + Resources.InitiatingParser, "PartCover 2.3");
+                        logger.DebugFormat(" " + Resources.InitiatingParser, "PartCover 2.3");
                         parsers.Add(new PartCover23Parser(item));
                     }
                 }
@@ -104,9 +102,9 @@ namespace Palmmedia.ReportGenerator.Parser
             {
                 foreach (var item in report.Descendants("CoverageSession"))
                 {
-                    Logger.Debug(" " + Resources.PreprocessingReport);
+                    logger.Debug(" " + Resources.PreprocessingReport);
                     new OpenCoverReportPreprocessor(item, classSearcherFactory, globalClassSearcher).Execute();
-                    Logger.DebugFormat(" " + Resources.InitiatingParser, "OpenCover");
+                    logger.DebugFormat(" " + Resources.InitiatingParser, "OpenCover");
                     parsers.Add(new OpenCoverParser(item));
                 }
             }
@@ -114,7 +112,7 @@ namespace Palmmedia.ReportGenerator.Parser
             {
                 foreach (var item in report.Descendants("coverage"))
                 {
-                    Logger.DebugFormat(" " + Resources.InitiatingParser, "NCover");
+                    logger.DebugFormat(" " + Resources.InitiatingParser, "NCover");
                     parsers.Add(new NCoverParser(item));
                 }
             }
@@ -122,7 +120,7 @@ namespace Palmmedia.ReportGenerator.Parser
             {
                 foreach (var item in report.Descendants("CoverageDSPriv"))
                 {
-                    Logger.DebugFormat(" " + Resources.InitiatingParser, "Visual Studio");
+                    logger.DebugFormat(" " + Resources.InitiatingParser, "Visual Studio");
                     new VisualStudioReportPreprocessor(item).Execute();
                     parsers.Add(new VisualStudioParser(item));
                 }
@@ -133,7 +131,7 @@ namespace Palmmedia.ReportGenerator.Parser
                 {
                     if (item.Element("modules") != null)
                     {
-                        Logger.DebugFormat(" " + Resources.InitiatingParser, "Dynamic Code Coverage");
+                        logger.DebugFormat(" " + Resources.InitiatingParser, "Dynamic Code Coverage");
                         new DynamicCodeCoverageReportPreprocessor(item).Execute();
                         parsers.Add(new DynamicCodeCoverageParser(item));
                     }

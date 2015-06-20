@@ -28,8 +28,7 @@
         // You can use the following additional attributes as you write your tests:
 
         // Use ClassInitialize to run code before running the first test in the class
-        [SetUp]
-        public static void MyClassInitialize(TestContext testContext)
+        [SetUp]public void SetUp()
         {
             FileManager.CopyTestClasses();
             assembliesWithoutPreprocessing = new PartCover23Parser(XDocument.Load(FilePath)).Assemblies;
@@ -44,7 +43,7 @@
 
         // Use ClassCleanup to run code after all tests in a class have run
         [TearDown]
-        public static void MyClassCleanup()
+        public void TearDown()
         {
             FileManager.DeleteTestClasses();
         }

@@ -1,11 +1,11 @@
 <PartCoverReport date="2011-12-12T22:28:20.3130457+01:00">
- <File id="4" url="C:\temp\PartialClass.cs" />
- <File id="5" url="C:\temp\PartialClass2.cs" />
- <File id="1" url="C:\temp\Program.cs" />
- <File id="2" url="C:\temp\TestClass.cs" />
- <File id="3" url="C:\temp\TestClass2.cs" />
- <Assembly id="1" name="Test" module="C:\temp\Test.exe" domain="DefaultDomain" domainIdx="1" />
- <Type asmref="1" name="Test.TestClass" flags="0">
+ <File id="4" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass.cs" />
+ <File id="5" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass2.cs" />
+ <File id="1" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\Program.cs" />
+ <File id="2" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass.cs" />
+ <File id="3" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass2.cs" />
+ <Assembly id="1" name="ReportGenerator.Tests" module="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\Test.exe" domain="DefaultDomain" domainIdx="1" />
+ <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.TestClass" flags="0">
   <Method name="SampleFunction" sig="void  ()" bodysize="89" flags="0" iflags="0">
    <pt visit="1" pos="0" len="1" fid="2" sl="8" sc="9" el="8" ec="10" />
    <pt visit="1" pos="1" len="11" fid="2" sl="9" sc="13" el="9" ec="47" />
@@ -26,11 +26,11 @@
    <pt visit="1" pos="6" len="1" />
   </Method>
  </Type>
- <Type asmref="1" name="Test.TestClassNestedClass" flags="0">
+ <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.TestClassNestedClass" flags="0">
   <Method name="SampleFunction" sig="void  ()" bodysize="14" flags="0" iflags="0" />
   <Method name=".ctor" sig="void  ()" bodysize="8" flags="0" iflags="0" />
  </Type>
- <Type asmref="1" name="Test.SomeClass" flags="0">
+ <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.SomeClass" flags="0">
   <Method name="get_Property1" sig="string  ()" bodysize="23" flags="0" iflags="0" />
   <Method name="set_Property1" sig="void  (string)" bodysize="9" flags="0" iflags="0">
    <pt visit="1" pos="0" len="8" />
@@ -40,7 +40,7 @@
    <pt visit="1" pos="6" len="1" />
   </Method>
  </Type>
- <Type asmref="1" name="Test.TestClass2&lt;&gt;c__DisplayClass3" flags="0">
+ <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.TestClass2&lt;&gt;c__DisplayClass3" flags="0">
   <Method name=".ctor" sig="void  ()" bodysize="8" flags="0" iflags="0">
    <pt visit="1" pos="0" len="6" />
    <pt visit="1" pos="6" len="1" />
@@ -50,7 +50,7 @@
    <pt visit="3" pos="16" len="2" />
   </Method>
  </Type>
- <Type asmref="1" name="Test.Program" flags="0">
+ <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.Program" flags="0">
   <Method name="Main" sig="void  (string[])" bodysize="145" flags="0" iflags="0">
    <pt visit="1" pos="0" len="1" fid="1" sl="7" sc="9" el="7" ec="10" />
    <pt visit="1" pos="1" len="11" fid="1" sl="8" sc="13" el="8" ec="46" />
@@ -66,7 +66,7 @@
   </Method>
   <Method name=".ctor" sig="void  ()" bodysize="8" flags="0" iflags="0" />
  </Type>
- <Type asmref="1" name="Test.PartialClass" flags="0">
+ <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.PartialClass" flags="0">
   <Method name="UnExecutedMethod_1" sig="void  ()" bodysize="14" flags="0" iflags="0" />
   <Method name="get_SomeProperty" sig="int  ()" bodysize="24" flags="0" iflags="0" />
   <Method name="set_SomeProperty" sig="void  (int)" bodysize="45" flags="0" iflags="0">
@@ -98,7 +98,7 @@
    <pt visit="1" pos="12" len="1" fid="4" sl="10" sc="9" el="10" ec="10" />
   </Method>
  </Type>
- <Type asmref="1" name="Test.TestClass2" flags="0">
+ <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.TestClass2" flags="0">
   <Method name="get_UnExecutedProperty" sig="string  ()" bodysize="23" flags="0" iflags="0" />
   <Method name="&lt;SampleFunction&gt;b__0" sig="int  (int)" bodysize="20" flags="0" iflags="0">
    <pt visit="4" pos="0" len="6" fid="3" sl="45" sc="46" el="45" ec="51" />
@@ -153,7 +153,7 @@
   </Method>
   <Method name="DoSomething" sig="string  (string, string[], System.Guid, string, string, System.Decimal, int, stringint, ref int, float, double, bool, unsigned byte, char, object, byte, short, unsigned int, unsigned long, unsigned short)" bodysize="23" flags="0" iflags="0" />
  </Type>
- <Type asmref="1" name="Test.PartialClassWithAutoProperties" flags="0">
+ <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.PartialClassWithAutoProperties" flags="0">
   <Method name="get_Property2" sig="string  ()" bodysize="23" flags="0" iflags="0" />
   <Method name="set_Property2" sig="void  (string)" bodysize="9" flags="0" iflags="0">
    <pt visit="1" pos="0" len="8" />

@@ -5,6 +5,9 @@ using Palmmedia.ReportGenerator.Parser.Analysis;
 
 namespace Palmmedia.ReportGenerator.Parser
 {
+    using System;
+    using System.Diagnostics.Contracts;
+
     /// <summary>
     /// Base class for the <see cref="IParser"/> implementations.
     /// </summary>
@@ -13,7 +16,7 @@ namespace Palmmedia.ReportGenerator.Parser
         /// <summary>
         /// The assemblies found in the report.
         /// </summary>
-        private ConcurrentBag<Assembly> assemblies = new ConcurrentBag<Assembly>();
+        private readonly ConcurrentBag<Assembly> assemblies = new ConcurrentBag<Assembly>();
 
         /// <summary>
         /// Gets the assemblies that have been found in the report.
@@ -21,10 +24,7 @@ namespace Palmmedia.ReportGenerator.Parser
         /// <value>The assemblies.</value>
         public ICollection<Assembly> Assemblies
         {
-            get
-            {
-                return this.assemblies.OrderBy(a => a.Name).ToList();
-            }
+            get { return this.assemblies.OrderBy(a => a.Name).ToList(); }
         }
 
         /// <summary>
@@ -44,6 +44,7 @@ namespace Palmmedia.ReportGenerator.Parser
         /// <param name="assembly">The assembly.</param>
         protected void AddAssembly(Assembly assembly)
         {
+            Contract.Requires<ArgumentNullException>(assembly != null);
             this.assemblies.Add(assembly);
         }
     }

@@ -1,10 +1,10 @@
 <root>
   <PartCoverReport date="2010-04-28T21:30:46.1041967+02:00">
-    <File id="3" url="C:\temp\PartialClass.cs" />
-    <File id="4" url="C:\temp\PartialClass2.cs" />
-    <File id="1" url="C:\temp\TestClass.cs" />
-    <File id="2" url="C:\temp\TestClass2.cs" />
-    <Assembly name="Test" module="C:\temp\Test.exe" />
+    <File id="3" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass.cs" />
+    <File id="4" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass2.cs" />
+    <File id="1" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass.cs" />
+    <File id="2" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass2.cs" />
+    <Assembly name="Test" module="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\Test.exe" />
     <Type asm="Test" name="Test.TestClass2&lt;&gt;c__DisplayClass3" flags="1048835">
       <Method name=".ctor" sig="void  ()" flags="6278" iflags="0">
         <pt visit="1" pos="0" len="6" />
@@ -145,11 +145,11 @@
     </Type>
   </PartCoverReport>
   <PartCoverReport date="2010-04-28T21:30:46.1041967+02:00">
-    <File id="3" url="C:\temp\PartialClass.cs" />
-    <File id="4" url="C:\temp\PartialClass2.cs" />
-    <File id="1" url="C:\temp\TestClass.cs" />
-    <File id="2" url="C:\temp\TestClass2.cs" />
-    <Assembly name="Test" module="C:\temp\Test.exe" />
+    <File id="3" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass.cs" />
+    <File id="4" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass2.cs" />
+    <File id="1" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass.cs" />
+    <File id="2" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass2.cs" />
+    <Assembly name="Test" module="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\Test.exe" />
     <Type asm="Test" name="Test.TestClass2&lt;&gt;c__DisplayClass3" flags="1048835">
       <Method name=".ctor" sig="void  ()" flags="6278" iflags="0">
         <pt visit="1" pos="0" len="6" />

@@ -24,16 +24,10 @@
 
         // Use ClassInitialize to run code before running the first test in the class
         [SetUp]
-        public static void MyClassInitialize(TestContext testContext)
+        public void SetUp()
         {
             var report = XDocument.Load(FilePath);
             assemblies = new NCoverParser(report).Assemblies;
-        }
-
-        // Use ClassCleanup to run code after all tests in a class have run
-        [TearDown]
-        public static void MyClassCleanup()
-        {
         }
 
         // Use TestInitialize to run code before running each test

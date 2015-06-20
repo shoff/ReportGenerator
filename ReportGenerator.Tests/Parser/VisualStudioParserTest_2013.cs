@@ -27,7 +27,7 @@ namespace ReportGenerator.Tests.Parser
 
         // Use ClassInitialize to run code before running the first test in the class
         [SetUp]
-        public static void MyClassInitialize(TestContext testContext)
+        public void SetUp()
         {
             FileManager.CopyTestClasses();
 
@@ -37,7 +37,7 @@ namespace ReportGenerator.Tests.Parser
 
         // Use ClassCleanup to run code after all tests in a class have run
         [TearDown]
-        public static void MyClassCleanup()
+        public void TearDown()
         {
             FileManager.DeleteTestClasses();
         }

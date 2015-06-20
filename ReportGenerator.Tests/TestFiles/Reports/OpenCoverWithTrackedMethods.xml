@@ -99,20 +99,20 @@
     </Module>
     <Module hash="25-39-89-B4-71-0A-8B-3D-4F-83-70-40-BB-44-12-ED-32-0C-26-8D">
       <Summary numSequencePoints="166" visitedSequencePoints="110" numBranchPoints="49" visitedBranchPoints="29" sequenceCoverage="66.27" branchCoverage="59.18" maxCyclomaticComplexity="6" minCyclomaticComplexity="1" />
-      <FullName>C:\temp\Test.exe</FullName>
+      <FullName>C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\Test.exe</FullName>
       <ModuleName>Test</ModuleName>
       <Files>
-        <File uid="1" fullPath="C:\temp\AnalyzerTestClass.cs" />
-        <File uid="3" fullPath="C:\temp\ClassWithExcludes.cs" />
-        <File uid="4" fullPath="C:\temp\CodeContract_Contract.cs" />
-        <File uid="5" fullPath="C:\temp\CodeContract_Target.cs" />
-        <File uid="7" fullPath="C:\temp\GenericClass.cs" />
-        <File uid="14" fullPath="C:\temp\PartialClass2.cs" />
-        <File uid="15" fullPath="C:\temp\PartialClass.cs" />
-        <File uid="17" fullPath="C:\temp\Program.cs" />
-        <File uid="19" fullPath="C:\temp\AbstractClass.cs" />
-        <File uid="22" fullPath="C:\temp\TestClass.cs" />
-        <File uid="27" fullPath="C:\temp\TestClass2.cs" />
+        <File uid="1" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\AnalyzerTestClass.cs" />
+        <File uid="3" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\ClassWithExcludes.cs" />
+        <File uid="4" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\CodeContract_Contract.cs" />
+        <File uid="5" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\CodeContract_Target.cs" />
+        <File uid="7" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\GenericClass.cs" />
+        <File uid="14" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass2.cs" />
+        <File uid="15" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass.cs" />
+        <File uid="17" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\Program.cs" />
+        <File uid="19" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\AbstractClass.cs" />
+        <File uid="22" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass.cs" />
+        <File uid="27" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass2.cs" />
       </Files>
       <Classes>
         <Class>
@@ -1829,7 +1829,7 @@
       <Classes />
     </Module>
     <Module skippedDueTo="MissingPdb" hash="BC-45-84-AA-19-59-45-D0-9D-FA-DF-9D-48-60-8C-29-45-92-BF-FE">
-      <FullName>C:\temp\ICSharpCode.NRefactory.dll</FullName>
+      <FullName>C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\ICSharpCode.NRefactory.dll</FullName>
       <ModuleName>ICSharpCode.NRefactory</ModuleName>
       <Classes />
     </Module>
