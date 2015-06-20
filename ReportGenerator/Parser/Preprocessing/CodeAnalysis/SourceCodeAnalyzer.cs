@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using ICSharpCode.NRefactory.CSharp;
+﻿
 
 namespace Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis
 {
     using System.Diagnostics.Contracts;
     using System.Security;
     using log4net;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using ICSharpCode.NRefactory.CSharp;
 
     /// <summary>
     /// Helper class to determine the begin and end line number of source code elements within a source code file.

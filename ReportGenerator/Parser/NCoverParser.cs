@@ -34,8 +34,12 @@ namespace Palmmedia.ReportGenerator.Parser
                 .OrderBy(a => a)
                 .ToArray();
 
-            Parallel.ForEach(assemblyNames, assemblyName => this.AddAssembly(this.ProcessAssembly(assemblyName)));
-
+            //Parallel.ForEach(assemblyNames, assemblyName => this.AddAssembly(this.ProcessAssembly(assemblyName)));
+            foreach (var assemblyName in assemblyNames)
+            {
+                var processedAssembly = this.ProcessAssembly(assemblyName);
+                this.AddAssembly(processedAssembly);
+            }
             this.modules = null;
         }
 
@@ -60,8 +64,12 @@ namespace Palmmedia.ReportGenerator.Parser
 
             var assembly = new Assembly(assemblyName);
 
-            Parallel.ForEach(classNames, className => assembly.AddClass(this.ProcessClass(assembly, className)));
-
+            // Parallel.ForEach(classNames, className => assembly.AddClass(this.ProcessClass(assembly, className)));
+            foreach (var className in classNames)
+            {
+                var processedClass = this.ProcessClass(assembly, className);
+                assembly.AddClass(processedClass);
+            }
             return assembly;
         }
 
@@ -81,14 +89,14 @@ namespace Palmmedia.ReportGenerator.Parser
                 .Distinct()
                 .ToArray();
 
-            var @class = new Class(className, assembly);
+            var processClass = new Class(className, assembly);
 
             foreach (var file in filesOfClass)
             {
-                @class.AddFile(this.ProcessFile(@class, file));
+                processClass.AddFile(this.ProcessFile(processClass, file));
             }
 
-            return @class;
+            return processClass;
         }
 
         /// <summary>

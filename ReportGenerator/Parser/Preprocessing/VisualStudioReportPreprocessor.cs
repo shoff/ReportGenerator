@@ -1,21 +1,19 @@
-﻿using System.Globalization;
-using System.Linq;
-using System.Xml.Linq;
-
-namespace Palmmedia.ReportGenerator.Parser.Preprocessing
+﻿namespace Palmmedia.ReportGenerator.Parser.Preprocessing
 {
+    using System;
+    using System.Globalization;
+    using System.Linq;
+    using System.Xml.Linq;
+
     /// <summary>
-    /// Preprocessor for Visual Studio reports.
+    ///   Preprocessor for Visual Studio reports.
     /// </summary>
     public class VisualStudioReportPreprocessor
     {
-        /// <summary>
-        /// The report file as XContainer.
-        /// </summary>
         private readonly XContainer report;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="VisualStudioReportPreprocessor"/> class.
+        ///   Initializes a new instance of the <see cref="VisualStudioReportPreprocessor" /> class.
         /// </summary>
         /// <param name="report">The report.</param>
         public VisualStudioReportPreprocessor(XContainer report)
@@ -24,7 +22,7 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing
         }
 
         /// <summary>
-        /// Executes the preprocessing of the report.
+        ///   Executes the preprocessing of the report.
         /// </summary>
         public void Execute()
         {
@@ -35,47 +33,35 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing
         }
 
         /// <summary>
-        /// Applies the class name of the parent class to startup code elements.
+        ///   Applies the class name of the parent class to startup code elements.
         /// </summary>
         /// <param name="module">The module.</param>
         private static void ApplyClassNameToStartupCodeElements(XElement module)
         {
-            var startupCodeClasses = module
-                .Elements("NamespaceTable")
-                .Where(c => c.Element("NamespaceName").Value.StartsWith("<StartupCode$", System.StringComparison.OrdinalIgnoreCase))
-                .Elements("Class")
-                .Where(c => c.Element("ClassName").Value.Contains("."))
-                .ToArray();
+            var startupCodeClasses =
+                module.Elements("NamespaceTable").Where(
+                    c => c.Element("NamespaceName").Value.StartsWith("<StartupCode$", StringComparison.OrdinalIgnoreCase)).Elements(
+                        "Class").Where(c => c.Element("ClassName").Value.Contains(".")).ToArray();
 
-            var classesInModule = module
-                .Elements("NamespaceTable")
-                .Where(c => !c.Element("NamespaceName").Value.StartsWith("<StartupCode$", System.StringComparison.OrdinalIgnoreCase))
-                .Elements("Class")
-                .ToArray();
+            var classesInModule =
+                module.Elements("NamespaceTable").Where(
+                    c => !c.Element("NamespaceName").Value.StartsWith("<StartupCode$", StringComparison.OrdinalIgnoreCase)).Elements(
+                        "Class").ToArray();
 
             foreach (var startupCodeClass in startupCodeClasses)
             {
-                var fileIds = startupCodeClass
-                    .Elements("Method")
-                    .Elements("Lines")
-                    .Elements("SourceFileID")
-                    .Select(e => e.Value)
-                    .Distinct()
-                    .ToArray();
+                var fileIds =
+                    startupCodeClass.Elements("Method").Elements("Lines").Elements("SourceFileID").Select(e => e.Value).Distinct()
+                        .ToArray();
 
                 if (fileIds.Length != 1)
                 {
                     continue;
                 }
 
-                var lineNumbers = startupCodeClass
-                    .Elements("Method")
-                    .Elements("Lines")
-                    .Elements("LnStart")
-                    .Select(s => int.Parse(s.Value, CultureInfo.InvariantCulture))
-                    .OrderBy(v => v)
-                    .Take(1)
-                    .ToArray();
+                var lineNumbers =
+                    startupCodeClass.Elements("Method").Elements("Lines").Elements("LnStart").Select(
+                        s => int.Parse(s.Value, CultureInfo.InvariantCulture)).OrderBy(v => v).Take(1).ToArray();
 
                 if (lineNumbers.Length != 1)
                 {
@@ -83,48 +69,34 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing
                 }
 
                 XElement closestClass = null;
-                int closestLineNumber = 0;
+                var closestLineNumber = 0;
 
                 foreach (var @class in classesInModule)
                 {
-                    var linesOfClass = @class
-                        .Elements("Method")
-                        .Elements("Lines")
-                        .ToArray();
+                    var linesOfClass = @class.Elements("Method").Elements("Lines").ToArray();
 
-                    var fileIdsOfClass = linesOfClass
-                        .Elements("SourceFileID")
-                        .Select(e => e.Value)
-                        .Distinct()
-                        .ToArray();
+                    var fileIdsOfClass = linesOfClass.Elements("SourceFileID").Select(e => e.Value).Distinct().ToArray();
 
                     if (fileIdsOfClass.Length != 1 || fileIdsOfClass[0] != fileIds[0])
                     {
                         continue;
                     }
 
-                    var lineNumbersOfClass = linesOfClass
-                        .Elements("LnStart")
-                        .Select(s => int.Parse(s.Value, CultureInfo.InvariantCulture))
-                        .OrderBy(v => v)
-                        .Take(1)
-                        .ToArray();
+                    var lineNumbersOfClass =
+                        linesOfClass.Elements("LnStart").Select(s => int.Parse(s.Value, CultureInfo.InvariantCulture)).OrderBy(v => v)
+                            .Take(1).ToArray();
 
                     /* Conditions:
                         * 1) No line numbers available
                         * 2) Class comes after current class
                         * 3) Closer class has already been found */
-                    if (lineNumbersOfClass.Length != 1
-                        || lineNumbersOfClass[0] > lineNumbers[0]
+                    if (lineNumbersOfClass.Length != 1 || lineNumbersOfClass[0] > lineNumbers[0]
                         || closestLineNumber > lineNumbersOfClass[0])
                     {
-                        continue;
                     }
-                    else
-                    {
-                        closestClass = @class;
-                        closestLineNumber = lineNumbersOfClass[0];
-                    }
+
+                    closestClass = @class;
+                    closestLineNumber = lineNumbersOfClass[0];
                 }
 
                 if (closestClass != null)

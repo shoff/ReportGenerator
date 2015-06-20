@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using log4net;
 using Palmmedia.ReportGenerator.Common;
@@ -39,14 +38,16 @@ namespace Palmmedia.ReportGenerator.Parser
             // Determine which version of PartCover 2.3 has been used.
             // In PartCover 2.3.0.35109 the assemblies are referenced by an id and the attribute name in Type elements has changed.
             var assemblies = report.Descendants("Assembly");
-            if (assemblies.Any() && assemblies.First().Attribute("id") != null)
+            var xElements = assemblies as XElement[] ?? assemblies.ToArray();
+
+            if (xElements.Any() && xElements.First().Attribute("id") != null)
             {
                 this.assemblyAttribute = "asmref";
-                this.assembliesByIdDictionary = assemblies.ToDictionary(a => a.Attribute("id").Value, a => a.Attribute("name").Value);
+                this.assembliesByIdDictionary = xElements.ToDictionary(a => a.Attribute("id").Value, a => a.Attribute("name").Value);
             }
             else
             {
-                this.assembliesByIdDictionary = assemblies.ToDictionary(a => a.Attribute("name").Value, a => a.Attribute("name").Value);
+                this.assembliesByIdDictionary = xElements.ToDictionary(a => a.Attribute("name").Value, a => a.Attribute("name").Value);
             }
 
             this.fileIdByFilenameDictionary = this.files.ToDictionary(f => f.Attribute("url").Value, f => f.Attribute("id").Value);
@@ -56,7 +57,12 @@ namespace Palmmedia.ReportGenerator.Parser
                 .OrderBy(a => a)
                 .ToArray();
 
-            Parallel.ForEach(assemblyNames, assemblyName => this.AddAssembly(this.ProcessAssembly(assemblyName)));
+            //Parallel.ForEach(assemblyNames, assemblyName => this.AddAssembly(this.ProcessAssembly(assemblyName)));
+            foreach (var assemblyName in assemblyNames)
+            {
+                var processedAssembly = this.ProcessAssembly(assemblyName);
+                this.AddAssembly(processedAssembly);
+            }
 
             this.types = null;
             this.files = null;
@@ -82,7 +88,12 @@ namespace Palmmedia.ReportGenerator.Parser
 
             var assembly = new Assembly(assemblyName);
 
-            Parallel.ForEach(classNames, className => assembly.AddClass(this.ProcessClass(assembly, className)));
+            //Parallel.ForEach(classNames, className => assembly.AddClass());
+            foreach (var className in classNames)
+            {
+                var processedClass = this.ProcessClass(assembly, className);
+                assembly.AddClass(processedClass);
+            }
 
             return assembly;
         }
@@ -110,14 +121,14 @@ namespace Palmmedia.ReportGenerator.Parser
                 .Select(file => file.Attribute("url").Value)
                 .ToArray();
 
-            var @class = new Class(className, assembly);
+            var processClass = new Class(className, assembly);
 
             foreach (var file in filesOfClass)
             {
-                @class.AddFile(this.ProcessFile(@class, file));
+                processClass.AddFile(this.ProcessFile(processClass, file));
             }
 
-            return @class;
+            return processClass;
         }
 
         /// <summary>

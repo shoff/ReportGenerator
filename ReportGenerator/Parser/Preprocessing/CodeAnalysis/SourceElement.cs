@@ -12,10 +12,10 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis
     {
         /// <summary>Initializes a new instance of the <see cref="SourceElement"/> class.</summary>
         /// <param name="classname">The classname.</param>
+        [Pure]
         protected SourceElement(string classname)
         {
-            Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(classname),
-                "classname cannot be null or whitespace.");
+            Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(classname));
 
             this.Classname = classname;
         }

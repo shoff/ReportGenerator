@@ -1,16 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using log4net;
-using Palmmedia.ReportGenerator.Parser.Analysis;
-using Palmmedia.ReportGenerator.Properties;
+
 
 namespace Palmmedia.ReportGenerator.Parser
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using System.Xml.Linq;
+    using log4net;
+    using Palmmedia.ReportGenerator.Parser.Analysis;
+    using Palmmedia.ReportGenerator.Properties;
     using System.Diagnostics.Contracts;
 
     /// <summary>
@@ -39,8 +39,12 @@ namespace Palmmedia.ReportGenerator.Parser
                 .OrderBy(a => a)
                 .ToArray();
 
-            Parallel.ForEach(assemblyNames, assemblyName => this.AddAssembly(this.ProcessAssembly(assemblyName)));
-
+            // Parallel.ForEach(assemblyNames, assemblyName => this.AddAssembly(this.ProcessAssembly(assemblyName)));
+            foreach (var assemblyName in assemblyNames)
+            {
+                var processedAssembly = this.ProcessAssembly(assemblyName);
+                this.AddAssembly(processedAssembly);
+            }
             this.modules = null;
             this.files = null;
         }
@@ -103,8 +107,12 @@ namespace Palmmedia.ReportGenerator.Parser
 
             var assembly = new Assembly(assemblyName);
 
-            Parallel.ForEach(classNames, className => assembly.AddClass(this.ProcessClass(assembly, className)));
-
+            // Parallel.ForEach(classNames, className => assembly.AddClass(this.ProcessClass(assembly, className)));
+            foreach (var className in classNames)
+            {
+                var processedClass = this.ProcessClass(assembly, className);
+                assembly.AddClass(processedClass);
+            }
             return assembly;
         }
 
@@ -127,15 +135,15 @@ namespace Palmmedia.ReportGenerator.Parser
                 .Select(m => m.Value)
                 .Distinct();
 
-            var @class = new Class(className, assembly);
+            var processClass = new Class(className, assembly);
 
             foreach (var fileId in fileIdsOfClass)
             {
                 string file = this.files.First(f => f.Element("SourceFileID").Value == fileId).Element("SourceFileName").Value;
-                @class.AddFile(this.ProcessFile(fileId, @class, file));
+                processClass.AddFile(this.ProcessFile(fileId, processClass, file));
             }
 
-            return @class;
+            return processClass;
         }
 
         /// <summary>

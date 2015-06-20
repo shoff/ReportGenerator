@@ -1,9 +1,10 @@
-﻿using System;
-using ICSharpCode.NRefactory.CSharp;
-using ICSharpCode.NRefactory.PatternMatching;
-
+﻿
 namespace Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis
 {
+    using System;
+    using ICSharpCode.NRefactory.CSharp;
+    using ICSharpCode.NRefactory.PatternMatching;
+    
     /// <summary>
     /// Represents a property in a source file.
     /// </summary>

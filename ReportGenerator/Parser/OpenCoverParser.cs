@@ -1,17 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using log4net;
-using Palmmedia.ReportGenerator.Common;
-using Palmmedia.ReportGenerator.Parser.Analysis;
-using Palmmedia.ReportGenerator.Properties;
+
 
 namespace Palmmedia.ReportGenerator.Parser
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using System.Xml.Linq;
+    using log4net;
+    using Palmmedia.ReportGenerator.Common;
+    using Palmmedia.ReportGenerator.Parser.Analysis;
+    using Palmmedia.ReportGenerator.Properties;
     using System.Diagnostics.Contracts;
 
     /// <summary>
@@ -45,8 +45,12 @@ namespace Palmmedia.ReportGenerator.Parser
                 .OrderBy(a => a)
                 .ToArray();
 
-            Parallel.ForEach(assemblyNames, assemblyName => this.AddAssembly(this.ProcessAssembly(assemblyName)));
-
+            // Parallel.ForEach(assemblyNames, assemblyName => this.AddAssembly(this.ProcessAssembly(assemblyName)));
+            foreach (var assemblyName in assemblyNames)
+            {
+                var processedAssembly = this.ProcessAssembly(assemblyName);
+                this.AddAssembly(processedAssembly);
+            }
             this.modules = null;
             this.files = null;
             this.trackedMethods = null;
@@ -185,8 +189,12 @@ namespace Palmmedia.ReportGenerator.Parser
 
             var assembly = new Assembly(assemblyName);
 
-            Parallel.ForEach(classNames, className => assembly.AddClass(this.ProcessClass(fileIdsByFilename, assembly, className)));
-
+            // Parallel.ForEach(classNames, className => assembly.AddClass(this.ProcessClass(fileIdsByFilename, assembly, className)));
+            foreach (var className in classNames)
+            {
+                var processedClass = this.ProcessClass(fileIdsByFilename, assembly, className);
+                assembly.AddClass(processedClass);
+            }
             return assembly;
         }
 
