@@ -30,12 +30,7 @@
         public PartCoverMethodElement(string classname, string methodname, string signature)
             : base(classname)
         {
-            Contract.Requires<ArgumentNullException>(!string.IsNullOrWhiteSpace(classname));
-            Contract.Requires<ArgumentNullException>(!string.IsNullOrWhiteSpace(methodname));
-            Contract.Requires<ArgumentNullException>(!string.IsNullOrWhiteSpace(signature));
-
             this.methodname = methodname;
-
             var match = Regex.Match(signature, @"(?<returnType>^\S*).*\((?<arguments>.*)\)", RegexOptions.Compiled);
             this.returnType = match.Groups["returnType"].Value;
             this.parameters = match.Groups["arguments"].Value.Split(parameterDelimiter, StringSplitOptions.RemoveEmptyEntries);
@@ -57,8 +52,6 @@
         /// </returns>
         public override SourceElementPosition GetSourceElementPosition(INode node)
         {
-            Contract.Requires<ArgumentNullException>(node != null);
-
             if (this.IsConstructor)
             {
                 var constructorDeclaration = node as ConstructorDeclaration;

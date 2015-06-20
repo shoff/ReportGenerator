@@ -14,18 +14,21 @@ namespace ReportGenerator.Tests.Parser.Preprocessing.CodeAnalysis
         [Test]
         public void GetClassesInFile_All_Classes_Are_Returned()
         {
-            var classes = SourceCodeAnalyzer.GetClassesInFile(Path.Combine(FileManager.GetCSharpCodeDirectory(), "TestClass.cs"));
+            var tfc = Path.Combine(FileManager.GetCSharpCodeDirectory(), "TestClass.cs");
+            Assert.True(File.Exists(tfc));
 
+            var classes = SourceCodeAnalyzer.GetClassesInFile(tfc);
             Assert.IsNotNull(classes, "Classes must not be null.");
-            Assert.IsTrue(classes.Contains("Test.TestClass"), "Classes does not contain root class");
-            Assert.IsTrue(classes.Contains("Test.TestClassNestedClass"), "Classes does not contain nested class");
+
+            Assert.IsTrue(classes.Contains("ReportGenerator.Tests.TestFiles.Project.TestClass"), "Classes does not contain root class");
+            Assert.IsTrue(classes.Contains("ReportGenerator.Tests.TestFiles.Project.TestClassNestedClass"), "Classes does not contain nested class");
         }
 
         [Test]
         public void FindMethod_SearchExistingMethod_PositionMustNotBeNullAndSupplyCorrectLinenumber()
         {
             PartCoverMethodElement partCoverMethodElement = new PartCoverMethodElement(
-                "Test.AnalyzerTestClass", 
+                "ReportGenerator.Tests.TestFiles.Project.AnalyzerTestClass", 
                 "DoSomething", 
                 "string  (string, string[], System.Guid, string, string, System.Decimal, int, long, stringint, ref int, float, double, bool, unsigned byte, char, object, byte, short, unsigned int, unsigned long, unsigned short, ICSharpCode.NRefactory.Ast.INode)");
 
@@ -40,7 +43,7 @@ namespace ReportGenerator.Tests.Parser.Preprocessing.CodeAnalysis
         [Test]
         public void FindMethod_SearchExistingConstructor_PositionMustNotBeNullAndSupplyCorrectLinenumber()
         {
-            PartCoverMethodElement partCoverMethodElement = new PartCoverMethodElement("Test.AnalyzerTestClass", ".ctor", "void  ()");
+            PartCoverMethodElement partCoverMethodElement = new PartCoverMethodElement("ReportGenerator.Tests.TestFiles.Project.AnalyzerTestClass", ".ctor", "void  ()");
 
             var methodPosition = SourceCodeAnalyzer.FindSourceElement(elementClassFile, partCoverMethodElement);
 
@@ -66,7 +69,7 @@ namespace ReportGenerator.Tests.Parser.Preprocessing.CodeAnalysis
         [Test]
         public void FindProperty_SearchExistingProperty_PositionMustNotBeNullAndSupplyCorrectLinenumber()
         {
-            PropertyElement propertyElement = new PropertyElement("Test.AnalyzerTestClass", "get_AutoProperty");
+            PropertyElement propertyElement = new PropertyElement("ReportGenerator.Tests.TestFiles.Project.AnalyzerTestClass", "get_AutoProperty");
 
             var propertyPosition = SourceCodeAnalyzer.FindSourceElement(elementClassFile, propertyElement);
 

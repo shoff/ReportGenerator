@@ -1,5 +1,6 @@
 ﻿
 
+// ReSharper disable InconsistentNaming
 namespace ReportGenerator.Tests.Reporting
 {
     using System.Collections.Generic;
@@ -16,15 +17,16 @@ namespace ReportGenerator.Tests.Reporting
     public class MefReportBuilderFactoryTest
     {
         [Test]
-        public void GetAvailableReportTypes_AllReportTypesReturned()
+        public void GetAvailableReportTypes_All_Report_Types_Returned()
         {
             var factory = new MefReportBuilderFactory();
-
-            Assert.IsTrue(factory.GetAvailableReportTypes().Count() > 6, "Not all default report builders available.");
+            var expected = 6;
+            var actual = factory.GetAvailableReportTypes().Count();
+            Assert.AreEqual(expected, actual);
         }
 
         [Test]
-        public void GetReportBuilders_DefaultReportBuilderReturned()
+        public void GetReportBuilders_Default_Report_Builder_Returned()
         {
             var factory = new MefReportBuilderFactory();
 
@@ -32,7 +34,9 @@ namespace ReportGenerator.Tests.Reporting
             Assert.AreEqual(1, reportBuilders.Count(), "Default report builder not available.");
 
             reportBuilders = factory.GetReportBuilders("C:\\temp", new[] { "Latex" });
+            
             Assert.AreEqual(1, reportBuilders.Count(), "Report builder not available.");
+
             Assert.AreEqual(typeof(AdditionalLatexReportBuilder), reportBuilders.First().GetType(), "Non default report builder should get returned");
         }
     }

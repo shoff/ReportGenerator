@@ -39,7 +39,13 @@ namespace Palmmedia.ReportGenerator.Parser.Preprocessing.CodeAnalysis
             {
                 return new string[] { };
             }
-            return (ICollection<string>)FindClasses(new[] { parentNode }).Select(GetFullClassName).Distinct();
+            var collection = FindClasses(new[] { parentNode }).Select(GetFullClassName).Distinct();
+
+            if (collection.Any())
+            {
+                return new List<string>(collection);
+            }
+            return new List<string>();
         }
 
         /// <summary>
