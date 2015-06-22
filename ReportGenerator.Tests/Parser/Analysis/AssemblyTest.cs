@@ -67,7 +67,7 @@
 
             var target1 = new Assembly(assemblyName);
             var target2 = new Assembly(assemblyName);
-            var target3 = new Assembly("Test.dll");
+            var target3 = new Assembly(CommonNames.TestNamespace + "dll");
 
             Assert.IsTrue(target1.Equals(target2), "Objects are not equal");
             Assert.IsFalse(target1.Equals(target3), "Objects are equal");

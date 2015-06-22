@@ -1,15 +1,15 @@
 <PartCoverReport version="4.0" date="2014-12-30T15:39:40.5969024+01:00">
- <File id="1" url="c:\temp\AnalyzerTestClass.cs" />
- <File id="2" url="c:\temp\ClassWithExcludes.cs" />
- <File id="3" url="c:\temp\CodeContract_Contract.cs" />
- <File id="4" url="c:\temp\CodeContract_Target.cs" />
- <File id="5" url="c:\temp\GenericClass.cs" />
- <File id="6" url="c:\temp\PartialClass2.cs" />
- <File id="7" url="c:\temp\PartialClass.cs" />
- <File id="8" url="c:\temp\Program.cs" />
- <File id="9" url="c:\temp\AbstractClass.cs" />
- <File id="10" url="c:\temp\TestClass.cs" />
- <File id="11" url="c:\temp\TestClass2.cs" />
+ <File id="1" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\AnalyzerTestClass.cs" />
+ <File id="2" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\ClassWithExcludes.cs" />
+ <File id="3" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\CodeContract_Contract.cs" />
+ <File id="4" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\CodeContract_Target.cs" />
+ <File id="5" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\GenericClass.cs" />
+ <File id="6" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass2.cs" />
+ <File id="7" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass.cs" />
+ <File id="8" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\Program.cs" />
+ <File id="9" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\AbstractClass.cs" />
+ <File id="10" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass.cs" />
+ <File id="11" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass2.cs" />
  <Assembly id="1" name="ReportGenerator.Tests" module="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\ReportGenerator.Tests.dll" domain="DefaultDomain" domainIdx="1" />
  <Type asmref="1" name="ReportGenerator.Tests.TestFiles.Project.AnalyzerTestClass" flags="0">
   <Method methoddef="100663297" name=".ctor" sig="void  ()" bodysize="22" flags="0" iflags="0">
@@ -83,7 +83,7 @@
    <pt visit="2" pos="0" len="8" />
   </Method>
  </Type>
- <Type asmref="1" name="Test.SomeClass" flags="0">
+ <Type asmref="1" name=CommonNames.TestNamespace + "SomeClass" flags="0">
   <Method methoddef="100663320" name="get_Property1" sig="string  ()" bodysize="26" flags="0" iflags="0">
    <pt visit="0" pos="0" len="26" />
   </Method>
@@ -94,7 +94,7 @@
    <pt visit="1" pos="0" len="8" />
   </Method>
  </Type>
- <Type asmref="1" name="Test.CoverageExcludeAttribute" flags="0">
+ <Type asmref="1" name=CommonNames.TestNamespace + "CoverageExcludeAttribute" flags="0">
   <Method methoddef="100663312" name=".ctor" sig="void  ()" bodysize="8" flags="0" iflags="0">
    <pt visit="0" pos="0" len="8" />
   </Method>

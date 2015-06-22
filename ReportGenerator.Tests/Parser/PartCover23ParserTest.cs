@@ -17,22 +17,15 @@
     [TestFixture]
     public class PartCover23ParserTest
     {
-        private static readonly string FilePath = Path.Combine(FileManager.GetCSharpReportDirectory(), "Partcover2.3.xml");
+        private static readonly string FilePath = CommonNames.ReportDirectory + "Partcover2.3.xml";
 
         private static IEnumerable<Assembly> assembliesWithoutPreprocessing;
 
         private static IEnumerable<Assembly> assembliesWithPreprocessing;
 
-        #region Additional test attributes
-
-        // You can use the following additional attributes as you write your tests:
-
-        // Use ClassInitialize to run code before running the first test in the class
         [SetUp]
         public void SetUp()
         {
-            FileManager.CopyTestClasses();
-
             assembliesWithoutPreprocessing = new PartCover23Parser(XDocument.Load(FilePath)).Assemblies;
 
             var report = XDocument.Load(FilePath);
@@ -42,14 +35,6 @@
             assembliesWithPreprocessing = new PartCover23Parser(report).Assemblies;
         }
 
-        // Use ClassCleanup to run code after all tests in a class have run
-        [TearDown]
-        public void TearDown()
-        {
-            FileManager.DeleteTestClasses();
-        }
-
-        #endregion
 
         /// <summary>
         /// A test for NumberOfLineVisits
@@ -57,11 +42,11 @@
         [Test]
         public void NumberOfLineVisitsTest_WithoutPreprocessing()
         {
-            var fileAnalysis = GetFileAnalysis(assembliesWithoutPreprocessing, "Test.TestClass", "C:\\temp\\TestClass.cs");
+            var fileAnalysis = GetFileAnalysis(assembliesWithoutPreprocessing, CommonNames.TestNamespace + "TestClass", CommonNames.CodeDirectory + "TestClass.cs");
             Assert.AreEqual(1, fileAnalysis.Lines.Single(l => l.LineNumber == 14).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 18).LineVisits, "Wrong number of line visits");
 
-            fileAnalysis = GetFileAnalysis(assembliesWithoutPreprocessing, "Test.TestClass2", "C:\\temp\\TestClass2.cs");
+            fileAnalysis = GetFileAnalysis(assembliesWithoutPreprocessing, CommonNames.TestNamespace + "TestClass2", CommonNames.CodeDirectory + "TestClass2.cs");
             Assert.AreEqual(-1, fileAnalysis.Lines.Single(l => l.LineNumber == 13).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(-1, fileAnalysis.Lines.Single(l => l.LineNumber == 15).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 19).LineVisits, "Wrong number of line visits");
@@ -71,11 +56,11 @@
             Assert.AreEqual(4, fileAnalysis.Lines.Single(l => l.LineNumber == 54).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 81).LineVisits, "Wrong number of line visits");
 
-            fileAnalysis = GetFileAnalysis(assembliesWithoutPreprocessing, "Test.PartialClass", "C:\\temp\\PartialClass.cs");
+            fileAnalysis = GetFileAnalysis(assembliesWithoutPreprocessing, CommonNames.TestNamespace + "PartialClass", CommonNames.CodeDirectory + "PartialClass.cs");
             Assert.AreEqual(1, fileAnalysis.Lines.Single(l => l.LineNumber == 9).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 14).LineVisits, "Wrong number of line visits");
 
-            fileAnalysis = GetFileAnalysis(assembliesWithoutPreprocessing, "Test.PartialClass", "C:\\temp\\PartialClass2.cs");
+            fileAnalysis = GetFileAnalysis(assembliesWithoutPreprocessing, CommonNames.TestNamespace + "PartialClass", CommonNames.CodeDirectory + "PartialClass2.cs");
             Assert.AreEqual(1, fileAnalysis.Lines.Single(l => l.LineNumber == 9).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 14).LineVisits, "Wrong number of line visits");
         }
@@ -86,11 +71,11 @@
         [Test]
         public void NumberOfLineVisitsTest_WithPreprocessing()
         {
-            var fileAnalysis = GetFileAnalysis(assembliesWithPreprocessing, "Test.TestClass", "C:\\temp\\TestClass.cs");
+            var fileAnalysis = GetFileAnalysis(assembliesWithPreprocessing, CommonNames.TestNamespace + "TestClass", CommonNames.CodeDirectory + "TestClass.cs");
             Assert.AreEqual(1, fileAnalysis.Lines.Single(l => l.LineNumber == 14).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 18).LineVisits, "Wrong number of line visits");
 
-            fileAnalysis = GetFileAnalysis(assembliesWithPreprocessing, "Test.TestClass2", "C:\\temp\\TestClass2.cs");
+            fileAnalysis = GetFileAnalysis(assembliesWithPreprocessing, CommonNames.TestNamespace + "TestClass2", CommonNames.CodeDirectory + "TestClass2.cs");
             Assert.AreEqual(3, fileAnalysis.Lines.Single(l => l.LineNumber == 13).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 15).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 19).LineVisits, "Wrong number of line visits");
@@ -100,11 +85,11 @@
             Assert.AreEqual(4, fileAnalysis.Lines.Single(l => l.LineNumber == 54).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 81).LineVisits, "Wrong number of line visits");
 
-            fileAnalysis = GetFileAnalysis(assembliesWithPreprocessing, "Test.PartialClass", "C:\\temp\\PartialClass.cs");
+            fileAnalysis = GetFileAnalysis(assembliesWithPreprocessing, CommonNames.TestNamespace + "PartialClass", CommonNames.CodeDirectory + "PartialClass.cs");
             Assert.AreEqual(1, fileAnalysis.Lines.Single(l => l.LineNumber == 9).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 14).LineVisits, "Wrong number of line visits");
 
-            fileAnalysis = GetFileAnalysis(assembliesWithPreprocessing, "Test.PartialClass", "C:\\temp\\PartialClass2.cs");
+            fileAnalysis = GetFileAnalysis(assembliesWithPreprocessing, CommonNames.TestNamespace + "PartialClass", CommonNames.CodeDirectory + "PartialClass2.cs");
             Assert.AreEqual(1, fileAnalysis.Lines.Single(l => l.LineNumber == 9).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 14).LineVisits, "Wrong number of line visits");
         }
@@ -124,8 +109,8 @@
         [Test]
         public void FilesOfClassTest()
         {
-            Assert.AreEqual(1, assembliesWithoutPreprocessing.Single(a => a.Name == "Test").Classes.Single(c => c.Name == "Test.TestClass").Files.Count(), "Wrong number of files");
-            Assert.AreEqual(2, assembliesWithoutPreprocessing.Single(a => a.Name == "Test").Classes.Single(c => c.Name == "Test.PartialClass").Files.Count(), "Wrong number of files");
+            Assert.AreEqual(1, assembliesWithoutPreprocessing.Single(a => a.Name == "Test").Classes.Single(c => c.Name == CommonNames.TestNamespace + "TestClass").Files.Count(), "Wrong number of files");
+            Assert.AreEqual(2, assembliesWithoutPreprocessing.Single(a => a.Name == "Test").Classes.Single(c => c.Name == CommonNames.TestNamespace + "PartialClass").Files.Count(), "Wrong number of files");
         }
 
         /// <summary>
@@ -152,7 +137,7 @@
         [Test]
         public void MethodMetricsTest()
         {
-            Assert.AreEqual(0, assembliesWithoutPreprocessing.Single(a => a.Name == "Test").Classes.Single(c => c.Name == "Test.TestClass").MethodMetrics.Count(), "Wrong number of metrics");
+            Assert.AreEqual(0, assembliesWithoutPreprocessing.Single(a => a.Name == "Test").Classes.Single(c => c.Name == CommonNames.TestNamespace + "TestClass").MethodMetrics.Count(), "Wrong number of metrics");
         }
 
         private static FileAnalysis GetFileAnalysis(IEnumerable<Assembly> assemblies, string className, string fileName)

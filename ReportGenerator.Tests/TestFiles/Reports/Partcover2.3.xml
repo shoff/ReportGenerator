@@ -116,7 +116,7 @@
    <pt visit="1" pos="12" len="1" fid="4" sl="10" sc="9" el="10" ec="10" />
   </Method>
  </Type>
- <Type asm="ReportGenerator" name="ReportGenerator.Tests.TestFiles.Project.TestClass2" flags="1048576">
+ <Type asm="ReportGenerator.Tests" name="ReportGenerator.Tests.TestFiles.Project.TestClass2" flags="1048576">
   <Method name="get_UnExecutedProperty" sig="string  ()" flags="2182" iflags="0">
    <pt visit="0" pos="0" len="9" />
    <pt visit="0" pos="9" len="2" />

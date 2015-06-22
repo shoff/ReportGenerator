@@ -58,24 +58,11 @@
         [Test]
         public void GetFiles_SingleDirectory_XmlFilesFound()
         {
-            var cSharpDirectory = FileManager.GetCSharpReportDirectory();
+            var cSharpDirectory = CommonNames.ReportDirectory;
             var files = FileSearch.GetFiles(Path.Combine(cSharpDirectory, "*.xml")).ToArray();
             Assert.AreEqual(13, files.Length);
         }
 
-        [Test, Ignore]
-        public void GetFiles_MultiDirectory_AllFilesFound()
-        {
-            var files = FileSearch.GetFiles(Path.Combine(FileManager.GetFilesDirectory(), "*", "*", "*")).ToArray();
-            Assert.IsTrue(files.Length >= 39);
-        }
-
-        [Test, Ignore]
-        public void GetFiles_MultiDirectory_MatchingFilesFound()
-        {
-            var files = FileSearch.GetFiles(Path.Combine(FileManager.GetFilesDirectory(), "CSharp", "*roject*", "*lyzer*.cs")).ToArray();
-            Assert.AreEqual(1, files.Length);
-        }
 
         [Test]
         public void GetFiles_RelativePath_DllFound()

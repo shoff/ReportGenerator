@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <results>
   <modules>
-    <module name="test.exe" path="test.exe" id="21B59C1958D13B4990EC3974D2451B5901000000" block_coverage="71.88" line_coverage="62.13" blocks_covered="115" blocks_not_covered="45" lines_covered="105" lines_partially_covered="1" lines_not_covered="63">
+    <module name="ReportGenerator.Tests.dll" path="ReportGenerator.Tests.dll" id="21B59C1958D13B4990EC3974D2451B5901000000" block_coverage="71.88" line_coverage="62.13" blocks_covered="115" blocks_not_covered="45" lines_covered="105" lines_partially_covered="1" lines_not_covered="63">
       <functions>
         <function id="8264" token="0x6000001" name="AnalyzerTestClass()" type_name="AnalyzerTestClass" block_coverage="0.00" line_coverage="0.00" blocks_covered="0" blocks_not_covered="3" lines_covered="0" lines_partially_covered="0" lines_not_covered="4">
           <ranges>
@@ -311,27 +311,27 @@
         </function>
       </functions>
       <source_files>
-        <source_file id="0" path="C:\temp\Program.cs">
+        <source_file id="0" path="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\Program.cs">
         </source_file>
-        <source_file id="1" path="C:\temp\AnalyzerTestClass.cs">
+        <source_file id="1" path="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\AnalyzerTestClass.cs">
         </source_file>
-        <source_file id="2" path="C:\temp\AbstractClass.cs">
+        <source_file id="2" path="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\AbstractClass.cs">
         </source_file>
-        <source_file id="3" path="C:\temp\CodeContract_Target.cs">
+        <source_file id="3" path="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\CodeContract_Target.cs">
         </source_file>
-        <source_file id="4" path="C:\temp\TestClass2.cs">
+        <source_file id="4" path="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass2.cs">
         </source_file>
-        <source_file id="5" path="C:\temp\ClassWithExcludes.cs">
+        <source_file id="5" path="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\ClassWithExcludes.cs">
         </source_file>
-        <source_file id="6" path="C:\temp\PartialClass2.cs">
+        <source_file id="6" path="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass2.cs">
         </source_file>
-        <source_file id="7" path="C:\temp\PartialClass.cs">
+        <source_file id="7" path="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass.cs">
         </source_file>
-        <source_file id="8" path="C:\temp\TestClass.cs">
+        <source_file id="8" path="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass.cs">
         </source_file>
-        <source_file id="9" path="C:\temp\GenericClass.cs">
+        <source_file id="9" path="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\GenericClass.cs">
         </source_file>
-        <source_file id="10" path="C:\temp\CodeContract_Contract.cs">
+        <source_file id="10" path="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\CodeContract_Contract.cs">
         </source_file>
       </source_files>
     </module>

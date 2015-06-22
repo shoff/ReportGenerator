@@ -12,36 +12,6 @@
     [TestFixture]
     public class CodeFileTest
     {
-        #region Additional test attributes
-
-        // You can use the following additional attributes as you write your tests:
-
-        // Use ClassInitialize to run code before running the first test in the class
-        [SetUp]
-        public static void MyClassInitialize(TestContext testContext)
-        {
-            FileManager.CopyTestClasses();
-        }
-
-        // Use ClassCleanup to run code after all tests in a class have run
-        [TearDown]
-        public static void MyClassCleanup()
-        {
-            FileManager.DeleteTestClasses();
-        }
-
-        // Use TestInitialize to run code before running each test
-        // [SetUp]
-        // public void MyTestInitialize()
-        // {
-        // }
-
-        // Use TestCleanup to run code after each test has run
-        // [TearDown]
-        // public void MyTestCleanup()
-        // {
-        // }
-        #endregion
 
         /// <summary>
         /// A test for the Constructor
@@ -49,7 +19,7 @@
         [Test]
         public void Constructor()
         {
-            var sut = new CodeFile("C:\\temp\\Program.cs", new int[] { -1, 0, 2 });
+            var sut = new CodeFile(CommonNames.CodeDirectory + "Program.cs", new int[] { -1, 0, 2 });
 
             Assert.AreEqual(2, sut.CoverableLines, "Not equal");
             Assert.AreEqual(1, sut.CoveredLines, "Not equal");
@@ -70,7 +40,7 @@
                 { 2, new List<Branch>() { new Branch(0, "3"), new Branch(2, "4") } }
             };
 
-            var sut = new CodeFile("C:\\temp\\Program.cs", new int[] { -1, -1, -1, 0, 0, 0, 1, 1, 1 }, branches);
+            var sut = new CodeFile(CommonNames.CodeDirectory + "Program.cs", new int[] { -1, -1, -1, 0, 0, 0, 1, 1, 1 }, branches);
 
             Assert.AreEqual(2, sut.CoveredBranches, "Not equal");
             Assert.AreEqual(4, sut.TotalBranches, "Not equal");
@@ -87,9 +57,9 @@
                 { 1, new List<Branch>() { new Branch(1, "1"), new Branch(0, "2") } },
                 { 2, new List<Branch>() { new Branch(0, "3"), new Branch(2, "4") } }
             };
-            var sut = new CodeFile("C:\\temp\\Program.cs", new int[] { -1, -1, -1, 0, 0, 0, 1, 1, 1 }, branches);
+            var sut = new CodeFile(CommonNames.CodeDirectory + "Program.cs", new int[] { -1, -1, -1, 0, 0, 0, 1, 1, 1 }, branches);
 
-            var codeFileToMerge = new CodeFile("C:\\temp\\Program.cs", new int[] { -1, 0, 1, -1, 0, 1, -1, 0, 1, -1, 0, 1 });
+            var codeFileToMerge = new CodeFile(CommonNames.CodeDirectory + "Program.cs", new int[] { -1, 0, 1, -1, 0, 1, -1, 0, 1, -1, 0, 1 });
 
             sut.Merge(codeFileToMerge);
 
@@ -108,9 +78,9 @@
                 { 1, new List<Branch>() { new Branch(1, "1"), new Branch(0, "2") } },
                 { 2, new List<Branch>() { new Branch(0, "3"), new Branch(2, "4") } }
             };
-            var sut = new CodeFile("C:\\temp\\Program.cs", new int[] { -1, -1, -1, 0, 0, 0, 1, 1, 1 });
+            var sut = new CodeFile(CommonNames.CodeDirectory + "Program.cs", new int[] { -1, -1, -1, 0, 0, 0, 1, 1, 1 });
 
-            var codeFileToMerge = new CodeFile("C:\\temp\\Program.cs", new int[] { -1, 0, 1, -1, 0, 1, -1, 0, 1, -1, 0, 1 }, branches);
+            var codeFileToMerge = new CodeFile(CommonNames.CodeDirectory + "Program.cs", new int[] { -1, 0, 1, -1, 0, 1, -1, 0, 1, -1, 0, 1 }, branches);
 
             sut.Merge(codeFileToMerge);
 
@@ -124,8 +94,8 @@
         [Test]
         public void Merge_MergeCodeFileWithEqualLengthCoverageArray_CoverageInformationIsUpdated()
         {
-            var sut = new CodeFile("C:\\temp\\Program.cs", new int[] { -1, -1, -1, 0, 0, 0, 1, 1, 1 });
-            var codeFileToMerge = new CodeFile("C:\\temp\\Program.cs", new int[] { -1, 0, 1, -1, 0, 1, -1, 0, 1 });
+            var sut = new CodeFile(CommonNames.CodeDirectory + "Program.cs", new int[] { -1, -1, -1, 0, 0, 0, 1, 1, 1 });
+            var codeFileToMerge = new CodeFile(CommonNames.CodeDirectory + "Program.cs", new int[] { -1, 0, 1, -1, 0, 1, -1, 0, 1 });
             var testMethod = new TestMethod("TestFull", "Test");
             codeFileToMerge.AddCoverageByTestMethod(testMethod, new int[] { -1, -1, -1, 0, 0, 0, 1, 1, 1 });
 
@@ -151,14 +121,14 @@
                 { 1, new List<Branch>() { new Branch(1, "1"), new Branch(0, "2") } },
                 { 2, new List<Branch>() { new Branch(0, "3"), new Branch(2, "4") } }
             };
-            var sut = new CodeFile("C:\\temp\\Program.cs", new int[] { -1, -1, -1, 0, 0, 0, 1, 1, 1 }, branches);
+            var sut = new CodeFile(CommonNames.CodeDirectory + "Program.cs", new int[] { -1, -1, -1, 0, 0, 0, 1, 1, 1 }, branches);
 
             var branches2 = new Dictionary<int, List<Branch>>()
             {
                 { 1, new List<Branch>() { new Branch(4, "1"), new Branch(3, "5") } },
                 { 3, new List<Branch>() { new Branch(0, "3"), new Branch(2, "4") } }
             };
-            var codeFileToMerge = new CodeFile("C:\\temp\\Program.cs", new int[] { -1, 0, 1, -1, 0, 1, -1, 0, 1, -1, 0, 1 }, branches2);
+            var codeFileToMerge = new CodeFile(CommonNames.CodeDirectory + "Program.cs", new int[] { -1, 0, 1, -1, 0, 1, -1, 0, 1, -1, 0, 1 }, branches2);
 
             sut.Merge(codeFileToMerge);
 
@@ -175,7 +145,7 @@
         [Test]
         public void AnalyzeFile_ExistingFile_AnalysisIsReturned()
         {
-            var sut = new CodeFile("C:\\temp\\Program.cs", new int[] { -2, -1, 0, 1 });
+            var sut = new CodeFile(CommonNames.CodeDirectory + "Program.cs", new int[] { -2, -1, 0, 1 });
 
             Assert.IsNull(sut.TotalLines);
 
@@ -184,8 +154,8 @@
             Assert.IsNotNull(fileAnalysis);
             Assert.IsNull(fileAnalysis.Error);
             Assert.AreEqual(fileAnalysis.Path, fileAnalysis.Path);
-            Assert.AreEqual(56, sut.TotalLines);
-            Assert.AreEqual(56, fileAnalysis.Lines.Count());
+            Assert.AreEqual(87, sut.TotalLines);
+            Assert.AreEqual(87, fileAnalysis.Lines.Count());
 
             Assert.AreEqual(1, fileAnalysis.Lines.ElementAt(0).LineNumber);
             Assert.AreEqual(-1, fileAnalysis.Lines.ElementAt(0).LineVisits);
@@ -206,7 +176,7 @@
         [Test]
         public void AnalyzeFile_ExistingFileWithTrackedMethods_AnalysisIsReturned()
         {
-            var sut = new CodeFile("C:\\temp\\Program.cs", new int[] { -2, -1, 0, 1 });
+            var sut = new CodeFile(CommonNames.CodeDirectory + "Program.cs", new int[] { -2, -1, 0, 1 });
             var testMethod = new TestMethod("TestFull", "Test");
             sut.AddCoverageByTestMethod(testMethod, new int[] { -2, 1, -1, 0 });
 
@@ -222,7 +192,7 @@
         [Test]
         public void AnalyzeFile_NonExistingFile_AnalysisIsReturned()
         {
-            var sut = new CodeFile("C:\\temp\\Other.cs", new int[] { -2, -1, 0, 1 });
+            var sut = new CodeFile(CommonNames.CodeDirectory + "Other.cs", new int[] { -2, -1, 0, 1 });
 
             Assert.IsNull(sut.TotalLines);
 
@@ -241,9 +211,9 @@
         [Test]
         public void Equals()
         {
-            var target1 = new CodeFile("C:\\temp\\Program.cs", new int[0]);
-            var target2 = new CodeFile("C:\\temp\\Program.cs", new int[0]);
-            var target3 = new CodeFile("C:\\temp\\Other.cs", new int[0]);
+            var target1 = new CodeFile(CommonNames.CodeDirectory + "Program.cs", new int[0]);
+            var target2 = new CodeFile(CommonNames.CodeDirectory + "Program.cs", new int[0]);
+            var target3 = new CodeFile(CommonNames.CodeDirectory + "Other.cs", new int[0]);
 
             Assert.IsTrue(target1.Equals(target2), "Objects are not equal");
             Assert.IsFalse(target1.Equals(target3), "Objects are equal");

@@ -11,40 +11,13 @@
     [TestFixture]
     public class ClassSearcherTest
     {
-        private static ClassSearcher classSearcher;
+        private ClassSearcher classSearcher;
 
-        #region Additional test attributes
-
-        // You can use the following additional attributes as you write your tests:
-
-        // Use ClassInitialize to run code before running the first test in the class
         [SetUp]
-        public static void MyClassInitialize(TestContext testContext)
+        public void SetUp()
         {
-            FileManager.CopyTestClasses();
-
-            classSearcher = new ClassSearcher("C:\\temp");
+            this.classSearcher = new ClassSearcher(CommonNames.CodeDirectory);
         }
-
-        // Use ClassCleanup to run code after all tests in a class have run
-        [TearDown]
-        public static void MyClassCleanup()
-        {
-            FileManager.DeleteTestClasses();
-        }
-
-        // Use TestInitialize to run code before running each test
-        // [SetUp]
-        // public void MyTestInitialize()
-        // {
-        // }
-
-        // Use TestCleanup to run code after each test has run
-        // [TearDown]
-        // public void MyTestCleanup()
-        // {
-        // }
-        #endregion
 
         /// <summary>
         /// A test for GetFilesOfClass
@@ -52,11 +25,11 @@
         [Test]
         public void GetFilesOfClass_PartialClassWith2Files_2FilesFound()
         {
-            var files = classSearcher.GetFilesOfClass("Test.PartialClass");
+            var files = classSearcher.GetFilesOfClass(CommonNames.TestNamespace + "PartialClass");
 
             Assert.IsNotNull(files, "Files must not be null.");
-            Assert.IsTrue(files.Contains("C:\\temp\\PartialClass.cs"), "Files does not contain expected file");
-            Assert.IsTrue(files.Contains("C:\\temp\\PartialClass2.cs"), "Files does not contain expected file");
+            Assert.IsTrue(files.Contains(CommonNames.CodeDirectory + "PartialClass.cs"), "Files does not contain expected file");
+            Assert.IsTrue(files.Contains(CommonNames.CodeDirectory + "PartialClass2.cs"), "Files does not contain expected file");
         }
 
         /// <summary>
@@ -65,10 +38,10 @@
         [Test]
         public void GetFilesOfClass_NestedClass_1FileFound()
         {
-            var files = classSearcher.GetFilesOfClass("Test.TestClassNestedClass");
+            var files = classSearcher.GetFilesOfClass(CommonNames.TestNamespace + "TestClassNestedClass");
 
             Assert.IsNotNull(files, "Files must not be null.");
-            Assert.IsTrue(files.Contains("C:\\temp\\TestClass.cs"), "Files does not contain expected file");
+            Assert.IsTrue(files.Contains(CommonNames.CodeDirectory + "TestClass.cs"), "Files does not contain expected file");
         }
 
         /// <summary>
@@ -77,7 +50,7 @@
         [Test]
         public void GetFilesOfClass_NotExistingClass_0FilesFound()
         {
-            var files = classSearcher.GetFilesOfClass("Test.Test123");
+            var files = classSearcher.GetFilesOfClass(CommonNames.TestNamespace + "Test123");
 
             Assert.IsNotNull(files, "Files must not be null.");
             Assert.IsFalse(files.Any());

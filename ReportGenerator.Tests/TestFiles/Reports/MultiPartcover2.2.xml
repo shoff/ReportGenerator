@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
   <PartCoverReport ver="2.2.0.34630" exitCode="0">
-    <file id="2" url="C:\temp\PartialClass.cs" />
-    <file id="3" url="C:\temp\PartialClass2.cs" />
-    <file id="1" url="C:\temp\Program.cs" />
-    <file id="5" url="C:\temp\TestClass.cs" />
-    <file id="4" url="C:\temp\TestClass2.cs" />
-    <type asm="Test" name="Test.PartialClass" flags="1048576">
+    <file id="2" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass.cs" />
+    <file id="3" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass2.cs" />
+    <file id="1" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\Program.cs" />
+    <file id="5" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass.cs" />
+    <file id="4" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass2.cs" />
+    <type asm="ReportGenerator.Tests" name="ReportGenerator.Tests.TestFiles.Project.PartialClass" flags="1048576">
       <method name="UnExecutedMethod_2" sig="void  ()" flags="134" iflags="0">
         <code>
           <pt visit="0" pos="12" len="1" fid="3" sl="15" sc="9" el="15" ec="10" />
@@ -42,7 +42,7 @@
         </code>
       </method>
     </type>
-    <type asm="Test" name="Test.TestClass" flags="1048576">
+    <type asm="ReportGenerator.Tests" name="ReportGenerator.Tests.TestFiles.Project.TestClass" flags="1048576">
       <method name=".ctor" sig="void  ()" flags="6278" iflags="0">
         <code>
           <pt visit="1" pos="6" len="1" />
@@ -67,7 +67,7 @@
         </code>
       </method>
     </type>
-    <type asm="Test" name="Test.Program" flags="1048576">
+    <type asm="ReportGenerator.Tests" name="ReportGenerator.Tests.TestFiles.Project.Program" flags="1048576">
       <method name=".ctor" sig="void  ()" flags="6278" iflags="0">
         <code>
           <pt visit="0" pos="6" len="1" />
@@ -86,7 +86,7 @@
         </code>
       </method>
     </type>
-    <type asm="Test" name="Test.TestClass2" flags="1048576">
+    <type asm="ReportGenerator.Tests" name="ReportGenerator.Tests.TestFiles.Project.TestClass2" flags="1048576">
       <method name="DoSomething" sig="string  (string, string[], System.Guid" flags="134" iflags="0">
         <code>
           <pt visit="0" pos="9" len="2" fid="4" sl="83" sc="9" el="83" ec="10" />
@@ -185,7 +185,7 @@
         </code>
       </method>
     </type>
-    <type asm="Test" name="Test.TestClass2&lt;&gt;c__DisplayClass3" flags="1048835">
+    <type asm="ReportGenerator.Tests" name="ReportGenerator.Tests.TestFiles.Project.TestClass2&lt;&gt;c__DisplayClass3" flags="1048835">
       <method name="&lt;SampleFunction&gt;b__1" sig="bool  (string)" flags="134" iflags="0">
         <code>
           <pt visit="3" pos="16" len="2" />
@@ -230,12 +230,12 @@
     </run>
   </PartCoverReport>
   <PartCoverReport ver="2.2.0.34630" exitCode="0">
-    <file id="2" url="C:\temp\PartialClass.cs" />
-    <file id="3" url="C:\temp\PartialClass2.cs" />
-    <file id="1" url="C:\temp\Program.cs" />
-    <file id="5" url="C:\temp\TestClass.cs" />
-    <file id="4" url="C:\temp\TestClass2.cs" />
-    <type asm="Test" name="Test.PartialClass" flags="1048576">
+    <file id="2" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass.cs" />
+    <file id="3" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass2.cs" />
+    <file id="1" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\Program.cs" />
+    <file id="5" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass.cs" />
+    <file id="4" url="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass2.cs" />
+    <type asm="ReportGenerator.Tests" name="ReportGenerator.Tests.TestFiles.Project.PartialClass" flags="1048576">
       <method name="UnExecutedMethod_2" sig="void  ()" flags="134" iflags="0">
         <code>
           <pt visit="0" pos="12" len="1" fid="3" sl="15" sc="9" el="15" ec="10" />
@@ -271,7 +271,7 @@
         </code>
       </method>
     </type>
-    <type asm="Test" name="Test.TestClass" flags="1048576">
+    <type asm="ReportGenerator.Tests" name="ReportGenerator.Tests.TestFiles.Project.TestClass" flags="1048576">
       <method name=".ctor" sig="void  ()" flags="6278" iflags="0">
         <code>
           <pt visit="1" pos="6" len="1" />
@@ -296,7 +296,7 @@
         </code>
       </method>
     </type>
-    <type asm="Test" name="Test.Program" flags="1048576">
+    <type asm="ReportGenerator.Tests" name="ReportGenerator.Tests.TestFiles.Project.Program" flags="1048576">
       <method name=".ctor" sig="void  ()" flags="6278" iflags="0">
         <code>
           <pt visit="0" pos="6" len="1" />
@@ -315,7 +315,7 @@
         </code>
       </method>
     </type>
-    <type asm="Test" name="Test.TestClass2" flags="1048576">
+    <type asm="ReportGenerator.Tests" name="ReportGenerator.Tests.TestFiles.Project.TestClass2" flags="1048576">
       <method name="DoSomething" sig="string  (string, string[], System.Guid" flags="134" iflags="0">
         <code>
           <pt visit="0" pos="9" len="2" fid="4" sl="83" sc="9" el="83" ec="10" />
@@ -414,7 +414,7 @@
         </code>
       </method>
     </type>
-    <type asm="Test" name="Test.TestClass2&lt;&gt;c__DisplayClass3" flags="1048835">
+    <type asm="ReportGenerator.Tests" name="ReportGenerator.Tests.TestFiles.Project.TestClass2&lt;&gt;c__DisplayClass3" flags="1048835">
       <method name="&lt;SampleFunction&gt;b__1" sig="bool  (string)" flags="134" iflags="0">
         <code>
           <pt visit="3" pos="16" len="2" />

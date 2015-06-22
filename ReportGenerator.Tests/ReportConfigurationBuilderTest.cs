@@ -15,7 +15,7 @@ namespace ReportGenerator.Tests
     [TestFixture]
     public class ReportConfigurationBuilderTest
     {
-        private static readonly string ReportPath = Path.Combine(FileManager.GetCSharpReportDirectory(), "OpenCover.xml");
+        private static readonly string ReportPath = CommonNames.ReportDirectory + "OpenCover.xml";
 
         private ReportConfigurationBuilder reportConfigurationBuilder;
 
@@ -92,8 +92,8 @@ namespace ReportGenerator.Tests
             Assert.IsTrue(this.configuration.ReportFiles.Contains(ReportPath), "ReportPath does not exist in ReportFiles.");
             Assert.AreEqual("C:\\temp", this.configuration.TargetDirectory, "Wrong target directory applied.");
             Assert.IsTrue(this.configuration.ReportTypes.Contains("Latex"), "Wrong report type applied.");
-            Assert.IsTrue(this.configuration.SourceDirectories.Contains("C:\\temp\\source"), "Directory does not exist in Source directories.");
-            Assert.IsTrue(this.configuration.SourceDirectories.Contains("C:\\temp\\source2"), "Directory does not exist in Source directories.");
+            Assert.IsTrue(this.configuration.SourceDirectories.Contains(CommonNames.CodeDirectory + "source"), "Directory does not exist in Source directories.");
+            Assert.IsTrue(this.configuration.SourceDirectories.Contains(CommonNames.CodeDirectory + "source2"), "Directory does not exist in Source directories.");
             Assert.IsTrue(this.configuration.Filters.Contains("+Test"), "Filter does not exist in ReportFiles.");
             Assert.IsTrue(this.configuration.Filters.Contains("-Test"), "Filter does not exist in ReportFiles.");
             Assert.AreEqual(VerbosityLevel.Info, this.configuration.VerbosityLevel, "Wrong verbosity level applied.");

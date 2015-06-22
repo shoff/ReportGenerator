@@ -114,8 +114,6 @@
     <Compile Include="Parser\VisualStudioParserTest_2013.cs" />
     <Compile Include="Parser\VisualStudioParserTest_2012.cs" />
     <Compile Include="Parser\DynamicCodeCoverageParserTest.cs" />
-    <Compile Include="Parser\Preprocessing\DynamicCodeCoverageReportPreprocessorTest.cs" />
-    <Compile Include="Parser\Preprocessing\VisualStudioReportPreprocessorTest.cs" />
     <Compile Include="Parser\VisualStudioParserTest_2010.cs" />
     <Compile Include="ReportConfigurationBuilderTest.cs" />
     <Compile Include="Parser\Analysis\AssemblyTest.cs" />
@@ -123,7 +121,7 @@
     <Compile Include="Parser\Analysis\MethodMetricTest.cs" />
     <Compile Include="Parser\Preprocessing\FileSearch\ClassSearcherFactoryTests.cs" />
     <Compile Include="ReportConfigurationTest.cs" />
-    <Compile Include="FileManager.cs" />
+    <Compile Include="CommonNames.cs" />
     <Compile Include="Parser\Preprocessing\CodeAnalysis\SourceCodeAnalyzerTest.cs" />
     <Compile Include="Parser\Analysis\ClassTest.cs" />
     <Compile Include="Parser\Preprocessing\FileSearch\CommonDirectorySearcherTest.cs" />
@@ -188,6 +186,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestFiles\Project\TestClass2.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\ReportGenerator.Tests.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\ReportGenerator.Tests.pdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestFiles\Reports\DynamicCodeCoverage.xml">

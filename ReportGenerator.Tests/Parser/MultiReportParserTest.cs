@@ -19,8 +19,8 @@
     [TestFixture, Ignore]
     public class MultiReportParserTest
     {
-        private static readonly string filePath1 = Path.Combine(FileManager.GetCSharpReportDirectory(), "Partcover2.2.xml");
-        private static readonly string filePath2 = Path.Combine(FileManager.GetCSharpReportDirectory(), "Partcover2.3.xml");
+        private static readonly string filePath1 = CommonNames.ReportDirectory + "Partcover2.2.xml";
+        private static readonly string filePath2 = CommonNames.ReportDirectory + "Partcover2.3.xml";
         private static List<Assembly> assembliesWithoutPreprocessing;
         private static List<Assembly> assembliesWithPreprocessing;
         private static readonly string testClassDirectory = AppDomain.CurrentDomain.BaseDirectory + "\\TestFiles\\Project";
@@ -93,7 +93,7 @@
             Assert.AreEqual(2, fileAnalysis.Lines.Single(l => l.LineNumber == 14).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 18).LineVisits, "Wrong number of line visits");
 
-            fileAnalysis = GetFileAnalysis(assembliesWithoutPreprocessing, "Test.TestClass2", @"C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass2.cs");
+            fileAnalysis = GetFileAnalysis(assembliesWithoutPreprocessing, CommonNames.TestNamespace + "TestClass2", @"C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass2.cs");
             Assert.AreEqual(-1, fileAnalysis.Lines.Single(l => l.LineNumber == 13).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 19).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(4, fileAnalysis.Lines.Single(l => l.LineNumber == 25).LineVisits, "Wrong number of line visits");
@@ -182,7 +182,7 @@
         [Test]
         public void OpenCoverMethodMetricsTest()
         {
-            string filePath = Path.Combine(FileManager.GetCSharpReportDirectory(), "MultiOpenCover.xml");
+            string filePath = CommonNames.ReportDirectory + "MultiOpenCover.xml";
             var multiReportParser = ParserFactory.CreateParser(new string[] { filePath }, new string[] { });
             //Assert.IsInstanceOfType(multiReportParser, typeof(MultiReportParser), "Wrong type");
 
@@ -203,7 +203,7 @@
         [Test]
         public void OpenCoverBranchesTest()
         {
-            string filePath = Path.Combine(FileManager.GetCSharpReportDirectory(), "MultiOpenCover.xml");
+            string filePath = CommonNames.ReportDirectory + "MultiOpenCover.xml";
             var multiReportParser = ParserFactory.CreateParser(new string[] { filePath }, new string[] { });
             //Assert.IsInstanceOfType(multiReportParser, typeof(MultiReportParser), "Wrong type");
 

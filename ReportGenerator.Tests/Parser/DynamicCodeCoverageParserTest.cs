@@ -15,32 +15,9 @@
     [TestFixture]
     public class DynamicCodeCoverageParserTest
     {
-        private static readonly string filePath = Path.Combine(FileManager.GetCSharpReportDirectory(), "DynamicCodeCoverage.xml");
+        private static readonly string filePath = CommonNames.ReportDirectory + "DynamicCodeCoverage.xml";
 
         private static IEnumerable<Assembly> assemblies;
-
-        #region Additional test attributes
-
-        // You can use the following additional attributes as you write your tests:
-
-        // Use ClassInitialize to run code before running the first test in the class
-        [SetUp]
-        public void SetUp()
-        {
-            FileManager.CopyTestClasses();
-
-            var report = XDocument.Load(filePath);
-            assemblies = new DynamicCodeCoverageParser(report).Assemblies;
-        }
-
-        // Use ClassCleanup to run code after all tests in a class have run
-        [TearDown]
-        public void MyClassCleanup()
-        {
-            FileManager.DeleteTestClasses();
-        }
-
-        #endregion
 
         /// <summary>
         /// A test for NumberOfLineVisits
@@ -48,7 +25,7 @@
         [Test]
         public void NumberOfLineVisitsTest()
         {
-            var fileAnalysis = GetFileAnalysis(assemblies, "TestClass", "C:\\temp\\TestClass.cs");
+            var fileAnalysis = GetFileAnalysis(assemblies, "TestClass", CommonNames.CodeDirectory + "TestClass.cs");
             Assert.AreEqual(1, fileAnalysis.Lines.Single(l => l.LineNumber == 9).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(1, fileAnalysis.Lines.Single(l => l.LineNumber == 10).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(1, fileAnalysis.Lines.Single(l => l.LineNumber == 11).LineVisits, "Wrong number of line visits");
@@ -57,7 +34,7 @@
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 23).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 31).LineVisits, "Wrong number of line visits");
 
-            fileAnalysis = GetFileAnalysis(assemblies, "TestClass2", "C:\\temp\\TestClass2.cs");
+            fileAnalysis = GetFileAnalysis(assemblies, "TestClass2", CommonNames.CodeDirectory + "TestClass2.cs");
             Assert.AreEqual(-1, fileAnalysis.Lines.Single(l => l.LineNumber == 13).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(-1, fileAnalysis.Lines.Single(l => l.LineNumber == 15).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 19).LineVisits, "Wrong number of line visits");
@@ -67,11 +44,11 @@
             Assert.AreEqual(1, fileAnalysis.Lines.Single(l => l.LineNumber == 54).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 81).LineVisits, "Wrong number of line visits");
 
-            fileAnalysis = GetFileAnalysis(assemblies, "PartialClass", "C:\\temp\\PartialClass.cs");
+            fileAnalysis = GetFileAnalysis(assemblies, "PartialClass", CommonNames.CodeDirectory + "PartialClass.cs");
             Assert.AreEqual(1, fileAnalysis.Lines.Single(l => l.LineNumber == 9).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 14).LineVisits, "Wrong number of line visits");
 
-            fileAnalysis = GetFileAnalysis(assemblies, "PartialClass", "C:\\temp\\PartialClass2.cs");
+            fileAnalysis = GetFileAnalysis(assemblies, "PartialClass", CommonNames.CodeDirectory + "PartialClass2.cs");
             Assert.AreEqual(1, fileAnalysis.Lines.Single(l => l.LineNumber == 9).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 14).LineVisits, "Wrong number of line visits");
         }

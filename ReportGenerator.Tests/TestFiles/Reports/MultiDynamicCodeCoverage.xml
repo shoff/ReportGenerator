@@ -181,17 +181,17 @@
           </function>
         </functions>
         <source_files>
-          <source_file id="0" path="C:\temp\Program.cs">
+          <source_file id="0" path="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\Program.cs">
           </source_file>
-          <source_file id="1" path="C:\temp\TestClass2.cs">
+          <source_file id="1" path="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass2.cs">
           </source_file>
-          <source_file id="2" path="C:\temp\ClassWithExcludes.cs">
+          <source_file id="2" path="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\ClassWithExcludes.cs">
           </source_file>
-          <source_file id="3" path="C:\temp\PartialClass2.cs">
+          <source_file id="3" path="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass2.cs">
           </source_file>
-          <source_file id="4" path="C:\temp\PartialClass.cs">
+          <source_file id="4" path="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass.cs">
           </source_file>
-          <source_file id="5" path="C:\temp\TestClass.cs">
+          <source_file id="5" path="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass.cs">
           </source_file>
         </source_files>
       </module>
@@ -199,7 +199,7 @@
   </results>
   <results>
     <modules>
-      <module name="test.exe" path="test.exe" id="C94D1385AE01D9409D96103046C2AC9B02000000" block_coverage="78.10" line_coverage="67.02" blocks_covered="82" blocks_not_covered="23" lines_covered="63" lines_partially_covered="1" lines_not_covered="30">
+      <module name="ReportGenerator.Tests.dll" path="ReportGenerator.Tests.dll" id="C94D1385AE01D9409D96103046C2AC9B02000000" block_coverage="78.10" line_coverage="67.02" blocks_covered="82" blocks_not_covered="23" lines_covered="63" lines_partially_covered="1" lines_not_covered="30">
         <functions>
           <function id="8336" token="0x6000005" name="TestClass2()" type_name="TestClass2" block_coverage="0.00" line_coverage="0.00" blocks_covered="0" blocks_not_covered="4" lines_covered="0" lines_partially_covered="0" lines_not_covered="6">
             <ranges>
@@ -378,17 +378,17 @@
           </function>
         </functions>
         <source_files>
-          <source_file id="0" path="C:\temp\Program.cs">
+          <source_file id="0" path="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\Program.cs">
           </source_file>
-          <source_file id="1" path="C:\temp\TestClass2.cs">
+          <source_file id="1" path="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass2.cs">
           </source_file>
-          <source_file id="2" path="C:\temp\ClassWithExcludes.cs">
+          <source_file id="2" path="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\ClassWithExcludes.cs">
           </source_file>
-          <source_file id="3" path="C:\temp\PartialClass2.cs">
+          <source_file id="3" path="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass2.cs">
           </source_file>
-          <source_file id="4" path="C:\temp\PartialClass.cs">
+          <source_file id="4" path="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass.cs">
           </source_file>
-          <source_file id="5" path="C:\temp\TestClass.cs">
+          <source_file id="5" path="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass.cs">
           </source_file>
         </source_files>
       </module>

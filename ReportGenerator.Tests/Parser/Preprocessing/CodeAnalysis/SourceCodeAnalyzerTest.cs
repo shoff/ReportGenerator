@@ -9,12 +9,12 @@ namespace ReportGenerator.Tests.Parser.Preprocessing.CodeAnalysis
     [TestFixture]
     public class SourceCodeAnalyzerTest
     {
-        private static readonly string elementClassFile = Path.Combine(FileManager.GetCSharpCodeDirectory(), "AnalyzerTestClass.cs");
+        private static readonly string elementClassFile = CommonNames.CodeDirectory + "AnalyzerTestClass.cs";
 
         [Test]
         public void GetClassesInFile_All_Classes_Are_Returned()
         {
-            var tfc = Path.Combine(FileManager.GetCSharpCodeDirectory(), "TestClass.cs");
+            var tfc = CommonNames.CodeDirectory + "TestClass.cs";
             Assert.True(File.Exists(tfc));
 
             var classes = SourceCodeAnalyzer.GetClassesInFile(tfc);
@@ -82,7 +82,7 @@ namespace ReportGenerator.Tests.Parser.Preprocessing.CodeAnalysis
         [Test]
         public void FindProperty_SearchNonExistingProperty_PositionIsNull()
         {
-            PropertyElement propertyElement = new PropertyElement("Test.AnalyzerTestClass", "get_DoesNotExist");
+            PropertyElement propertyElement = new PropertyElement(CommonNames.TestNamespace + "AnalyzerTestClass", "get_DoesNotExist");
 
             var propertyPosition = SourceCodeAnalyzer.FindSourceElement(elementClassFile, propertyElement);
 

@@ -1,57 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition.Hosting;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using log4net;
-using Palmmedia.ReportGenerator.Properties;
-
-namespace Palmmedia.ReportGenerator.Reporting
+﻿namespace Palmmedia.ReportGenerator.Reporting
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.Composition.Hosting;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
+    using System.Security;
+    using log4net;
+    using Palmmedia.ReportGenerator.Properties;
+
     /// <summary>
-    /// Implementation of <see cref="IReportBuilderFactory"/> based on MEF.
+    ///   Implementation of <see cref="IReportBuilderFactory" /> based on MEF.
     /// </summary>
     public class MefReportBuilderFactory : IReportBuilderFactory
     {
         /// <summary>
-        /// The Logger.
+        ///   The Logger.
         /// </summary>
         private static readonly ILog logger = LogManager.GetLogger(typeof(MefReportBuilderFactory));
 
         /// <summary>
-        /// Gets the available report types.
+        ///   Gets the available report types.
         /// </summary>
         /// <returns>
-        /// The available report types.
+        ///   The available report types.
         /// </returns>
         public ICollection<string> GetAvailableReportTypes()
         {
             var reportBuilders = LoadReportBuilders();
-
-            return reportBuilders
-                .Select(r => r.ReportType)
-                .Distinct()
-                .OrderBy(r => r)
-                .ToArray();
+            return reportBuilders.Select(r => r.ReportType).Distinct().OrderBy(r => r).ToArray();
         }
 
         /// <summary>
-        /// Gets the report builders that correspond to the given <paramref name="reportTypes" />.
+        ///   Gets the report builders that correspond to the given <paramref name="reportTypes" />.
         /// </summary>
         /// <param name="targetDirectory">The target directory where reports are stored.</param>
         /// <param name="reportTypes">The report types.</param>
         /// <returns>
-        /// The report builders.
+        ///   The report builders.
         /// </returns>
         public ICollection<IReportBuilder> GetReportBuilders(string targetDirectory, IEnumerable<string> reportTypes)
         {
             logger.InfoFormat(Resources.InitializingReportBuilders, string.Join(", ", reportTypes));
 
-            var reportBuilders = LoadReportBuilders()
-                .Where(r => reportTypes.Contains(r.ReportType, StringComparer.OrdinalIgnoreCase))
-                .OrderBy(r => r.ReportType)
-                .ToArray();
+            var reportBuilders =
+                LoadReportBuilders().Where(r => reportTypes.Contains(r.ReportType, StringComparer.OrdinalIgnoreCase)).OrderBy(
+                    r => r.ReportType).ToArray();
 
             var result = new List<IReportBuilder>();
 
@@ -63,9 +58,8 @@ namespace Palmmedia.ReportGenerator.Reporting
                 }
                 else
                 {
-                    var nonDefaultParsers = reportBuilderGroup
-                        .Where(r => r.GetType().Assembly.GetName().Name != "ReportGenerator.Reporting")
-                        .ToArray();
+                    var nonDefaultParsers =
+                        reportBuilderGroup.Where(r => r.GetType().Assembly.GetName().Name != "ReportGenerator.Reporting").ToArray();
 
                     foreach (var reportBuilder in nonDefaultParsers)
                     {
@@ -94,9 +88,11 @@ namespace Palmmedia.ReportGenerator.Reporting
 
         /// <summary>Loads the report builders.</summary>
         /// <returns>The report builders.</returns>
-        private static ICollection<IReportBuilder> LoadReportBuilders()
+        /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
+        /// <exception cref="UnauthorizedAccessException">Access to <paramref name="fileName" /> is denied. </exception>
+        internal ICollection<IReportBuilder> LoadReportBuilders()
         {
-            AggregateCatalog aggregateCatalog = new AggregateCatalog();
+            var aggregateCatalog = new AggregateCatalog();
 
             foreach (var file in new FileInfo(typeof(MefReportBuilderFactory).Assembly.Location).Directory.EnumerateFiles("*.dll"))
             {
@@ -118,7 +114,7 @@ namespace Palmmedia.ReportGenerator.Reporting
                 {
                     if (!file.Name.Equals("ICSharpCode.NRefactory.Cecil.dll", StringComparison.OrdinalIgnoreCase))
                     {
-                        string errors = string.Join(Environment.NewLine, ex.LoaderExceptions.Select(e => "-" + e.Message));
+                        var errors = string.Join(Environment.NewLine, ex.LoaderExceptions.Select(e => "-" + e.Message));
                         logger.ErrorFormat(Resources.FileReflectionLoadError, file.FullName, errors);
                     }
 

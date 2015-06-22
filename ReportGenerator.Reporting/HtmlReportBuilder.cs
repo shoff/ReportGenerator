@@ -25,13 +25,13 @@ namespace Palmmedia.ReportGenerator.Reporting
         /// <summary>
         /// Creates a class report.
         /// </summary>
-        /// <param name="class">The class.</param>
+        /// <param name="reportClass">The class.</param>
         /// <param name="fileAnalyses">The file analyses that correspond to the class.</param>
-        public override void CreateClassReport(Class @class, IEnumerable<FileAnalysis> fileAnalyses)
+        public override void CreateClassReport(Class reportClass, IEnumerable<FileAnalysis> fileAnalyses)
         {
             using (var renderer = new HtmlRenderer(false))
             {
-                this.CreateClassReport(renderer, @class, fileAnalyses);
+                this.CreateClassReport(renderer, reportClass, fileAnalyses);
             }
         }
 

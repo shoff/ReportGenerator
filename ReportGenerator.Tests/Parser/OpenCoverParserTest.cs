@@ -20,8 +20,8 @@
     [TestFixture]
     public class OpenCoverParserTest
     {
-        private readonly string filePath1 = Path.Combine(FileManager.GetCSharpReportDirectory(), "OpenCover.xml");
-        private readonly string filePath2 = Path.Combine(FileManager.GetCSharpReportDirectory(), "OpenCoverWithTrackedMethods.xml");
+        private readonly string filePath1 = CommonNames.ReportDirectory + "OpenCover.xml";
+        private readonly string filePath2 = CommonNames.ReportDirectory + "OpenCoverWithTrackedMethods.xml";
         private ICollection<Assembly> assembliesWithoutPreprocessing;
         private ICollection<Assembly> assembliesWithPreprocessing;
         private ICollection<Assembly> assembliesWithTrackedMethods;

@@ -16,27 +16,41 @@ namespace ReportGenerator.Tests.Reporting
     [TestFixture]
     public class MefReportBuilderFactoryTest
     {
+        private MefReportBuilderFactory factory;
+
+        [SetUp]
+        public void SetUp()
+        {
+            this.factory = new MefReportBuilderFactory();
+        }
+
+
         [Test]
         public void GetAvailableReportTypes_All_Report_Types_Returned()
         {
-            var factory = new MefReportBuilderFactory();
             var expected = 6;
             var actual = factory.GetAvailableReportTypes().Count();
             Assert.AreEqual(expected, actual);
         }
 
         [Test]
+        public void LoadReportBuilders_Should_()
+        {
+            var collection = this.factory.LoadReportBuilders();
+        }
+
+
+        [Test]
         public void GetReportBuilders_Default_Report_Builder_Returned()
         {
-            var factory = new MefReportBuilderFactory();
-            var reportBuilders = factory.GetReportBuilders("C:\\temp", new[] { "Html" });
+            var reportBuilders = factory.GetReportBuilders(CommonNames.CodeDirectory, new[] { "Html" });
             Assert.AreEqual(1, reportBuilders.Count(), "Default report builder not available.");
 
-            reportBuilders = factory.GetReportBuilders("C:\\temp", new[] { "Latex" });
+            reportBuilders = factory.GetReportBuilders(CommonNames.CodeDirectory, new[] { "Latex" });
             
             Assert.AreEqual(1, reportBuilders.Count(), "Report builder not available.");
-
-            Assert.AreEqual(typeof(AdditionalLatexReportBuilder), reportBuilders.First().GetType(), "Non default report builder should get returned");
+            Assert.AreEqual(typeof(AdditionalLatexReportBuilder), reportBuilders.First().GetType(), 
+                "Non default report builder should get returned");
         }
     }
 
@@ -65,9 +79,9 @@ namespace ReportGenerator.Tests.Reporting
         /// <summary>
         /// Creates a class report.
         /// </summary>
-        /// <param name="class">The class.</param>
+        /// <param name="reportClass">The class.</param>
         /// <param name="fileAnalyses">The file analyses that correspond to the class.</param>
-        public void CreateClassReport(Class @class, IEnumerable<FileAnalysis> fileAnalyses)
+        public void CreateClassReport(Class reportClass, IEnumerable<FileAnalysis> fileAnalyses)
         {
         }
 

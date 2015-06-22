@@ -17,9 +17,9 @@
     [TestFixture]
     public class NCoverParserTest
     {
-        private static readonly string filePath = Path.Combine(FileManager.GetCSharpReportDirectory(), "NCover1.5.8.xml");
+        private static readonly string filePath = CommonNames.ReportDirectory + "NCover1.5.8.xml";
         private static ICollection<Assembly> assemblies;
-        private string projectFile = AppDomain.CurrentDomain.BaseDirectory + "\\TestFiles\\Project";
+        private readonly string projectFile = AppDomain.CurrentDomain.BaseDirectory + "\\TestFiles\\Project";
 
         [SetUp]
         public void SetUp()
@@ -62,8 +62,9 @@
         [Test]
         public void FilesOfClassTest()
         {
-            Assert.AreEqual(1, assemblies.Single(a => a.Name == "Test").Classes.Single(c => c.Name == "Test.TestClass").Files.Count(), "Wrong number of files");
-            Assert.AreEqual(2, assemblies.Single(a => a.Name == "Test").Classes.Single(c => c.Name == "Test.PartialClass").Files.Count(), "Wrong number of files");
+            Assert.AreEqual(1, assemblies.Single(a => a.Name == "ReportGenerator.Tests").Classes.Single(c => c.Name == "ReportGenerator.Tests.TestFiles.Project.TestClass").Files.Count(), "Wrong number of files");
+
+            Assert.AreEqual(2, assemblies.Single(a => a.Name == "ReportGenerator.Tests").Classes.Single(c => c.Name == "ReportGenerator.Tests.TestFiles.Project.PartialClass").Files.Count(), "Wrong number of files");
         }
 
         [Test]
@@ -81,7 +82,7 @@
         [Test]
         public void MethodMetricsTest()
         {
-            Assert.AreEqual(0, assemblies.Single(a => a.Name == "Test").Classes.Single(c => c.Name == "Test.TestClass").MethodMetrics.Count(), "Wrong number of metrics");
+            Assert.AreEqual(0, assemblies.Single(a => a.Name == "ReportGenerator.Tests").Classes.Single(c => c.Name == "ReportGenerator.Tests.TestFiles.Project.TestClass").MethodMetrics.Count(), "Wrong number of metrics");
         }
     }
 }

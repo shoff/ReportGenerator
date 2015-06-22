@@ -9,16 +9,16 @@
       </Module>
       <Module hash="87-8A-6A-09-8E-5D-53-7B-6C-7B-F8-53-DF-AF-6B-02-DA-C7-92-F2">
         <Summary numSequencePoints="110" visitedSequencePoints="75" numBranchPoints="33" visitedBranchPoints="20" sequenceCoverage="68.18" branchCoverage="60.61" maxCyclomaticComplexity="5" minCyclomaticComplexity="0" />
-        <FullName>C:\temp\Test.exe</FullName>
-        <ModuleName>Test</ModuleName>
+        <FullName>C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\ReportGenerator.Tests.dll</FullName>
+        <ModuleName>ReportGenerator.Tests</ModuleName>
         <Files>
-          <File uid="1" fullPath="C:\temp\ClassWithExcludes.cs" />
-          <File uid="2" fullPath="C:\temp\GenericClass.cs" />
-          <File uid="4" fullPath="C:\temp\PartialClass2.cs" />
-          <File uid="5" fullPath="C:\temp\PartialClass.cs" />
-          <File uid="6" fullPath="C:\temp\Program.cs" />
-          <File uid="7" fullPath="C:\temp\TestClass.cs" />
-          <File uid="9" fullPath="C:\temp\TestClass2.cs" />
+          <File uid="1" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\ClassWithExcludes.cs" />
+          <File uid="2" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\GenericClass.cs" />
+          <File uid="4" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass2.cs" />
+          <File uid="5" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass.cs" />
+          <File uid="6" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\Program.cs" />
+          <File uid="7" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass.cs" />
+          <File uid="9" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass2.cs" />
         </Files>
         <Classes>
           <Class>
@@ -28,7 +28,7 @@
           </Class>
           <Class>
             <Summary numSequencePoints="3" visitedSequencePoints="3" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
-            <FullName>Test.ClassWithExcludes</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.ClassWithExcludes</FullName>
             <Methods>
               <Method visited="false" cyclomaticComplexity="1" sequenceCoverage="0" branchCoverage="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
                 <Summary numSequencePoints="0" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
@@ -83,12 +83,12 @@
             </Methods>
           </Class>
           <Class skippedDueTo="Attribute">
-            <FullName>Test.CoverageExcludeAttribute</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.CoverageExcludeAttribute</FullName>
             <Methods />
           </Class>
           <Class>
             <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="1" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
-            <FullName>Test.AbstractGenericClass`2</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.AbstractGenericClass`2</FullName>
             <Methods>
               <Method visited="false" cyclomaticComplexity="1" sequenceCoverage="0" branchCoverage="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
                 <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="1" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
@@ -115,7 +115,7 @@
           </Class>
           <Class>
             <Summary numSequencePoints="8" visitedSequencePoints="8" numBranchPoints="2" visitedBranchPoints="2" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
-            <FullName>Test.GenericClass`2</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.GenericClass`2</FullName>
             <Methods>
               <Method visited="true" cyclomaticComplexity="1" sequenceCoverage="100" branchCoverage="100" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
                 <Summary numSequencePoints="4" visitedSequencePoints="4" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
@@ -157,7 +157,7 @@
           </Class>
           <Class>
             <Summary numSequencePoints="0" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
-            <FullName>Test.SomeModel</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.SomeModel</FullName>
             <Methods>
               <Method visited="false" cyclomaticComplexity="1" sequenceCoverage="0" branchCoverage="0" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
                 <Summary numSequencePoints="0" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
@@ -171,7 +171,7 @@
           </Class>
           <Class>
             <Summary numSequencePoints="0" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
-            <FullName>Test.SomeClass</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.SomeClass</FullName>
             <Methods>
               <Method visited="false" cyclomaticComplexity="1" sequenceCoverage="0" branchCoverage="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
                 <Summary numSequencePoints="0" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
@@ -201,7 +201,7 @@
           </Class>
           <Class>
             <Summary numSequencePoints="0" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
-            <FullName>Test.PartialClassWithAutoProperties</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.PartialClassWithAutoProperties</FullName>
             <Methods>
               <Method visited="false" cyclomaticComplexity="1" sequenceCoverage="0" branchCoverage="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
                 <Summary numSequencePoints="0" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
@@ -247,7 +247,7 @@
           </Class>
           <Class>
             <Summary numSequencePoints="24" visitedSequencePoints="12" numBranchPoints="8" visitedBranchPoints="4" sequenceCoverage="50" branchCoverage="50" maxCyclomaticComplexity="2" minCyclomaticComplexity="1" />
-            <FullName>Test.PartialClass</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.PartialClass</FullName>
             <Methods>
               <Method visited="false" cyclomaticComplexity="1" sequenceCoverage="0" branchCoverage="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
                 <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="1" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
@@ -348,7 +348,7 @@
           </Class>
           <Class>
             <Summary numSequencePoints="15" visitedSequencePoints="15" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
-            <FullName>Test.Program</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.Program</FullName>
             <Methods>
               <Method visited="true" cyclomaticComplexity="1" sequenceCoverage="100" branchCoverage="100" isConstructor="false" isStatic="true" isGetter="false" isSetter="false">
                 <Summary numSequencePoints="15" visitedSequencePoints="15" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
@@ -387,7 +387,7 @@
           </Class>
           <Class>
             <Summary numSequencePoints="12" visitedSequencePoints="9" numBranchPoints="5" visitedBranchPoints="3" sequenceCoverage="75" branchCoverage="60" maxCyclomaticComplexity="3" minCyclomaticComplexity="1" />
-            <FullName>Test.TestClass</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.TestClass</FullName>
             <Methods>
               <Method visited="true" cyclomaticComplexity="111" sequenceCoverage="222" branchCoverage="333" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
                 <Summary numSequencePoints="12" visitedSequencePoints="9" numBranchPoints="5" visitedBranchPoints="3" sequenceCoverage="75" branchCoverage="60" maxCyclomaticComplexity="3" minCyclomaticComplexity="3" />
@@ -428,7 +428,7 @@
           </Class>
           <Class>
             <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="1" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
-            <FullName>Test.TestClass/NestedClass</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.TestClass/NestedClass</FullName>
             <Methods>
               <Method visited="false" cyclomaticComplexity="1" sequenceCoverage="0" branchCoverage="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
                 <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="1" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
@@ -455,7 +455,7 @@
           </Class>
           <Class>
             <Summary numSequencePoints="41" visitedSequencePoints="27" numBranchPoints="13" visitedBranchPoints="8" sequenceCoverage="65.85" branchCoverage="61.54" maxCyclomaticComplexity="5" minCyclomaticComplexity="1" />
-            <FullName>Test.TestClass2</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.TestClass2</FullName>
             <Methods>
               <Method visited="true" cyclomaticComplexity="1" sequenceCoverage="0" branchCoverage="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
                 <Summary numSequencePoints="0" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
@@ -611,7 +611,7 @@
           </Class>
           <Class>
             <Summary numSequencePoints="1" visitedSequencePoints="1" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
-            <FullName>Test.TestClass2/&lt;&gt;c__DisplayClass3</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.TestClass2/&lt;&gt;c__DisplayClass3</FullName>
             <Methods>
               <Method visited="true" cyclomaticComplexity="1" sequenceCoverage="0" branchCoverage="0" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
                 <Summary numSequencePoints="0" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
@@ -658,16 +658,16 @@
       </Module>
       <Module hash="87-8A-6A-09-8E-5D-53-7B-6C-7B-F8-53-DF-AF-6B-02-DA-C7-92-F2">
         <Summary numSequencePoints="110" visitedSequencePoints="75" numBranchPoints="33" visitedBranchPoints="20" sequenceCoverage="68.18" branchCoverage="60.61" maxCyclomaticComplexity="5" minCyclomaticComplexity="0" />
-        <FullName>C:\temp\Test.exe</FullName>
+        <FullName>C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\Test.exe</FullName>
         <ModuleName>Test</ModuleName>
         <Files>
-          <File uid="1" fullPath="C:\temp\ClassWithExcludes.cs" />
-          <File uid="2" fullPath="C:\temp\GenericClass.cs" />
-          <File uid="4" fullPath="C:\temp\PartialClass2.cs" />
-          <File uid="5" fullPath="C:\temp\PartialClass.cs" />
-          <File uid="6" fullPath="C:\temp\Program.cs" />
-          <File uid="7" fullPath="C:\temp\TestClass.cs" />
-          <File uid="9" fullPath="C:\temp\TestClass2.cs" />
+          <File uid="1" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\ClassWithExcludes.cs" />
+          <File uid="2" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\GenericClass.cs" />
+          <File uid="4" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass2.cs" />
+          <File uid="5" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\PartialClass.cs" />
+          <File uid="6" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\Program.cs" />
+          <File uid="7" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass.cs" />
+          <File uid="9" fullPath="C:\Projects\CodeCoverage\ReportGenerator\ReportGenerator.Tests\bin\Debug\TestFiles\Project\TestClass2.cs" />
         </Files>
         <Classes>
           <Class>
@@ -677,7 +677,7 @@
           </Class>
           <Class>
             <Summary numSequencePoints="3" visitedSequencePoints="3" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
-            <FullName>Test.ClassWithExcludes</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.ClassWithExcludes</FullName>
             <Methods>
               <Method visited="false" cyclomaticComplexity="1" sequenceCoverage="0" branchCoverage="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
                 <Summary numSequencePoints="0" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
@@ -732,12 +732,12 @@
             </Methods>
           </Class>
           <Class skippedDueTo="Attribute">
-            <FullName>Test.CoverageExcludeAttribute</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.CoverageExcludeAttribute</FullName>
             <Methods />
           </Class>
           <Class>
             <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="1" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
-            <FullName>Test.AbstractGenericClass`2</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.AbstractGenericClass`2</FullName>
             <Methods>
               <Method visited="false" cyclomaticComplexity="1" sequenceCoverage="0" branchCoverage="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
                 <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="1" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
@@ -764,7 +764,7 @@
           </Class>
           <Class>
             <Summary numSequencePoints="8" visitedSequencePoints="8" numBranchPoints="2" visitedBranchPoints="2" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
-            <FullName>Test.GenericClass`2</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.GenericClass`2</FullName>
             <Methods>
               <Method visited="true" cyclomaticComplexity="1" sequenceCoverage="100" branchCoverage="100" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
                 <Summary numSequencePoints="4" visitedSequencePoints="4" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
@@ -806,7 +806,7 @@
           </Class>
           <Class>
             <Summary numSequencePoints="0" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
-            <FullName>Test.SomeModel</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.SomeModel</FullName>
             <Methods>
               <Method visited="false" cyclomaticComplexity="1" sequenceCoverage="0" branchCoverage="0" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
                 <Summary numSequencePoints="0" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
@@ -820,7 +820,7 @@
           </Class>
           <Class>
             <Summary numSequencePoints="0" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
-            <FullName>Test.SomeClass</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.SomeClass</FullName>
             <Methods>
               <Method visited="false" cyclomaticComplexity="1" sequenceCoverage="0" branchCoverage="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
                 <Summary numSequencePoints="0" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
@@ -850,7 +850,7 @@
           </Class>
           <Class>
             <Summary numSequencePoints="0" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
-            <FullName>Test.PartialClassWithAutoProperties</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.PartialClassWithAutoProperties</FullName>
             <Methods>
               <Method visited="false" cyclomaticComplexity="1" sequenceCoverage="0" branchCoverage="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
                 <Summary numSequencePoints="0" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
@@ -896,7 +896,7 @@
           </Class>
           <Class>
             <Summary numSequencePoints="24" visitedSequencePoints="12" numBranchPoints="8" visitedBranchPoints="4" sequenceCoverage="50" branchCoverage="50" maxCyclomaticComplexity="2" minCyclomaticComplexity="1" />
-            <FullName>Test.PartialClass</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.PartialClass</FullName>
             <Methods>
               <Method visited="false" cyclomaticComplexity="1" sequenceCoverage="0" branchCoverage="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
                 <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="1" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
@@ -997,7 +997,7 @@
           </Class>
           <Class>
             <Summary numSequencePoints="15" visitedSequencePoints="15" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
-            <FullName>Test.Program</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.Program</FullName>
             <Methods>
               <Method visited="true" cyclomaticComplexity="1" sequenceCoverage="100" branchCoverage="100" isConstructor="false" isStatic="true" isGetter="false" isSetter="false">
                 <Summary numSequencePoints="15" visitedSequencePoints="15" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
@@ -1036,7 +1036,7 @@
           </Class>
           <Class>
             <Summary numSequencePoints="12" visitedSequencePoints="9" numBranchPoints="5" visitedBranchPoints="3" sequenceCoverage="75" branchCoverage="60" maxCyclomaticComplexity="3" minCyclomaticComplexity="1" />
-            <FullName>Test.TestClass</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.TestClass</FullName>
             <Methods>
               <Method visited="true" cyclomaticComplexity="3" sequenceCoverage="75" branchCoverage="60" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
                 <Summary numSequencePoints="12" visitedSequencePoints="9" numBranchPoints="5" visitedBranchPoints="3" sequenceCoverage="75" branchCoverage="60" maxCyclomaticComplexity="3" minCyclomaticComplexity="3" />
@@ -1077,7 +1077,7 @@
           </Class>
           <Class>
             <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="1" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
-            <FullName>Test.TestClass/NestedClass</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.TestClass/NestedClass</FullName>
             <Methods>
               <Method visited="false" cyclomaticComplexity="1" sequenceCoverage="0" branchCoverage="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
                 <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="1" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
@@ -1104,7 +1104,7 @@
           </Class>
           <Class>
             <Summary numSequencePoints="41" visitedSequencePoints="27" numBranchPoints="13" visitedBranchPoints="8" sequenceCoverage="65.85" branchCoverage="61.54" maxCyclomaticComplexity="5" minCyclomaticComplexity="1" />
-            <FullName>Test.TestClass2</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.TestClass2</FullName>
             <Methods>
               <Method visited="true" cyclomaticComplexity="1" sequenceCoverage="0" branchCoverage="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
                 <Summary numSequencePoints="0" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
@@ -1260,7 +1260,7 @@
           </Class>
           <Class>
             <Summary numSequencePoints="1" visitedSequencePoints="1" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />
-            <FullName>Test.TestClass2/&lt;&gt;c__DisplayClass3</FullName>
+            <FullName>ReportGenerator.Tests.TestFiles.Project.TestClass2/&lt;&gt;c__DisplayClass3</FullName>
             <Methods>
               <Method visited="true" cyclomaticComplexity="1" sequenceCoverage="0" branchCoverage="0" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
                 <Summary numSequencePoints="0" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" />

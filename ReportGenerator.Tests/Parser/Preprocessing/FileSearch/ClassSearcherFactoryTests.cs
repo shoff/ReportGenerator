@@ -32,7 +32,7 @@ namespace ReportGenerator.Tests.Parser.Preprocessing.FileSearch
         {
 
             var classSearcher1 = this.classSearcherFactory.CreateClassSearcher("C:\\temp");
-            var classSearcher2 = this.classSearcherFactory.CreateClassSearcher("C:\\temp\\sub");
+            var classSearcher2 = this.classSearcherFactory.CreateClassSearcher(CommonNames.CodeDirectory + "sub");
             Assert.AreSame(classSearcher1, classSearcher2, "ClassSearchers are not the same instance.");
         }
 

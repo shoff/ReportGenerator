@@ -16,7 +16,7 @@ namespace ReportGenerator.Tests
     [TestFixture]
     public class ReportConfigurationTest
     {
-        private static readonly string ReportPath = Path.Combine(FileManager.GetCSharpReportDirectory(), "OpenCover.xml");
+        private static readonly string ReportPath = CommonNames.ReportDirectory + "OpenCover.xml";
 
         private Mock<IReportBuilderFactory> reportBuilderFactoryMock;
 
@@ -63,7 +63,7 @@ namespace ReportGenerator.Tests
                 this.reportBuilderFactoryMock.Object,
                 new[] { ReportPath },
                 "C:\\temp",
-                "C:\\temp\\historic",
+                CommonNames.CodeDirectory + "historic",
                 new string[] { },
                 new string[] { },
                 new string[] { },
@@ -71,7 +71,7 @@ namespace ReportGenerator.Tests
 
             Assert.IsTrue(this.configuration.ReportFiles.Contains(ReportPath), "ReportPath does not exist in ReportFiles.");
             Assert.AreEqual("C:\\temp", this.configuration.TargetDirectory, "Wrong target directory applied.");
-            Assert.AreEqual("C:\\temp\\historic", this.configuration.HistoryDirectory, "Wrong target directory applied.");
+            Assert.AreEqual(CommonNames.CodeDirectory + "historic", this.configuration.HistoryDirectory, "Wrong target directory applied.");
             Assert.IsTrue(this.configuration.ReportTypes.Contains("Html"), "Wrong report type applied.");
             Assert.AreEqual(0, this.configuration.SourceDirectories.Count(), "Wrong number of source directories.");
             Assert.AreEqual(0, this.configuration.Filters.Count(), "Wrong number of filters.");
@@ -87,7 +87,7 @@ namespace ReportGenerator.Tests
                 "C:\\temp",
                 null,
                 new[] { "Latex", "Xml", "Html" },
-                new[] { FileManager.GetCSharpCodeDirectory() },
+                new[] { CommonNames.CodeDirectory },
                 new[] { "+Test", "-Test" },
                 VerbosityLevel.Info.ToString());
 
@@ -96,7 +96,7 @@ namespace ReportGenerator.Tests
             Assert.IsTrue(this.configuration.ReportTypes.Contains("Latex"), "Wrong report type applied.");
             Assert.IsTrue(this.configuration.ReportTypes.Contains("Xml"), "Wrong report type applied.");
             Assert.IsTrue(this.configuration.ReportTypes.Contains("Html"), "Wrong report type applied.");
-            Assert.IsTrue(this.configuration.SourceDirectories.Contains(FileManager.GetCSharpCodeDirectory()), "Directory does not exist in Source directories.");
+            Assert.IsTrue(this.configuration.SourceDirectories.Contains(CommonNames.CodeDirectory), "Directory does not exist in Source directories.");
             Assert.IsTrue(this.configuration.Filters.Contains("+Test"), "Filter does not exist in ReportFiles.");
             Assert.IsTrue(this.configuration.Filters.Contains("-Test"), "Filter does not exist in ReportFiles.");
             Assert.AreEqual(VerbosityLevel.Info, this.configuration.VerbosityLevel, "Wrong verbosity level applied.");
@@ -123,7 +123,7 @@ namespace ReportGenerator.Tests
                 "C:\\temp",
                 null,
                 new[] { "Latex" },
-                new[] { FileManager.GetCSharpCodeDirectory() },
+                new[] { CommonNames.CodeDirectory },
                 new[] { "+Test", "-Test" },
                 VerbosityLevel.Info.ToString());
 
@@ -139,7 +139,7 @@ namespace ReportGenerator.Tests
                 "C:\\temp",
                 null,
                 new[] { "Latex" },
-                new[] { FileManager.GetCSharpCodeDirectory() },
+                new[] { CommonNames.CodeDirectory },
                 new[] { "+Test", "-Test" },
                 VerbosityLevel.Info.ToString());
 
@@ -155,7 +155,7 @@ namespace ReportGenerator.Tests
                 string.Empty,
                 null,
                 new[] { "Latex" },
-                new[] { FileManager.GetCSharpCodeDirectory() },
+                new[] { CommonNames.CodeDirectory },
                 new[] { "+Test", "-Test" },
                 VerbosityLevel.Info.ToString());
 
@@ -171,7 +171,7 @@ namespace ReportGenerator.Tests
                 "C:\\temp:?$",
                 null,
                 new[] { "Latex" },
-                new[] { FileManager.GetCSharpCodeDirectory() },
+                new[] { CommonNames.CodeDirectory },
                 new[] { "+Test", "-Test" },
                 VerbosityLevel.Info.ToString());
 
@@ -187,7 +187,7 @@ namespace ReportGenerator.Tests
                 "C:\\temp",
                 "C:\\temp:?$",
                 new[] { "Latex" },
-                new[] { FileManager.GetCSharpCodeDirectory() },
+                new[] { CommonNames.CodeDirectory },
                 new[] { "+Test", "-Test" },
                 VerbosityLevel.Info.ToString());
 
@@ -203,7 +203,7 @@ namespace ReportGenerator.Tests
                 "C:\\temp",
                 null,
                 new[] { "DoesNotExist" },
-                new[] { FileManager.GetCSharpCodeDirectory() },
+                new[] { CommonNames.CodeDirectory },
                 new[] { "+Test", "-Test" },
                 VerbosityLevel.Info.ToString());
 
@@ -219,7 +219,7 @@ namespace ReportGenerator.Tests
                 "C:\\temp",
                 null,
                 new[] { "Latex" },
-                new[] { Path.Combine(FileManager.GetCSharpCodeDirectory(), "123456") },
+                new[] { Path.Combine(CommonNames.CodeDirectory, "123456") },
                 new[] { "+Test", "-Test" },
                 VerbosityLevel.Info.ToString());
 
@@ -235,7 +235,7 @@ namespace ReportGenerator.Tests
                 @"C:\\temp",
                 null,
                 new[] { "Latex" },
-                new[] { FileManager.GetCSharpCodeDirectory() },
+                new[] { CommonNames.CodeDirectory },
                 new[] { "Test" },
                 VerbosityLevel.Info.ToString());
 

@@ -14,27 +14,7 @@
     [TestFixture]
     public class PartCover23ReportPreprocessorTest
     {
-        private static readonly string FilePath = Path.Combine(FileManager.GetCSharpReportDirectory(), "Partcover2.3.0.35109.xml");
-
-        #region Additional test attributes
-
-        // You can use the following additional attributes as you write your tests:
-
-        // Use ClassInitialize to run code before running the first test in the class
-        [SetUp]
-        public static void MyClassInitialize(TestContext testContext)
-        {
-            FileManager.CopyTestClasses();
-        }
-
-        // Use ClassCleanup to run code after all tests in a class have run
-        [TearDown]
-        public static void MyClassCleanup()
-        {
-            FileManager.DeleteTestClasses();
-        }
-
-        #endregion
+        private static readonly string FilePath = CommonNames.ReportDirectory + "Partcover2.3.0.35109.xml";
 
         /// <summary>
         /// A test for Execute
@@ -50,7 +30,7 @@
             Assert.AreEqual(8, report.Root.Elements("File").Count(), "Wrong number of total files.");
 
             var gettersAndSetters = report.Root.Elements("Type")
-                .Single(c => c.Attribute("name").Value == "Test.TestClass2")
+                .Single(c => c.Attribute("name").Value == CommonNames.TestNamespace + "TestClass2")
                 .Elements("Method")
                 .Where(m => m.Attribute("name").Value.StartsWith("get_") || m.Attribute("name").Value.StartsWith("set_"))
                 .Select(c => c.Element("pt"));
@@ -64,7 +44,7 @@
             }
 
             var unexecutedMethod = report.Root.Elements("Type")
-                .Single(c => c.Attribute("name").Value == "Test.TestClass2")
+                .Single(c => c.Attribute("name").Value == CommonNames.TestNamespace + "TestClass2")
                 .Elements("Method")
                 .Single(m => m.Attribute("name").Value == "UnExecutedMethod");
 
