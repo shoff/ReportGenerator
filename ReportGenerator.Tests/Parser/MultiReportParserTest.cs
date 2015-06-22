@@ -145,7 +145,7 @@
         [Test]
         public void GetFileAnalysis_On_TestClass_Returns()
         {
-            var actual = assembliesWithoutPreprocessing.Single(a => a.Name == "Test").Classes.Single(
+            var actual = assembliesWithoutPreprocessing.Single(a => a.Name=="ReportGenerator.Tests").Classes.Single(
                     c => c.Name == "ReportGenerator.Tests.TestFiles.Project.TestClass").Files.Count();
 
             Assert.AreEqual(1, actual);
@@ -154,7 +154,7 @@
         [Test]
         public void GetFileAnalysis_On_PartialClass_Returns_2()
         {
-            var actual = assembliesWithoutPreprocessing.Single(a => a.Name == "Test").Classes.Single(
+            var actual = assembliesWithoutPreprocessing.Single(a => a.Name=="ReportGenerator.Tests").Classes.Single(
                     c => c.Name == "ReportGenerator.Tests.TestFiles.Project.PartialClass").Files.Count();
 
             Assert.AreEqual(2, actual);
@@ -175,7 +175,7 @@
         [Test]
         public void MethodMetricsTest()
         {
-            Assert.AreEqual(0, assembliesWithoutPreprocessing.Single(a => a.Name == "Test").Classes.Single
+            Assert.AreEqual(0, assembliesWithoutPreprocessing.Single(a => a.Name=="ReportGenerator.Tests").Classes.Single
                 (c => c.Name == "ReportGenerator.Tests.TestFiles.Project.TestClass").MethodMetrics.Count(), "Wrong number of metrics");
         }
 
@@ -186,7 +186,7 @@
             var multiReportParser = ParserFactory.CreateParser(new string[] { filePath }, new string[] { });
             //Assert.IsInstanceOfType(multiReportParser, typeof(MultiReportParser), "Wrong type");
 
-            var metrics = multiReportParser.Assemblies.Single(a => a.Name == "Test").Classes.Single(c => c.Name == "ReportGenerator.Tests.TestFiles.Project.TestClass").MethodMetrics;
+            var metrics = multiReportParser.Assemblies.Single(a => a.Name=="ReportGenerator.Tests").Classes.Single(c => c.Name == "ReportGenerator.Tests.TestFiles.Project.TestClass").MethodMetrics;
 
             Assert.AreEqual(2, metrics.Count(), "Wrong number of method metrics");
             Assert.AreEqual("System.Void Test.TestClass::SampleFunction()", metrics.First().Name, "Wrong name of method");
@@ -218,7 +218,7 @@
         private static FileAnalysis GetFileAnalysis(IEnumerable<Assembly> assemblies, string className, string fileName)
         {
             var analysis = assemblies
-                .Single(a => a.Name == "Test").Classes
+                .Single(a => a.Name=="ReportGenerator.Tests").Classes
                 .Single(c => c.Name == className).Files
                 .Single(f => f.Path == fileName)
                 .AnalyzeFile();

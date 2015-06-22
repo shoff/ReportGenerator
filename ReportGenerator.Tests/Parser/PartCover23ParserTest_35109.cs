@@ -109,8 +109,8 @@
         [Test]
         public void FilesOfClassTest()
         {
-            Assert.AreEqual(1, assembliesWithoutPreprocessing.Single(a => a.Name == "Test").Classes.Single(c => c.Name == CommonNames.TestNamespace + "TestClass").Files.Count(), "Wrong number of files");
-            Assert.AreEqual(2, assembliesWithoutPreprocessing.Single(a => a.Name == "Test").Classes.Single(c => c.Name == CommonNames.TestNamespace + "PartialClass").Files.Count(), "Wrong number of files");
+            Assert.AreEqual(1, assembliesWithoutPreprocessing.Single(a => a.Name=="ReportGenerator.Tests").Classes.Single(c => c.Name == CommonNames.TestNamespace + "TestClass").Files.Count(), "Wrong number of files");
+            Assert.AreEqual(2, assembliesWithoutPreprocessing.Single(a => a.Name=="ReportGenerator.Tests").Classes.Single(c => c.Name == CommonNames.TestNamespace + "PartialClass").Files.Count(), "Wrong number of files");
         }
 
         /// <summary>
@@ -137,13 +137,13 @@
         [Test]
         public void MethodMetricsTest()
         {
-            Assert.AreEqual(0, assembliesWithoutPreprocessing.Single(a => a.Name == "Test").Classes.Single(c => c.Name == CommonNames.TestNamespace + "TestClass").MethodMetrics.Count(), "Wrong number of metrics");
+            Assert.AreEqual(0, assembliesWithoutPreprocessing.Single(a => a.Name=="ReportGenerator.Tests").Classes.Single(c => c.Name == CommonNames.TestNamespace + "TestClass").MethodMetrics.Count(), "Wrong number of metrics");
         }
 
         private static FileAnalysis GetFileAnalysis(IEnumerable<Assembly> assemblies, string className, string fileName)
         {
             return assemblies
-                .Single(a => a.Name == "Test").Classes
+                .Single(a => a.Name=="ReportGenerator.Tests").Classes
                 .Single(c => c.Name == className).Files
                 .Single(f => f.Path == fileName)
                 .AnalyzeFile();

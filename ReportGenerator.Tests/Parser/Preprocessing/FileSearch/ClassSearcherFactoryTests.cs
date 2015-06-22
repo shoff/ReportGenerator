@@ -31,7 +31,7 @@ namespace ReportGenerator.Tests.Parser.Preprocessing.FileSearch
         public void CreateClassSearcher_Pass_Subdirectory_Cached_Instance_Is_Returned()
         {
 
-            var classSearcher1 = this.classSearcherFactory.CreateClassSearcher("C:\\temp");
+            var classSearcher1 = this.classSearcherFactory.CreateClassSearcher(CommonNames.TestFilesRoot);
             var classSearcher2 = this.classSearcherFactory.CreateClassSearcher(CommonNames.CodeDirectory + "sub");
             Assert.AreSame(classSearcher1, classSearcher2, "ClassSearchers are not the same instance.");
         }
@@ -39,7 +39,7 @@ namespace ReportGenerator.Tests.Parser.Preprocessing.FileSearch
         [Test]
         public void CreateClassSearcher_Pass_Parent_Directory_New_Instance_Is_Returned()
         {
-            var classSearcher1 = this.classSearcherFactory.CreateClassSearcher("C:\\temp");
+            var classSearcher1 = this.classSearcherFactory.CreateClassSearcher(CommonNames.TestFilesRoot);
             var classSearcher2 = this.classSearcherFactory.CreateClassSearcher("C:\\");
             Assert.AreNotSame(classSearcher1, classSearcher2, "ClassSearchers are the same instance.");
         }

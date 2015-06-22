@@ -1,43 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using log4net;
-using Palmmedia.ReportGenerator.Common;
-using Palmmedia.ReportGenerator.Properties;
-using Palmmedia.ReportGenerator.Reporting;
-
-namespace Palmmedia.ReportGenerator
+﻿namespace Palmmedia.ReportGenerator
 {
+    using System;
+    using System.Collections.Generic;
     using System.Diagnostics.Contracts;
+    using System.IO;
+    using System.Linq;
+    using log4net;
+    using Palmmedia.ReportGenerator.Common;
+    using Palmmedia.ReportGenerator.Properties;
+    using Palmmedia.ReportGenerator.Reporting;
 
     /// <summary>
-    /// Provides all parameters that are required for report generation.
+    ///   Provides all parameters that are required for report generation.
     /// </summary>
     public class ReportConfiguration
     {
-        /// <summary>
-        /// The Logger.
-        /// </summary>
         private static readonly ILog logger = LogManager.GetLogger(typeof(ReportConfiguration));
-
-        /// <summary>
-        /// The report files.
-        /// </summary>
-        private readonly List<string> reportFiles = new List<string>();
-
-        /// <summary>
-        /// The report file pattern that could not be parsed.
-        /// </summary>
         private readonly List<string> failedReportFilePatterns = new List<string>();
-
-        /// <summary>
-        /// Determines whether the verbosity level was successfully parsed during initialization.
-        /// </summary>
+        private readonly List<string> reportFiles = new List<string>();
         private readonly bool verbosityLevelValid = true;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReportConfiguration" /> class.
+        ///   Initializes a new instance of the <see cref="ReportConfiguration" /> class.
         /// </summary>
         /// <param name="reportBuilderFactory">The report builder factory.</param>
         /// <param name="reportFilePatterns">The report file patterns.</param>
@@ -48,14 +32,14 @@ namespace Palmmedia.ReportGenerator
         /// <param name="filters">The filters.</param>
         /// <param name="verbosityLevel">The verbosity level.</param>
         public ReportConfiguration(
-            IReportBuilderFactory reportBuilderFactory,
-            ICollection<string> reportFilePatterns,
-            string targetDirectory,
-            string historyDirectory,
-            ICollection<string> reportTypes,
-            ICollection<string> sourceDirectories,
-            ICollection<string> filters,
-            string verbosityLevel)
+            IReportBuilderFactory reportBuilderFactory, 
+            ICollection<string> reportFilePatterns, 
+            string targetDirectory, 
+            string historyDirectory, 
+            ICollection<string> reportTypes, 
+            ICollection<string> sourceDirectories, 
+            ICollection<string> filters, 
+            string verbosityLevel = "Error")
         {
             Contract.Requires<ArgumentNullException>(reportBuilderFactory != null);
             Contract.Requires<ArgumentNullException>(reportFilePatterns != null);
@@ -63,7 +47,6 @@ namespace Palmmedia.ReportGenerator
             Contract.Requires<ArgumentNullException>(reportTypes != null);
             Contract.Requires<ArgumentNullException>(sourceDirectories != null);
             Contract.Requires<ArgumentNullException>(filters != null);
-            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(verbosityLevel));
 
             this.ReportBuilderFactory = reportBuilderFactory;
 
@@ -94,94 +77,63 @@ namespace Palmmedia.ReportGenerator
 
             this.SourceDirectories = sourceDirectories;
             this.Filters = filters;
-            VerbosityLevel parsedVerbosityLevel = VerbosityLevel.Verbose;
+            var parsedVerbosityLevel = VerbosityLevel.Verbose;
             this.verbosityLevelValid = Enum.TryParse<VerbosityLevel>(verbosityLevel, true, out parsedVerbosityLevel);
             this.VerbosityLevel = parsedVerbosityLevel;
         }
 
         /// <summary>
-        /// Gets the report builder factory.
+        ///   Gets the report builder factory.
         /// </summary>
-        public IReportBuilderFactory ReportBuilderFactory
-        {
-            get;
-            private set;
-        }
+        public IReportBuilderFactory ReportBuilderFactory { get; private set; }
 
         /// <summary>
-        /// Gets the report files.
+        ///   Gets the report files.
         /// </summary>
         public ICollection<string> ReportFiles
         {
-            get
-            {
-                return this.reportFiles;
-            }
+            get { return this.reportFiles; }
         }
 
         /// <summary>
-        /// Gets the target directory.
+        ///   Gets the target directory.
         /// </summary>
-        public string TargetDirectory
-        {
-            get;
-            private set;
-        }
+        public string TargetDirectory { get; private set; }
 
         /// <summary>
-        /// Gets the history directory.
+        ///   Gets the history directory.
         /// </summary>
-        public string HistoryDirectory
-        {
-            get;
-            private set;
-        }
+        public string HistoryDirectory { get; private set; }
 
         /// <summary>
-        /// Gets the type of the report.
+        ///   Gets the type of the report.
         /// </summary>
-        public ICollection<string> ReportTypes
-        {
-            get;
-            private set;
-        }
+        public ICollection<string> ReportTypes { get; private set; }
 
         /// <summary>
-        /// Gets the source directories.
+        ///   Gets the source directories.
         /// </summary>
-        public ICollection<string> SourceDirectories
-        {
-            get;
-            private set;
-        }
+        public ICollection<string> SourceDirectories { get; private set; }
 
         /// <summary>
-        /// Gets the filters.
+        ///   Gets the filters.
         /// </summary>
-        public ICollection<string> Filters
-        {
-            get;
-            private set;
-        }
+        public ICollection<string> Filters { get; private set; }
 
         /// <summary>
-        /// Gets the verbosity level.
+        ///   Gets the verbosity level.
         /// </summary>
-        public VerbosityLevel VerbosityLevel
-        {
-            get;
-            private set;
-        }
+        public VerbosityLevel VerbosityLevel { get; private set; }
 
         /// <summary>
-        /// Validates all parameters.
+        ///   Validates all parameters.
         /// </summary>
         /// <returns>
         ///   <c>true</c> if all parameters are in a valid state; otherwise <c>false</c>.
         /// </returns>
         public bool Validate()
         {
-            bool result = true;
+            var result = true;
 
             if (this.failedReportFilePatterns.Count > 0)
             {

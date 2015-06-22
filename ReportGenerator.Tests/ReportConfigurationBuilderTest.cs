@@ -58,17 +58,13 @@ namespace ReportGenerator.Tests
         [Test]
         public void InitWithLegacyArguments_AllPropertiesApplied()
         {
-            string[] legacyArguments = new string[] 
-            { 
-                ReportPath,
-                "C:\\temp",
-                "Latex"
+            string[] legacyArguments = { ReportPath, CommonNames.TestFilesRoot, "Latex"
             };
 
             this.configuration = this.reportConfigurationBuilder.Create(legacyArguments);
 
             Assert.IsTrue(this.configuration.ReportFiles.Contains(ReportPath), "ReportPath does not exist in ReportFiles.");
-            Assert.AreEqual("C:\\temp", this.configuration.TargetDirectory, "Wrong target directory applied.");
+            Assert.AreEqual(CommonNames.TestFilesRoot, this.configuration.TargetDirectory, "Wrong target directory applied.");
             Assert.IsTrue(this.configuration.ReportTypes.Contains("Latex"), "Wrong report type applied.");
             Assert.IsFalse(this.configuration.SourceDirectories.Any(), "Source directories should be empty.");
             Assert.IsFalse(this.configuration.Filters.Any(), "Filters should be empty.");
@@ -77,23 +73,22 @@ namespace ReportGenerator.Tests
         [Test]
         public void InitWithNamedArguments_AllPropertiesApplied()
         {
-            string[] namedArguments = new string[]
-            { 
+            string[] namedArguments = { 
                 "-reports:" + ReportPath,
-                "-targetdir:C:\\temp",
+                "-targetdir:" + CommonNames.TestFilesRoot + "target",
                 "-reporttype:Latex",
-                "-sourcedirs:C:\\temp\\source;C:\\temp\\source2",
+                "-sourcedirs:"+ CommonNames.TestFilesRoot + "source;" + CommonNames.TestFilesRoot + "temp\\source2",
                 "-filters:+Test;-Test",
-                "-verbosity:" + VerbosityLevel.Info.ToString()
+                "-verbosity:" + VerbosityLevel.Info
             };
 
             this.configuration = this.reportConfigurationBuilder.Create(namedArguments);
 
             Assert.IsTrue(this.configuration.ReportFiles.Contains(ReportPath), "ReportPath does not exist in ReportFiles.");
-            Assert.AreEqual("C:\\temp", this.configuration.TargetDirectory, "Wrong target directory applied.");
+            Assert.AreEqual(CommonNames.TestFilesRoot + "target", this.configuration.TargetDirectory, "Wrong target directory applied.");
             Assert.IsTrue(this.configuration.ReportTypes.Contains("Latex"), "Wrong report type applied.");
-            Assert.IsTrue(this.configuration.SourceDirectories.Contains(CommonNames.CodeDirectory + "source"), "Directory does not exist in Source directories.");
-            Assert.IsTrue(this.configuration.SourceDirectories.Contains(CommonNames.CodeDirectory + "source2"), "Directory does not exist in Source directories.");
+            Assert.IsTrue(this.configuration.SourceDirectories.Contains(CommonNames.TestFilesRoot + "source"), "Directory does not exist in Source directories.");
+            Assert.IsTrue(this.configuration.SourceDirectories.Contains(CommonNames.TestFilesRoot + "temp\\source2"), "Directory does not exist in Source directories.");
             Assert.IsTrue(this.configuration.Filters.Contains("+Test"), "Filter does not exist in ReportFiles.");
             Assert.IsTrue(this.configuration.Filters.Contains("-Test"), "Filter does not exist in ReportFiles.");
             Assert.AreEqual(VerbosityLevel.Info, this.configuration.VerbosityLevel, "Wrong verbosity level applied.");

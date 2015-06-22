@@ -22,55 +22,28 @@ namespace ReportGenerator.Tests
 
         private ReportConfiguration configuration;
 
-        #region Additional test attributes
-
-        // You can use the following additional attributes as you write your tests:
-
-        // Use ClassInitialize to run code before running the first test in the class
-        // [SetUp]
-        // public static void MyClassInitialize(TestContext testContext)
-        // {
-        // }
-
-        // Use ClassCleanup to run code after all tests in a class have run
-        // [TearDown]
-        // public static void MyClassCleanup()
-        // {
-        // }
-
-        // Use TestInitialize to run code before running each test
         [SetUp]
         public void MyTestInitialize()
         {
             this.reportBuilderFactoryMock = new Mock<IReportBuilderFactory>();
         }
 
-        // Use TestCleanup to run code after each test has run
-        [TearDown]
-        public void MyTestCleanup()
-        {
-            Assert.IsNotNull(this.configuration.ReportFiles);
-            Assert.IsNotNull(this.configuration.SourceDirectories);
-            Assert.IsNotNull(this.configuration.Filters);
-        }
-
-        #endregion
+        
 
         [Test]
-        public void InitByConstructor_AllDefaultValuesApplied()
+        public void Init_By_Constructor_All_Default_Values_Applied()
         {
             this.configuration = new ReportConfiguration(
                 this.reportBuilderFactoryMock.Object,
-                new[] { ReportPath },
-                "C:\\temp",
-                CommonNames.CodeDirectory + "historic",
+                new[] { ReportPath }, CommonNames.TestFilesRoot,
+                CommonNames.TestFilesRoot + "historic",
                 new string[] { },
                 new string[] { },
                 new string[] { },
                 string.Empty);
 
             Assert.IsTrue(this.configuration.ReportFiles.Contains(ReportPath), "ReportPath does not exist in ReportFiles.");
-            Assert.AreEqual("C:\\temp", this.configuration.TargetDirectory, "Wrong target directory applied.");
+            Assert.AreEqual(CommonNames.TestFilesRoot, this.configuration.TargetDirectory, "Wrong target directory applied.");
             Assert.AreEqual(CommonNames.CodeDirectory + "historic", this.configuration.HistoryDirectory, "Wrong target directory applied.");
             Assert.IsTrue(this.configuration.ReportTypes.Contains("Html"), "Wrong report type applied.");
             Assert.AreEqual(0, this.configuration.SourceDirectories.Count(), "Wrong number of source directories.");
@@ -84,7 +57,7 @@ namespace ReportGenerator.Tests
             this.configuration = new ReportConfiguration(
                 this.reportBuilderFactoryMock.Object,
                 new[] { ReportPath },
-                "C:\\temp",
+                CommonNames.TestFilesRoot,
                 null,
                 new[] { "Latex", "Xml", "Html" },
                 new[] { CommonNames.CodeDirectory },
@@ -92,7 +65,7 @@ namespace ReportGenerator.Tests
                 VerbosityLevel.Info.ToString());
 
             Assert.IsTrue(this.configuration.ReportFiles.Contains(ReportPath), "ReportPath does not exist in ReportFiles.");
-            Assert.AreEqual("C:\\temp", this.configuration.TargetDirectory, "Wrong target directory applied.");
+            Assert.AreEqual(CommonNames.TestFilesRoot, this.configuration.TargetDirectory, "Wrong target directory applied.");
             Assert.IsTrue(this.configuration.ReportTypes.Contains("Latex"), "Wrong report type applied.");
             Assert.IsTrue(this.configuration.ReportTypes.Contains("Xml"), "Wrong report type applied.");
             Assert.IsTrue(this.configuration.ReportTypes.Contains("Html"), "Wrong report type applied.");
@@ -120,7 +93,7 @@ namespace ReportGenerator.Tests
             this.configuration = new ReportConfiguration(
                 this.reportBuilderFactoryMock.Object,
                 new string[] { },
-                "C:\\temp",
+                CommonNames.TestFilesRoot,
                 null,
                 new[] { "Latex" },
                 new[] { CommonNames.CodeDirectory },
@@ -136,7 +109,7 @@ namespace ReportGenerator.Tests
             this.configuration = new ReportConfiguration(
                 this.reportBuilderFactoryMock.Object,
                 new[] { "123.xml" },
-                "C:\\temp",
+                CommonNames.TestFilesRoot,
                 null,
                 new[] { "Latex" },
                 new[] { CommonNames.CodeDirectory },
@@ -184,7 +157,7 @@ namespace ReportGenerator.Tests
             this.configuration = new ReportConfiguration(
                 this.reportBuilderFactoryMock.Object,
                 new[] { ReportPath },
-                "C:\\temp",
+                CommonNames.TestFilesRoot,
                 "C:\\temp:?$",
                 new[] { "Latex" },
                 new[] { CommonNames.CodeDirectory },
@@ -200,7 +173,7 @@ namespace ReportGenerator.Tests
             this.configuration = new ReportConfiguration(
                 this.reportBuilderFactoryMock.Object,
                 new[] { ReportPath },
-                "C:\\temp",
+                CommonNames.TestFilesRoot,
                 null,
                 new[] { "DoesNotExist" },
                 new[] { CommonNames.CodeDirectory },
@@ -216,7 +189,7 @@ namespace ReportGenerator.Tests
             this.configuration = new ReportConfiguration(
                 this.reportBuilderFactoryMock.Object,
                 new[] { ReportPath },
-                "C:\\temp",
+                CommonNames.TestFilesRoot,
                 null,
                 new[] { "Latex" },
                 new[] { Path.Combine(CommonNames.CodeDirectory, "123456") },
@@ -232,7 +205,7 @@ namespace ReportGenerator.Tests
             this.configuration = new ReportConfiguration(
                 this.reportBuilderFactoryMock.Object,
                 new[] { ReportPath },
-                @"C:\\temp",
+                @CommonNames.TestFilesRoot,
                 null,
                 new[] { "Latex" },
                 new[] { CommonNames.CodeDirectory },

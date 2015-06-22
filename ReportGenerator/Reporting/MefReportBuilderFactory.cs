@@ -29,6 +29,7 @@
         public ICollection<string> GetAvailableReportTypes()
         {
             var reportBuilders = LoadReportBuilders();
+
             return reportBuilders.Select(r => r.ReportType).Distinct().OrderBy(r => r).ToArray();
         }
 
@@ -93,7 +94,7 @@
         internal ICollection<IReportBuilder> LoadReportBuilders()
         {
             var aggregateCatalog = new AggregateCatalog();
-
+            // this sucks as does Mef.
             foreach (var file in new FileInfo(typeof(MefReportBuilderFactory).Assembly.Location).Directory.EnumerateFiles("*.dll"))
             {
                 try

@@ -6,6 +6,11 @@
     {
         internal const string TestNamespace = "ReportGenerator.Tests.TestFiles.Project.";
 
+        internal static string TestFilesRoot
+        {
+            get { return AppDomain.CurrentDomain.BaseDirectory + "\\TestFiles\\"; }
+        }
+
         internal static string ReportDirectory
         {
             get { return AppDomain.CurrentDomain.BaseDirectory + "\\TestFiles\\Reports\\"; }

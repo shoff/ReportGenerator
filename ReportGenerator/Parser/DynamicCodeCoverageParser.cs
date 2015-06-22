@@ -96,23 +96,23 @@ namespace Palmmedia.ReportGenerator.Parser
         /// </summary>
         /// <param name="module">The module.</param>
         /// <param name="fileId">The file id.</param>
-        /// <param name="class">The class.</param>
+        /// <param name="processClass">The class.</param>
         /// <param name="filePath">The file path.</param>
         /// <returns>The <see cref="CodeFile" />.</returns>
-        internal CodeFile ProcessFile(XElement module, string fileId, Class @class, string filePath)
+        internal CodeFile ProcessFile(XElement module, string fileId, Class processClass, string filePath)
         {
             Contract.Requires<ArgumentNullException>(module != null);
             Contract.Requires<ArgumentNullException>(fileId != null);
-            Contract.Requires<ArgumentNullException>(@class != null);
+            Contract.Requires<ArgumentNullException>(processClass != null);
             Contract.Requires<ArgumentNullException>(filePath != null);
             var methods =
                 module.Elements("functions").Elements("function").Where(
                     c =>
-                    c.Attribute("type_name").Value.Equals(@class.Name, StringComparison.Ordinal)
-                    || c.Attribute("type_name").Value.StartsWith(@class.Name + ".", StringComparison.Ordinal)).Where(
+                    c.Attribute("type_name").Value.Equals(processClass.Name, StringComparison.Ordinal)
+                    || c.Attribute("type_name").Value.StartsWith(processClass.Name + ".", StringComparison.Ordinal)).Where(
                         m => m.Elements("ranges").Elements("range").Any(r => r.Attribute("source_id").Value == fileId)).ToArray();
 
-            SetMethodMetrics(methods, @class);
+            SetMethodMetrics(methods, processClass);
 
             var linesOfFile =
                 methods.Elements("ranges").Elements("range").Select(

@@ -1,5 +1,6 @@
 ﻿namespace ReportGenerator.Tests.Parser
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -76,8 +77,13 @@
         [Test]
         public void FilesOfClassTest()
         {
-            Assert.AreEqual(1, assemblies.Single(a => a.Name == CommonNames.TestNamespace + "exe").Classes.Single(c => c.Name == CommonNames.TestNamespace + "TestClass").Files.Count(), "Wrong number of files");
-            Assert.AreEqual(2, assemblies.Single(a => a.Name == CommonNames.TestNamespace + "exe").Classes.Single(c => c.Name == CommonNames.TestNamespace + "PartialClass").Files.Count(), "Wrong number of files");
+            Assert.AreEqual(1, assemblies.Single(a => a.Name == AppDomain.CurrentDomain.BaseDirectory 
+                + "\\TestFiles\\ReportGenerator.Tests.dll").Classes
+                .Single(c => c.Name == CommonNames.TestNamespace + "TestClass").Files.Count());
+
+            Assert.AreEqual(2, assemblies.Single(a => a.Name == AppDomain.CurrentDomain.BaseDirectory 
+                + "\\TestFiles\\ReportGenerator.Tests.dll").Classes
+                .Single(c => c.Name == CommonNames.TestNamespace + "PartialClass").Files.Count());
         }
 
         /// <summary>
