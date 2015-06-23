@@ -14,16 +14,15 @@
     public class FileSearchTest
     {
         [Test]
-        public void GetFiles_FilePatternNull_ArgumentException()
+        public void GetFiles_Should_Throw_If_Pattern_Is_Null()
         {
-
-            Assert.Throws<ArgumentException>(() => FileSearch.GetFiles(null).ToArray());
+            Assert.Throws<ArgumentNullException>(() => FileSearch.GetFiles(null));
         }
 
         [Test]
-        public void GetFiles_FilePatternEmtpy_ArgumentException()
+        public void GetFiles_Should_Throw_If_Pattern_Is_Empty()
         {
-            Assert.Throws<ArgumentException>(() => FileSearch.GetFiles(string.Empty).ToArray());
+            Assert.Throws<ArgumentNullException>(() => FileSearch.GetFiles(string.Empty));
         }
 
         [Test]
@@ -45,14 +44,16 @@
         }
 
         [Test]
-        public void GetFiles_EmptyDirectory_NoFilesFound()
+        public void GetFiles_On_Empty_Directory_Returns_No_Files_Found()
         {
-            Directory.CreateDirectory("tmp");
+            if (!Directory.Exists("tmp"))
+            {
+                Directory.CreateDirectory("tmp");
+            }
 
             var files = FileSearch.GetFiles(Path.Combine("tmp", "*")).ToArray();
             Assert.AreEqual(0, files.Length);
 
-            Directory.Delete("tmp");
         }
 
         [Test]

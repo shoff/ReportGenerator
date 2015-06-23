@@ -90,7 +90,10 @@
         /// <summary>Loads the report builders.</summary>
         /// <returns>The report builders.</returns>
         /// <exception cref="SecurityException">The caller does not have the required permission. </exception>
-        /// <exception cref="UnauthorizedAccessException">Access to <paramref name="fileName" /> is denied. </exception>
+        /// <exception cref="UnauthorizedAccessException">Access to <paramref>
+        ///     <name>fileName</name>
+        ///   </paramref>
+        ///   is denied. </exception>
         internal ICollection<IReportBuilder> LoadReportBuilders()
         {
             var aggregateCatalog = new AggregateCatalog();

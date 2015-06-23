@@ -135,10 +135,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ReportGenerator.Reporting\ReportGenerator.Reporting.csproj">
-      <Project>{006e4f14-5f6f-416c-8f81-9082ed76a991}</Project>
-      <Name>ReportGenerator.Reporting</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ReportGenerator\ReportGenerator.csproj">
       <Project>{bbdf4589-00c7-44c9-97e5-641d708bca3c}</Project>
       <Name>ReportGenerator</Name>

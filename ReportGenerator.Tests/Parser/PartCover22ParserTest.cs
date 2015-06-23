@@ -44,7 +44,7 @@
         [Test]
         public void NumberOfLineVisitsTest_WithoutPreprocessing()
         {
-            var fileAnalysis = FileAnalysisCreator.GetFileAnalysis(assembliesWithoutPreprocessing, CommonNames.TestNamespace + ".TestClass", CommonNames.CodeDirectory + "TestClass.cs");
+            var fileAnalysis = FileAnalysisCreator.GetFileAnalysis(assembliesWithoutPreprocessing, CommonNames.TestNamespace + "TestClass", CommonNames.CodeDirectory + "TestClass.cs");
             Assert.AreEqual(1, fileAnalysis.Lines.Single(l => l.LineNumber == 14).LineVisits, "Wrong number of line visits");
             Assert.AreEqual(0, fileAnalysis.Lines.Single(l => l.LineNumber == 18).LineVisits, "Wrong number of line visits");
 

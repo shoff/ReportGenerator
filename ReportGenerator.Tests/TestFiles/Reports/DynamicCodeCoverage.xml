@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <results>
   <modules>
-    <module name="ReportGenerator.Tests.dll" path="ReportGenerator.Tests.dll" id="21B59C1958D13B4990EC3974D2451B5901000000" block_coverage="71.88" line_coverage="62.13" blocks_covered="115" blocks_not_covered="45" lines_covered="105" lines_partially_covered="1" lines_not_covered="63">
+    <module name="ReportGenerator.Tests" path="ReportGenerator.Tests.dll" id="21B59C1958D13B4990EC3974D2451B5901000000" block_coverage="71.88" line_coverage="62.13" blocks_covered="115" blocks_not_covered="45" lines_covered="105" lines_partially_covered="1" lines_not_covered="63">
       <functions>
         <function id="8264" token="0x6000001" name="AnalyzerTestClass()" type_name="AnalyzerTestClass" block_coverage="0.00" line_coverage="0.00" blocks_covered="0" blocks_not_covered="3" lines_covered="0" lines_partially_covered="0" lines_not_covered="4">
           <ranges>

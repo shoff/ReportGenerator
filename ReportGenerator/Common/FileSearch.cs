@@ -5,6 +5,8 @@ using System.Linq;
 
 namespace Palmmedia.ReportGenerator.Common
 {
+    using System.Diagnostics.Contracts;
+
     /// <summary>Searches files based on file pattern with support for wildcards.</summary>
     public static class FileSearch
     {
@@ -13,16 +15,8 @@ namespace Palmmedia.ReportGenerator.Common
         /// <returns>The files.</returns>
         public static IEnumerable<string> GetFiles(string pattern)
         {
-            if (string.IsNullOrEmpty(pattern))
-            {
-                throw new ArgumentException("Pattern must not be empty.", "pattern");
-            }
-
-            if (pattern.Intersect(Path.GetInvalidPathChars()).Any())
-            {
-                throw new ArgumentException("Pattern contains invalid character.", "pattern");
-            }
-
+            Contract.Requires<ArgumentNullException>(!string.IsNullOrWhiteSpace(pattern));
+            
             pattern = pattern.Replace('/', Path.DirectorySeparatorChar);
 
             bool pathRooted = Path.IsPathRooted(pattern);

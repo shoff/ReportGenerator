@@ -158,6 +158,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\HtmlReportBuilder.cs" />
+    <Compile Include="Builders\HtmlSummaryReportBuilder.cs" />
+    <Compile Include="Builders\LatexReportBuilder.cs" />
+    <Compile Include="Builders\LatexSummaryReportBuilder.cs" />
+    <Compile Include="Builders\ReportBuilderBase.cs" />
+    <Compile Include="Builders\TextSummaryReportBuilder.cs" />
+    <Compile Include="Builders\XmlReportBuilder.cs" />
+    <Compile Include="Builders\XmlSummaryReportBuilder.cs" />
     <Compile Include="Common\FileSearch.cs" />
     <Compile Include="Parser\Analysis\Branch.cs" />
     <Compile Include="Parser\Analysis\HistoricCoverage.cs" />
@@ -177,6 +185,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Rendering\HtmlRenderer.cs" />
+    <Compile Include="Rendering\IReportRenderer.cs" />
+    <Compile Include="Rendering\LatexRenderer.cs" />
+    <Compile Include="Rendering\RendererBase.cs" />
+    <Compile Include="Rendering\XmlRenderer.cs" />
     <Compile Include="ReportConfigurationBuilder.cs" />
     <Compile Include="Properties\Help.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -271,6 +284,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ProgrammIcon.ico" />
+    <EmbeddedResource Include="Rendering\resources\react.modified.min.js" />
+    <EmbeddedResource Include="Rendering\resources\react.min.js" />
+    <EmbeddedResource Include="Rendering\resources\matchMedia.js" />
+    <EmbeddedResource Include="Rendering\resources\jquery-1.11.2.min.js" />
+    <EmbeddedResource Include="Rendering\resources\customReactComponents.js" />
+    <EmbeddedResource Include="Rendering\resources\customAngularApp.js" />
+    <EmbeddedResource Include="Rendering\resources\custom.css" />
+    <EmbeddedResource Include="Rendering\resources\chartist.min.js" />
+    <EmbeddedResource Include="Rendering\resources\chartist.min.css" />
+    <EmbeddedResource Include="Rendering\resources\angular.min.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -114,7 +114,7 @@
     <Compile Include="Parser\VisualStudioParserTest_2013.cs" />
     <Compile Include="Parser\VisualStudioParserTest_2012.cs" />
     <Compile Include="Parser\DynamicCodeCoverageParserTest.cs" />
-    <Compile Include="Parser\VisualStudioParserTest_2010.cs" />
+    <Compile Include="Parser\VisualStudioParserTest2010.cs" />
     <Compile Include="ReportConfigurationBuilderTest.cs" />
     <Compile Include="Parser\Analysis\AssemblyTest.cs" />
     <Compile Include="Parser\Analysis\CodeFileTest.cs" />
@@ -247,10 +247,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ReportGenerator.Reporting\ReportGenerator.Reporting.csproj">
-      <Project>{006e4f14-5f6f-416c-8f81-9082ed76a991}</Project>
-      <Name>ReportGenerator.Reporting</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ReportGenerator.Windows\ReportGenerator.Windows.csproj">
       <Project>{5862e78e-fb29-4e8e-bbe1-10e39acf1e4f}</Project>
       <Name>ReportGenerator.Windows</Name>
